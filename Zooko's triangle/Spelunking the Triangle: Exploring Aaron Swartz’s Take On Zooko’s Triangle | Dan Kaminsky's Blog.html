@@ -1,0 +1,1497 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Spelunking the Triangle:  Exploring Aaron Swartz&#8217;s Take On Zooko&#8217;s Triangle | Dan Kaminsky&#039;s Blog</title>
+
+<link rel="stylesheet" href="http://s2.wp.com/wp-content/themes/pub/inove/style.css?m=1373935199g" type="text/css" media="screen" />
+
+<script type="text/javascript" src="http://s2.wp.com/wp-content/themes/pub/inove/js/base.js?m=1315596887g"></script>
+<script type="text/javascript" src="http://s2.wp.com/wp-content/themes/pub/inove/js/menu.js?m=1351714433g"></script>
+
+<link rel="pingback" href="http://dankaminsky.com/xmlrpc.php" />
+		<script src='http://r-login.wordpress.com/remote-login.php?action=js&amp;host=dankaminsky.com&amp;id=18023203&amp;t=1385675898&amp;back=dankaminsky.com%2F2011%2F01%2F13%2Fspelunk-tri%2F' type="text/javascript"></script>
+		<script type="text/javascript">
+		/* <![CDATA[ */
+			if ( 'function' === typeof WPRemoteLogin ) {
+				document.cookie = "wordpress_test_cookie=test; path=/";
+				if ( document.cookie.match( /(;|^)\s*wordpress_test_cookie\=/ ) ) {
+					WPRemoteLogin();
+				}
+			}
+		/* ]]> */
+		</script>
+		<link rel="alternate" type="application/rss+xml" title="Dan Kaminsky&#039;s Blog &raquo; Feed" href="http://dankaminsky.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Dan Kaminsky&#039;s Blog &raquo; Comments Feed" href="http://dankaminsky.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Dan Kaminsky&#039;s Blog &raquo; Spelunking the Triangle:  Exploring Aaron Swartz&#8217;s Take On Zooko&#8217;s&nbsp;Triangle Comments Feed" href="http://dankaminsky.com/2011/01/13/spelunk-tri/feed/" />
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<style type="text/css">
+	/*body div.jp-relatedposts { border-color:#eeeeee; }
+	body div.jp-relatedposts .jp-relatedposts-headline em { background:#ffffff }
+	body div.jp-relatedposts, body div.jp-relatedposts .jp-relatedposts-post a { color:#555555 }*/
+	body div.jp-relatedposts .jp-relatedposts-headline em:before { border-color:#555555; }
+</style><link rel='stylesheet' id='all-css-0' href='http://s1.wp.com/_static/??-eJx9j+EOgjAMhF/IWY2I/DE+y2BlDMq6sE7C24toohHDv17z3fUKY1AVe0Ev0CcVKFnnI/QhV42uuq9pX8W4g/84uQ4jtChhJtWiVnhJbD8GthYNJ1E1E/EIozMWZevGgKQFjQoc5Udt2ZyvnXcygTTYzyVDKucd33HL9ExVNWk3QJSJ1uw7rMnAEpeatsJer0WYEbDMZkBtlsq3/no8FVlxyc/5oX0AbzqS8g==' type='text/css' media='all' />
+<script type='text/javascript'>
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://s0.wp.com/_static/??-eJyVkNEKwjAMRX/Irsz5sD2I37KtWUltm9q0jvn1djBBcSA+JSSHHHLlHMRIPoFP0rB0NKAFkRlir8tMoJ+oMnyQhUM/2qyAV9DcMsRlKz8B4VDHPkHl0L/gN2sgTg6Yi3Jn+6lCf0eYf2IGUujHq4jA+Pi6OljSItis0bMsvQZFOYmJrKVZzqg0pD8Utrym1id4L4mRnFujjBDssiVwcee6aU/Hpm67zjwBRpeR/Q=='></script>
+<link rel='stylesheet' id='all-css-0' href='http://s2.wp.com/wp-content/mu-plugins/highlander-comments/style.css?m=1377793621g' type='text/css' media='all' />
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='http://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://dakami1.wordpress.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://dakami1.wordpress.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='DNSSEC Interlude 3:  Cache&nbsp;Wars' href='http://dankaminsky.com/2011/01/07/cachewars/' />
+<link rel='next' title='DanKam On&nbsp;TV!' href='http://dankaminsky.com/2011/01/14/dankam-on-tv/' />
+<meta name="generator" content="WordPress.com" />
+<link rel='canonical' href='http://dankaminsky.com/2011/01/13/spelunk-tri/' />
+<link rel='shortlink' href='http://wp.me/p1dCEP-zp' />
+<link rel="alternate" type="application/json+oembed" href="http://public-api.wordpress.com/oembed/1.0/?format=json&amp;url=http%3A%2F%2Fdankaminsky.com%2F2011%2F01%2F13%2Fspelunk-tri%2F&amp;for=wpcom-auto-discovery" /><link rel="alternate" type="application/xml+oembed" href="http://public-api.wordpress.com/oembed/1.0/?format=xml&amp;url=http%3A%2F%2Fdankaminsky.com%2F2011%2F01%2F13%2Fspelunk-tri%2F&amp;for=wpcom-auto-discovery" />
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Spelunking the Triangle:  Exploring Aaron Swartz&#039;s Take On Zooko&#039;s Triangle" />
+<meta property="og:url" content="http://dankaminsky.com/2011/01/13/spelunk-tri/" />
+<meta property="og:description" content="[Heh! This blog post segues into a debate in the comments!] Short Version: Zooko&#039;s Triangle describes traits of a desirable naming system -- and constrains us to two of secure, decentralized, or hu..." />
+<meta property="og:site_name" content="Dan Kaminsky&#039;s Blog" />
+<meta property="og:image" content="http://wordpress.com/i/blank.jpg?m=1383295312g" />
+<meta name="twitter:site" content="@wordpressdotcom" />
+<meta name="twitter:card" content="summary" />
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom" />
+<link rel="shortcut icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1311975824g" sizes="16x16 24x24 32x32 48x48" />
+<link rel="icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1311975824g" sizes="16x16 24x24 32x32 48x48" />
+<link rel="apple-touch-icon-precomposed" href="http://s0.wp.com/i/webclip.png?m=1355642671g" />
+<link rel='openid.server' href='http://dakami1.wordpress.com/?openidserver=1' />
+<link rel='openid.delegate' href='http://dakami1.wordpress.com/' />
+<link rel="search" type="application/opensearchdescription+xml" href="http://dankaminsky.com/osd.xml" title="Dan Kaminsky&#039;s Blog" />
+<link rel="search" type="application/opensearchdescription+xml" href="http://wordpress.com/opensearch.xml" title="WordPress.com" />
+		<style>
+		/* <![CDATA[ */
+		/* Block: reblog */
+		
+		.reblog-from img                   { margin: 0 10px 0 0; vertical-align: middle; padding: 0; border: 0; }
+		.reblogger-note img.avatar         { float: left; padding: 0; border: 0; }
+		.reblogger-note-content            { margin: 0 0 20px; }
+		.reblog-post .wpcom-enhanced-excerpt-content { border-left: 3px solid #eee; padding-left: 15px; }
+		.reblog-post ul.thumb-list         { display: block; list-style: none; margin: 2px 0; padding: 0; clear: both; }
+		.reblog-post ul.thumb-list li      { display: inline; margin: 0; padding: 0 1px; border: 0; }
+		.reblog-post ul.thumb-list li a    { margin: 0; padding: 0; border: 0; }
+		.reblog-post ul.thumb-list li img  { margin: 0; padding: 0; border: 0; }
+		
+		.reblog-post .wpcom-enhanced-excerpt { clear: both; }
+		
+		.reblog-post .wpcom-enhanced-excerpt address,
+		.reblog-post .wpcom-enhanced-excerpt li,
+		.reblog-post .wpcom-enhanced-excerpt h1,
+		.reblog-post .wpcom-enhanced-excerpt h2,
+		.reblog-post .wpcom-enhanced-excerpt h3,
+		.reblog-post .wpcom-enhanced-excerpt h4,
+		.reblog-post .wpcom-enhanced-excerpt h5,
+		.reblog-post .wpcom-enhanced-excerpt h6,
+		.reblog-post .wpcom-enhanced-excerpt p { font-size: 100% !important; }
+		
+		.reblog-post .wpcom-enhanced-excerpt blockquote,
+		.reblog-post .wpcom-enhanced-excerpt pre,
+		.reblog-post .wpcom-enhanced-excerpt code,
+		.reblog-post .wpcom-enhanced-excerpt q { font-size: 98% !important; }
+		
+		.wpcom-reblog-snapshot .reblogged-content { max-height: 400px; overflow-y: scroll; }
+		.wpcom-reblog-snapshot .reblogger-note { margin-top: 15px; margin-bottom: 15px; border-top: 1px solid #eee; }
+		.wpcom-reblog-snapshot .reblogger-headline { margin-top: 15px; }
+		.wpcom-reblog-snapshot .reblogger-headline img.avatar { float: none; margin: 0 15px; vertical-align: middle; padding: 0; }
+		
+
+		/* ]]> */
+		</style>
+		<style type="text/css">
+.widget_twitter li {
+	word-wrap: break-word;
+}
+</style>
+<meta name="application-name" content="Dan Kaminsky&#039;s Blog" /><meta name="msapplication-window" content="width=device-width;height=device-height" /><meta name="msapplication-tooltip" content="(Or:  The Blog Formerly Known As DoxPara Research)" /><meta name="msapplication-task" content="name=Subscribe;action-uri=http://dankaminsky.com/feed/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="title" content="Spelunking the Triangle:  Exploring Aaron Swartz&#8217;s Take On Zooko&#8217;s&nbsp;Triangle | Dan Kaminsky&#039;s Blog on WordPress.com" />
+<meta name="description" content="[Heh! This blog post segues into a debate in the comments!] Short Version: Zooko&#039;s Triangle describes traits of a desirable naming system -- and constrains us to two of secure, decentralized, or human readable. Aaron Swartz proposes a system intended to meet all three. While his distribution model has fundamental issues with distributed locking and&hellip;" />
+<style id="syntaxhighlighteranchor"></style>
+</head>
+
+<body class="single single-post postid-2195 single-format-standard mp6 highlander-enabled highlander-light">
+<!-- wrap START -->
+<div id="wrap">
+
+<!-- container START -->
+<div id="container"  >
+
+<!-- header START -->
+<div id="header">
+
+	<!-- banner START -->
+		<!-- banner END -->
+
+	<div id="caption">
+		<h1 id="title"><a href="http://dankaminsky.com/">Dan Kaminsky&#039;s Blog</a></h1>
+		<div id="tagline">(Or:  The Blog Formerly Known As DoxPara Research)</div>
+	</div>
+
+	<div class="fixed"></div>
+</div>
+<!-- header END -->
+
+<!-- navigation START -->
+<div id="navigation">
+	<!-- menus START -->
+	<ul id="menus">
+	<li class="page_item"><a class="home" title="Home" href="http://dankaminsky.com/">Home</a></li>
+		<li class="cat-item cat-item-15341"><a href="http://dankaminsky.com/category/imagery/" title="View all posts filed under Imagery">Imagery</a>
+</li>
+	<li class="cat-item cat-item-423395"><a href="http://dankaminsky.com/category/lulz/" title="View all posts filed under lulz">lulz</a>
+</li>
+	<li class="cat-item cat-item-801"><a href="http://dankaminsky.com/category/security/" title="Security Related Posts">Security</a>
+</li>
+	<li><a class="lastmenu" href="javascript:void(0);"></a></li>
+</ul>
+
+	<!-- menus END -->
+
+	<!-- searchbox START -->
+	<div id="searchbox">
+		<form action="http://dankaminsky.com" method="get">
+			<div class="content">
+				<input type="text" class="textfield" name="s" size="24" value="" />
+				<input type="submit" class="button" value="" />
+			</div>
+		</form>
+	</div>
+<script type="text/javascript">
+//<![CDATA[
+	var searchbox = MGJS.$("searchbox");
+	var searchtxt = MGJS.getElementsByClassName("textfield", "input", searchbox)[0];
+	var searchbtn = MGJS.getElementsByClassName("button", "input", searchbox)[0];
+	var tiptext = "Type text to search here...";
+	if(searchtxt.value == "" || searchtxt.value == tiptext) {
+		searchtxt.className += " searchtip";
+		searchtxt.value = tiptext;
+	}
+	searchtxt.onfocus = function(e) {
+		if(searchtxt.value == tiptext) {
+			searchtxt.value = "";
+			searchtxt.className = searchtxt.className.replace(" searchtip", "");
+		}
+	}
+	searchtxt.onblur = function(e) {
+		if(searchtxt.value == "") {
+			searchtxt.className += " searchtip";
+			searchtxt.value = tiptext;
+		}
+	}
+	searchbtn.onclick = function(e) {
+		if(searchtxt.value == "" || searchtxt.value == tiptext) {
+			return false;
+		}
+	}
+//]]>
+</script>
+	<!-- searchbox END -->
+
+	<div class="fixed"></div>
+</div>
+<!-- navigation END -->
+
+<!-- content START -->
+<div id="content">
+
+	<!-- main START -->
+	<div id="main">
+
+
+	<div id="postpath">
+		<a title="Go to homepage" href="http://dankaminsky.com/">Home</a>
+		 &gt; <a href="http://dankaminsky.com/category/security/" title="View all posts in Security" rel="category tag">Security</a>		 &gt; Spelunking the Triangle:  Exploring Aaron Swartz&#8217;s Take On Zooko&#8217;s&nbsp;Triangle	</div>
+
+	<div id="post-2195" class="post-2195 post type-post status-publish format-standard hentry category-security">
+		<h2>Spelunking the Triangle:  Exploring Aaron Swartz&#8217;s Take On Zooko&#8217;s&nbsp;Triangle</h2>
+		<div class="info">
+			<span class="date">January 13, 2011</span>
+			<span class="author"><a href="http://dankaminsky.com/author/dakami1/" title="Posts by Dan Kaminsky" rel="author">Dan Kaminsky</a></span>										<span class="addcomment"><a href="#respond">Leave a comment</a></span>
+				<span class="comments"><a href="#comments">Go to comments</a></span>
+						<div class="fixed"></div>
+		</div>
+		<div class="content">
+			<p>[Heh!  This blog post segues into a debate in the comments!]</p>
+<p>Short Version:  Zooko&#8217;s Triangle describes traits of a desirable naming system &#8212; and constrains us to two of secure, decentralized, or human readable.  Aaron Swartz proposes a system intended to meet all three.  While his distribution model has fundamental issues with distributed locking and cache coherency, and his use of cryptographic hashcash does not cause a significant asymmetric load for attackers vs. defenders, his use of an append-only log does have interesting properties.  Effectively, this system reduces to the SSH security model in which &#8220;leaps of faith&#8221; are taken when new records are seen &#8212; but, unlike SSH, anyone can join the cloud to potentially be the first to provide malicious data, and there&#8217;s no way to recover from receiving bad (or retaining stale) key material.  I find that this proposal doesn&#8217;t represent a break of Zooko&#8217;s Triangle, but it does show the construct to be more interesting than expected.  Specifically, it appears there&#8217;s some room for &#8220;float&#8221; between the sides &#8212; a little less decentralization, a little more security.<br />
+</p>
+<hr />
+<br />
+Zooko&#8217;s Triangle is fairly beautiful &#8212; it, rather cleanly, describes that a naming system can offer:</p>
+<ol>
+<li>Secure, Decentralized, Non-Human-Readable names like Z0z9dTWfhtGbQ4RoZ08e62lfUA5Db6Vk3Po3pP9Z8tM.twitter.com
+<li>Secure, Centralized, Human-Readable Names like <a href="http://www.twitter.com" rel="nofollow">http://www.twitter.com</a>, as declared by trusted third parties (delegations from the DNS root)
+<li>Insecure, Decentralized, Human-Readable Names like <a href="http://www.twitter.com" rel="nofollow">http://www.twitter.com</a>, as declared by untrusted third parties (consensus via a P2P cloud)
+</ol>
+<p>There&#8217;s quite the desire to &#8220;square Zooko&#8217;s triangle&#8221; &#8212; to achieve Secure, Decentralized, Human-Readable Names.  This is driven by the desire to avoid the vulnerability point that centralization exposes, while neither making obviously impossible demands on human memory nor succumbing to the rampantly manipulatable opinion of a P2P mob.</p>
+<p>Aaron Swartz and I have been having a very friendly disagreement about whether this is possible.  I promised him that if he wrote up a scheme, I&#8217;d evaluate it.  So here we are.  As always, here&#8217;s the source material:</p>
+<p><a href="http://www.aaronsw.com/weblog/squarezooko">Squaring the Triangle:  Secure, Decentralized, Human-Readable Names</a></p>
+<p>The basic idea is that there&#8217;s a list of name/key mappings, almost like a hosts file, but it links human readable names to arbitrary length keys instead of IP addresses.  This list, referred to as a scroll, can only be appended to, never deleted from.  Appending to the list requires a cryptographic challenge to be completed &#8212; not only do you add (name,key), you also add a nonce that causes the resulting hash from the beginning to be zero.</p>
+<p>Aaron grants that there might be issues with initially trusting the network.  But his sense is, as long as either your first node is trustworthy, or the majority of the nodes you find out about are trustworthy, you&#8217;re OK.</p>
+<p>It&#8217;s a little more complicated than that.</p>
+<p>There are many perspectives from which to analyze this system, but the most interesting one I think is the one where we watch it fail &#8212; not under attack, but under everyday use.</p>
+<p>How does this system absorb changes?</p>
+<p>While Aaron&#8217;s proposal doesn&#8217;t allow existing names to alter their keys &#8212; a fatal limitation by some standards, but one we&#8217;ll ignore for the moment &#8212; it does allow name/key pairs to be added.  It also requires that additions happen sequentially.  Suppose we have a scroll with 131 name/key pairs, and both Alice and Bob try to add a name without knowing about the other&#8217;s attempt.  Alice will compute and distribute 131,Alice, and Bob will compute and distribute 131,Bob.</p>
+<p>What now?  Which scroll should people believe?  Alice&#8217;s?  Bob&#8217;s?  Both?</p>
+<p>Should they update both?  How will this work over time?</p>
+<p>Aaron says the following:</p>
+<blockquote><p>What happens if two people create a new line at the same time? The debate should be resolved by the creation of the next new line — whichever line is previous in its scroll is the one to trust.</p></blockquote>
+<p>This doesn&#8217;t mean anything, alas.  The predecessor to both Alice and Bob&#8217;s new name is 131.  The scroll has forked.  Either:</p>
+<ol>
+<li> Some people see Alice, but not Bob
+<li> Some people see Bob, but not Alice
+<li> Somehow, Alice and Bob&#8217;s changes are merged into one scroll
+<li> Somehow, the scroll containing Alice and the scroll containing Bob are both distributed
+<li> Both new scrolls are rejected and the network keeps living in a 131 record universe
+</ol>
+<p>Those are the choices.  We in security did not invent them.</p>
+<p>There is a belief in security sometimes that our problems have no analogue in normal computer science.  But this right here is a distributed locking problem &#8212; many nodes would like to write to the shared dataset, but if multiple nodes touch the same dataset, the entire structure becomes corrupt.  The easiest fix of course is to put in a centralized locking agent, one node everyone can &#8220;phone home to&#8221; to make sure they&#8217;re the only node in the world updating the structure&#8217;s version.</p>
+<p>But then Zooko starts jumping up and down.</p>
+<p>(Zooko <em>also</em> starts jumping up and down if the output of the system doesn&#8217;t actually work.  An insecure system at least needs to be attacked, in order to fail.)</p>
+<p>Not that security doesn&#8217;t change the game.  To paraphrase BASF, &#8220;Security didn&#8217;t make the fundamental problems in Comp Sci.  Security makes the fundamental problems in Comp Sci worse.&#8221;  Distributed locking was already a mess when we trusted all the nodes.  Add a few distrusted nodes, and things immediately become an order of magnitude more difficult.  Allow a single node to create an infinite number of false identities &#8212; in what is known as a Sybil attack &#8212; and any semblence of security is <em>gone</em>.</p>
+<p>[Side note:  Never heard of a Sybil attack?  <a href="http://www.wirm.net/nightfreeze/">Here's one of the better stories of one</a>, from a truly devious game called Eve Online.]</p>
+<p>There is nothing in Aaron&#8217;s proposal that prevents the generation of an infinite number of identities.  Arguably, the whole concept of adding a line to the scroll is equivalent <em>to</em> adding an identity, so a constraint here is probably a breaking constraint in and of itself.  So when Aaron writes:</p>
+<blockquote><p>To join a network, you need a list of nodes where at least a majority are actually nodes in the network. This doesn’t seem like an overly strenuous requirement.</p></blockquote>
+<p>Without a constraint on creating new nodes, this is in fact a serious hurdle.  And keep in mind, &#8220;nodes in the network&#8221; is relative &#8212; I might be connecting to majority legitimate nodes, but are they?</p>
+<p>We shouldn&#8217;t expect this to be easy.  Managing fully distributed locking is already hard.  Doing it when all writes to the system must be ordered is already probably impossible.  Throw in attackers that can multiply ad infinatum and can dynamically alter their activities to interfere with attempts to insert with specific ordered writes?</p>
+<p>Ouch.</p>
+<p>Before we discuss the crypto layer, let me give you an example of dynamic alterations.  Suppose we organize our nodes into a circle, and have each node pass write access to the next node as listed in their scroll.  (New nodes would have to be &#8220;pulled into&#8221; the cloud.)  Would that work?</p>
+<p>No, because the first malicious node that got in, could &#8220;surround&#8221; each real node with an untrusted Sybil.  At that point, he&#8217;d be consulted after each new name was submitted. Any name he wanted to suppress &#8212; well, he&#8217;d simply delete that name/key pair, calculate his own, and insert it.  By the time the token went around, the name would be long since destroyed.</p>
+<p>(Not that a token approach could work, for the simple reality that someone will just lose the token!)</p>
+<p>Thus far, we&#8217;ve only discussed propagation, and not cryptography.  This should seem confusing &#8212; after all, the &#8220;cool part&#8221; of this system is the fact that every new entry added to the scroll needs to pass a computational crypto challenge first.  Doesn&#8217;t that obviate some of these attacks?</p>
+<p>The problem is that cryptography is only useful in cases of significant asymmetric workload between the legitimate user and the malicious attacker.  When I have an AES256 symmetric key or an RSA2048 private key, my advantage over an attacker (theoretically) exceeds the computational capacity of the universe.</p>
+<p>What about a hash function?  No key, just the legitimate user spinning some cycles to come to a hash value of 0.  Does the legitimate user have an advantage over the attacker?</p>
+<p>Of course not.  The attacker can spin the same cycles.  Honestly, between GPUs and botnets, the attacker can spin far more cycles, by several orders of magnitude.  So, even if you spend an hour burning your CPU to add a name, the bad guy really is in a position to spend but a few seconds cloning your work to hijack the name via the surround attack discussed earlier.</p>
+<p>(There are constructions in which an attacker can&#8217;t quite distribute the load of cracking the hash &#8212; for example, you could encode the number of iterations a hash needed to be run, to reach N zero bits.  But then, the one asymmetry that is there &#8212; the fact that the zero bits can be quickly verified despite the cost of finding them &#8212; would get wiped out, and validation of the scroll would take as long as calculation of the scroll.)</p>
+<p>But what about old names?  Are they not at least protected?  Certainly not by the crypto.  Suppose we have a scroll with 10,000 names, and we want to alter name 5,123.  The workload to do this is not even 10,000 * time_per_name, because we (necessarily) can reuse the nonces that got us through to name 5,122.<br />
+Aaron thinks this isn&#8217;t the case:</p>
+<blockquote><p>First, you need to need to calculate a new nonce for the line you want to steal and every subsequent line&#8230;.It requires having some large multiple of the rest of the network’s combined CPU power.</p></blockquote>
+<p>But adding names does not leverage the combined CPU power of the entire network &#8212; it leverages the power of a single node.  When the single node wanted to create name 5,123, it didn&#8217;t need to burn cycles hashcashing through 0-5122.  It just did the math for the next name.</p>
+<p>Now, yes, names <em>after</em> 5,123 need to be cracked by the attacker, when they didn&#8217;t have to be cracked by the defender.  <em>But the attackers have way more single nodes than the defenders do.</em>  And with those nodes, the attacker can bash through each single name far, far quicker.</p>
+<p>There is a constraint &#8212; to calculate the fixed nonce/zerohash for name 6001, name 6000 needs to have completed.  So we can&#8217;t completely parallelize.  </p>
+<p>But of course, it&#8217;s no work at all to <em>strip</em> content from the scroll, since we can always remove content and get back to 0-hash.</p>
+<p>Ah!  But there&#8217;s a defense against that:</p>
+<p>&#8220;Each remembers the last scroll it trusted.&#8221;</p>
+<p>And that&#8217;s where things get really interesting.</p>
+<p>Complexity is a funny thing &#8212; it sneaks up on you.  Without this scroll storage requirement, the only difference between nodes in this P2P network are what nodes it happens to stumble into when first connecting.  Now, we have to be concerned &#8212; which nodes has a node ever connected to?  How long has it been since a node has been online?  Are any significant names involved between the old scroll and the modern one?</p>
+<p>Centralized systems don&#8217;t have such complexities, because there&#8217;s a ground truth that can be very quickly compared against.  You can be a hundred versions out of date, but armed with nothing but a canonical hash you can clear your way past a thousand pretenders to the one node giving out a fresh update.</p>
+<p>BitTorrent hangs onto centralization &#8212; even in small doses &#8212; <em>for a reason</em>.  Zooko is a harsh mistress.</p>
+<p>Storage creates a very, very slight asymmetry, but one that&#8217;s often &#8220;all we&#8217;ve got&#8221;.  Essentially, the idea is that the first time a connection is made, it&#8217;s a leap of faith.  But every time after that, the defender can simply consult his hard drive, while the attacker needs to&#8230;what?  Match the key material?  Corrupt the hard drive?  These are in fact much harder actions than the defender&#8217;s check of his trusted store.</p>
+<p>This is the exact system used by SSH, in lieu of being able to check a distributed trusted store.  But while SSH struggles with constant prompting after, inevitably, key material is lost and a name/key mapping must change, Aaron&#8217;s proposal simply defines changing a name/key tuple as something that Can&#8217;t Happen.</p>
+<p>Is that actually fair?  There&#8217;s an argument that a system that can&#8217;t change name/key mappings in the presence of lost keys fails on feature completeness.  But we do see systems that have this precise property:  PGP Keyservers.  You can probably find the hash of the PGP key I had in college somewhere out there.  Worse, while I could probably beg and plead my PGP keys offline, nobody could ever wipe keys from these scrolls, as it would break all the zero-hashes that depend on them.</p>
+<p>I couldn&#8217;t even put a new key in, because if scroll parsers <em>didn&#8217;t</em> only return the first name/key pair, then a trivial attack would simply be to write a new mapping and have it added to the set of records returned.</p>
+<p>Assume all that.  What are the ultimate traits of the system?</p>
+<p>The first time a name/key peer is seen, it is retrieved insecurely.  From that point forward, no new leap of faith is required or allowed &#8212; the trust from before must be leveraged repeatedly.  The crypto adds nothing, and the decentralization does little but increase the number of attackers who can submit faulty data for the leap of faith, and fail under the sort of conditions distributed locking systems fail.  But the storage does prevent infection after the initial trust upgrade, at the cost of basic flexibility.</p>
+<p>I could probably get away with saying &#8212; a system that reduces to something this and undeployable, and frankly unstable, can not satisfy Zooko&#8217;s Triangle.  After all, simply citing the initial trust upgrade, as we upgrade scroll versions from a P2P cloud on the false assumption that an attacker couldn&#8217;t maliciously synthesize new records unrecoverably, would be enough.</p>
+<p>It&#8217;s fair, though, to discuss a few annoying points.  Most importantly, aren&#8217;t we always upgrading trust?  Leaps of faith are taken when hardware is acquired, when software is installed, even when the DNSSEC root key is leveraged.  By what basis can I say those leaps are acceptable, but a per-name/key mapping leap represents an unacceptable upgrade?</p>
+<p>That&#8217;s not a rhetorical question.  The best answer I can provide is that the former leaps are predictable, and auditable at manufacture, while per-name leaps are &#8220;runtime&#8221; and thus unpredictable.  But audits are never perfect and I&#8217;m a member of a community that constantly finds problems after release.</p>
+<p>I am left with the fundamental sense that manufacturer-based leaps of faith are at least scalable, while operational leaps of faith collapse quickly and predictably to accepting bad data.</p>
+<p>More interestingly, I am left with the unescapable conclusion that the core security model of Swartz&#8217;s proposal is roughly isomorphic to SSH.  That&#8217;s fine, but it means that if I&#8217;m saying Swartz&#8217;s idea doesn&#8217;t satisfy Zooko due to security, then neither does SSH.</p>
+<p>Of course, it shouldn&#8217;t.  We all know that in the real world, the response by an administrator to encountering a bad key, is to assume the box was paved for some reason and thus to edit known_hosts and move on.  That&#8217;s obviously insecure behavior, but to anyone who&#8217;s administered more than a box or two, that&#8217;s life.  We&#8217;re attempting to fix that, of course, by letting the guy who paves the box update the key via DNSSEC SSHFP records, shifting towards security and away from decentralization.  You don&#8217;t get to change client admin behavior &#8212; or remove client key overrides &#8212; without a clear and easy path for the server administrator to keep things functional.</p>
+<p>So, yeah.  I&#8217;m saying SSH isn&#8217;t as secure as it will someday be.  A day without known_hosts will be a good day indeed.</p>
+<p>I&#8217;ve had code in OpenSSH for the last decade or so; I hope I&#8217;m allowed to say that <img src='http://s0.wp.com/wp-includes/images/smilies/icon_smile.gif?m=1129645325g' alt=':)' class='wp-smiley' />   And if you write something that says &#8220;Kaminsky says SSH is Insecure&#8221; I will be very unhappy indeed.  SSH is doing what it can with the resources it has.</p>
+<p>The most interesting conclusion is then that there must be at least some float in Zooko&#8217;s Triangle.  After all, OpenSSH is moving from just known_hosts to integrating <a href="http://lists.freebsd.org/pipermail/freebsd-current/2006-November/067428.html">a homegrown PKI/CA system</a>, shifting away from decentralization and towards security.  Inconvenient, but it&#8217;s what the data seems to say.</p>
+<p>Looking forward to what Zooko and Aaron have to say.</p>
+<div id="jp-post-flair" class="sharedaddy sd-like-enabled"><div class='sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-unloaded' id='like-post-wrapper-18023203-2195-5297bc7aa0a0a' data-src='//widgets.wp.com/likes/#blog_id=18023203&amp;post_id=2195&amp;origin=dakami1.wordpress.com&amp;obj_id=18023203-2195-5297bc7aa0a0a' data-name='like-post-frame-18023203-2195-5297bc7aa0a0a'><h3 class='sd-title'>Like this:</h3><div class='likes-widget-placeholder post-likes-widget-placeholder' style='height:55px'><span class='button'><span>Like</span></span> <span class="loading">Loading...</span></div><span class='sd-text-color'></span><a class='sd-link-color'></a></div>
+<div id='jp-relatedposts' class='jp-relatedposts'>
+	<p class="jp-relatedposts-headline"><em>Related</em></p>
+</div></div>						<div class="fixed"></div>
+		</div>
+		<div class="under">
+			<span><span class="categories">Categories: </span><a href="http://dankaminsky.com/category/security/" title="View all posts in Security" rel="category tag">Security</a></span>
+			<span></span>
+		</div>
+		<div class="fixed"></div>
+	</div>
+
+	
+<script type="text/javascript" src="http://s2.wp.com/wp-content/themes/pub/inove/js/comment.js?m=1323834278g&amp;1"></script>
+
+
+
+<div id="comments">
+
+<div id="cmtswitcher">
+			<a id="commenttab" class="curtab" href="javascript:void(0);" onclick="MGJS.switchTab('thecomments,commentnavi', 'thetrackbacks', 'commenttab', 'curtab', 'trackbacktab', 'tab');">Comments (12)</a>
+		<a id="trackbacktab" class="tab" href="javascript:void(0);" onclick="MGJS.switchTab('thetrackbacks', 'thecomments,commentnavi', 'trackbacktab', 'curtab', 'commenttab', 'tab');">Trackbacks (0)</a>
+				<span class="addcomment"><a href="#respond">Leave a comment</a></span>
+				<span class="addtrackback"><a href="http://dankaminsky.com/2011/01/13/spelunk-tri/trackback/">Trackback</a></span>
+		<div class="fixed"></div>
+</div>
+
+<div id="commentlist">
+	<!-- comments START -->
+	<ol id="thecomments">
+		<li class="comment even thread-even depth-1 regularcomment highlander-comment" id="comment-2121">
+		<div class="author">
+			<div class="pic">
+				<img alt='' src='http://2.gravatar.com/avatar/28d0c6ddeee4fcf9d87b74b18457c378?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			</div>
+			<div class="name">
+									<span id="commentauthor-2121">Mats Henricson</span>
+							</div>
+		</div>
+
+		<div class="info">
+			<div class="date">
+				January 13, 2011 at 9:53 am					 | <a href="#comment-2121">#1</a>
+			</div>
+			<div class="act">
+				<a class='comment-reply-link' href='/2011/01/13/spelunk-tri/?replytocom=2121#respond' onclick='return addComment.moveForm("comment-2121", "2121", "respond", "2195")'>Reply</a> | 				<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-2121', 'comment-2121', 'commentbody-2121', 'comment');">Quote</a>
+							</div>
+			<div class="fixed"></div>
+			<div class="content">
+				
+				<div id="commentbody-2121">
+					<p>Hi!</p>
+<p>This is very interesting, and I haven&#8217;t read it through yet, but I will.</p>
+<p>However, have you seen the BitDNS discussion?</p>
+<p><a href="http://www.bitcoin.org/smf/index.php?topic=1790.0;all" rel="nofollow">http://www.bitcoin.org/smf/index.php?topic=1790.0;all</a></p>
+				</div>
+			</div>
+		</div>
+		<div class="fixed"></div>
+	</li>
+<ul class="children">
+	<li class="comment byuser comment-author-dakami1 bypostauthor odd alt depth-2 admincomment highlander-comment" id="comment-2122">
+		<div class="author">
+			<div class="pic">
+				<img alt='' src='http://0.gravatar.com/avatar/6563ffebc0ac78f3aa00369630a3c966?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			</div>
+			<div class="name">
+									<a id="commentauthor-2122" class="url" href="http://dakami1.wordpress.com" rel="external nofollow">Dan Kaminsky</a>
+							</div>
+		</div>
+
+		<div class="info">
+			<div class="date">
+				January 13, 2011 at 9:54 am					 | <a href="#comment-2122">#2</a>
+			</div>
+			<div class="act">
+				<a class='comment-reply-link' href='/2011/01/13/spelunk-tri/?replytocom=2122#respond' onclick='return addComment.moveForm("comment-2122", "2122", "respond", "2195")'>Reply</a> | 				<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-2122', 'comment-2122', 'commentbody-2122', 'comment');">Quote</a>
+							</div>
+			<div class="fixed"></div>
+			<div class="content">
+				
+				<div id="commentbody-2122">
+					<p>I haven&#8217;t, but this is basically a test run for taking on BitCoin, so there&#8217;s some convergence here.</p>
+				</div>
+			</div>
+		</div>
+		<div class="fixed"></div>
+	</li>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="comment even thread-odd thread-alt depth-1 regularcomment highlander-comment" id="comment-2150">
+		<div class="author">
+			<div class="pic">
+				<img alt='' src='http://2.gravatar.com/avatar/2ee45d7dd2c26c6fea3b887f831f7b38?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			</div>
+			<div class="name">
+									<a id="commentauthor-2150" class="url" href="http://www.aaronsw.com/" rel="external nofollow">Aaron Swartz</a>
+							</div>
+		</div>
+
+		<div class="info">
+			<div class="date">
+				January 14, 2011 at 3:47 am					 | <a href="#comment-2150">#3</a>
+			</div>
+			<div class="act">
+				<a class='comment-reply-link' href='/2011/01/13/spelunk-tri/?replytocom=2150#respond' onclick='return addComment.moveForm("comment-2150", "2150", "respond", "2195")'>Reply</a> | 				<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-2150', 'comment-2150', 'commentbody-2150', 'comment');">Quote</a>
+							</div>
+			<div class="fixed"></div>
+			<div class="content">
+				
+				<div id="commentbody-2150">
+					<p>Let me start by saying I very much appreciate the work that went into this essay. If I count correctly, it has three separate critiques of my argument. Unfortunately, all three of them seem based on misunderstanding. Hopefully I can clarify.</p>
+<p>Let me start by explaining that what I wrote is not intended to be a spec for implementers, but merely an existence proof. I think of it as akin to Merkle&#8217;s signature scheme &#8212; no one uses it today, but it proves public key cryptography is possible. I don&#8217;t expect a system like the one I outline to actually be used in production; I merely want to prove that Zooko&#8217;s Triangle isn&#8217;t a binding constraint.</p>
+<p>As a result, there are several implausible (or at least annoying) assumptions. One, as Dan notes, is that we assume keys don&#8217;t change. Dan seems to be willing to ignore this, if I understand him correctly.</p>
+<p>Now to the first objection. Dan asks about the case where two people calculate a valid nonce for the next line of the scroll within the amount of time it takes a line to propagate through the network. The first thing to note is that this should be quite rare. If N is properly calibrated, it should take a large amount of time to find a valid nonce, an amount of time that dwarfs worst-case latency on the Internet.</p>
+<p>But still, it could happen. Which is why I explained how to deal with it; unfortunately Dan doesn&#8217;t seem to have understood my explanation. (To be fair, it was a brief aside in a response to a comment on the post.) Let me elaborate:</p>
+<p>Let M be an upper bound on the propagation delay for the network. If you receive two valid lines within M seconds of each other, store both valid lines but don&#8217;t add either to your trusted scroll. Eventually you will receive another line. But the nonce in this line will only work with one of the two possible lines. Whichever line it works with is the one to believe. The dispute is thus resolved: add the line it works with and then the new line to your scroll.</p>
+<p>On to the second objection. Dan seems obsessed with Sybil attacks. I can understand why &#8212; Sybil attacks are very cool and very powerful &#8212; but, sadly, they are totally irrelevant to my proposal since my proposal contains no notion of identity. </p>
+<p>Can a Sybil attack affect joining the network? Sybil attacks would only be relevant if we were choosing our list of introductory nodes from the list of total nodes. But this is absurd and borders on impossibility. Think about how someone actually joins a network. Presumably they download a piece of specialized software. The software contains a list of starting nodes in it. That list is not vulnerable to a Sybil attack. Or maybe they get the software from a friend and the friend includes the address of his own node. Again: not vulnerable to a Sybil attack. The point is that to join the system you need to start with some information from outside the system. But since you are still outside the system, Sybil attacks against the system are irrelevant.</p>
+<p>Can a Sybil attack affect inserts? No. An insert is done by proof of work. It doesn&#8217;t matter who finds it; there is no notion of identity attached to the nonce.</p>
+<p>Can a Sybil attack affect propagation? Well, it depends on your propagation system. As one of my simplifications, I didn&#8217;t really discuss an optimized propagation structure &#8212; I assumed that each node was connected to every other node. Now surely one can replace this with a propagation structure that&#8217;s vulnerable to a Sybil attack, but I don&#8217;t see why you would and Dan doesn&#8217;t provide any reasons.</p>
+<p>Next Dan does make a good suggestion &#8212; although he incorrectly dismisses it. It would be great to use non-parallelizalble hashcash. I don&#8217;t know enough about hash design to design one myself, but I&#8217;m not convinced it&#8217;s impossible. You can approach one by changing the assignment from &#8220;find x such that H(x) starts with N zeroes&#8221; to &#8220;find x[1]…x[k] such that H(x[1]), H(x[1] || x[2]), H(x[1] || … || x[3]), … H(x[1] || … || x[k]) all start with N zeroes&#8221; and you can twiddle N and k to trade off between verification speed and parallelizability. (The double bars mean string concatenation here.) Also, I believe there are many hash functions where you almost necessarily calculate H(A) as part of calculating H(A || B). (For example, I believe SHA1 has this property.) If that&#8217;s the case, then there is very little cost in verification speed.</p>
+<p>Dan then seems to suffer from an elementary misreading. I say to attack it &#8220;you need to calculate a new nonce for the line you want to steal and every subsequent line&#8221;; Dan says this isn&#8217;t true, and then goes on to say exactly what I said: &#8220;names _after_ [the one you want] need to be cracked by the attacker&#8221;. I&#8217;m not sure what happened here.</p>
+<p>Dan concludes by arguing &#8220;the first time a name/key peer [sic] is seen, it is retrieved insecurely&#8221; thus reducing my security to that of SSH&#8217;s known_hosts. But since his attacks above failed, this isn&#8217;t actually true. The first time a name/key pair is seen, it&#8217;s retrieved securely. It&#8217;s then stored and thus can be retrieved securely every time thereafter. </p>
+<p>I hope Dan will correct me if I&#8217;m missing something, but as best as I can tell nothing remains of his critique.</p>
+				</div>
+			</div>
+		</div>
+		<div class="fixed"></div>
+	</li>
+</li><!-- #comment-## -->
+	<li class="comment byuser comment-author-dakami1 bypostauthor odd alt thread-even depth-1 admincomment highlander-comment" id="comment-2153">
+		<div class="author">
+			<div class="pic">
+				<img alt='' src='http://0.gravatar.com/avatar/6563ffebc0ac78f3aa00369630a3c966?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			</div>
+			<div class="name">
+									<a id="commentauthor-2153" class="url" href="http://dakami1.wordpress.com" rel="external nofollow">Dan Kaminsky</a>
+							</div>
+		</div>
+
+		<div class="info">
+			<div class="date">
+				January 14, 2011 at 7:47 am					 | <a href="#comment-2153">#4</a>
+			</div>
+			<div class="act">
+				<a class='comment-reply-link' href='/2011/01/13/spelunk-tri/?replytocom=2153#respond' onclick='return addComment.moveForm("comment-2153", "2153", "respond", "2195")'>Reply</a> | 				<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-2153', 'comment-2153', 'commentbody-2153', 'comment');">Quote</a>
+							</div>
+			<div class="fixed"></div>
+			<div class="content">
+				
+				<div id="commentbody-2153">
+					<p>Alright!  We&#8217;ve got a discussion going on.</p>
+<p>So there&#8217;s an interesting meta-thing going on:  I think Aaron&#8217;s oversimplifying, and Aaron thinks I&#8217;m misunderstanding.  Hopefully we can figure this out, eh?</p>
+<p>There&#8217;s an old quote, that the map is not the territory.  In other words, whatever model one uses to analyze a system, cannot and will not capture all the characteristics of the real thing.  Aaron&#8217;s system as described is incomplete &#8212; he admits this, but says that it&#8217;s incomplete in the way that Merkle&#8217;s writings were incomplete:  They proved the possibility of something.</p>
+<p>Aaron wants to avoid discussing propagation realities.  The problem is, propagation of truth is an inherent component of both decentralization and security.  Since there&#8217;s no debate that non-human-readable names are infeasible, skipping propagation issues skips core vulnerability points in the underlying design challenge itself.</p>
+<p>You can&#8217;t just assume everyone in the world gets a message simultaneously.  <em>That</em> is an implausible assumption.  P2P clouds fragment.  Nodes reboot.  New nodes arrive after the birth of the network.  Old nodes disappear and come back after a month.  These aren&#8217;t theoretical things; they&#8217;re empirical events seen in the field.</p>
+<p>Networks converge on truth, and even then only barely, when few if any nodes are actively malicious.  They certainly don&#8217;t get it for free.</p>
+<p>Aaron believes convergence on truth is easy.  He proposes the following algorithm:</p>
+<blockquote><p>Let M be an upper bound on the propagation delay for the network. If you receive two valid lines within M seconds of each other, store both valid lines but don’t add either to your trusted scroll. Eventually you will receive another line. But the nonce in this line will only work with one of the two possible lines. Whichever line it works with is the one to believe. The dispute is thus resolved: add the line it works with and then the new line to your scroll.</p></blockquote>
+<p>The dispute is resolved?  Globally?  For anyone and everyone?</p>
+<p>No.  The dispute is resolved for this particular node, using the next name as a tiebreaker.  Distributed locking would not be one of the epic problems in computer science if it was that easy to solve!  And who says the next name doesn&#8217;t come from the attacker?  Nobody!  So the attacker sees Alice trying to extend off of 131, quickly synthesizes a name *also* off of 131, distributes it actively, and then pushes another name (which can be the original name under suppression, &#8220;Alice&#8221;) to win the tiebreaker with everyone.</p>
+<p>Now, Alice has lost her name, and can&#8217;t even participate in the network anymore unless she accepts that fact.  Worse, the attacker can distribute different scrolls to different parties, and now nobody can figure out where to roll back to safely since it&#8217;s not their own names that are corrupt.</p>
+<p>You can&#8217;t just imagine propagation issues don&#8217;t exist.  It&#8217;s like designing a building assuming concrete can bear infinite load.</p>
+<p>Aaron wonders why I&#8217;m interested in Sybil attacks.  It&#8217;s simple:  They&#8217;re how every P2P DNS system dies.  And why wouldn&#8217;t they be?  You have a system that&#8217;s by definition utilizing the output of untrusted parties.  How couldn&#8217;t it be vulnerable to generating a million untrusted parties?</p>
+<p>Aaron tries to get around this by saying &#8212; well, there&#8217;s no notion of identity here.  Given that he&#8217;s trying to create a system that represents identities securely, in a human readable fashion, that should give you pause.  Then he argues that one can use the initial source of the software to acquire safe identities.</p>
+<p>This is an appeal to centralization &#8212; there is one node that gives legitimate introductory information, and this node is better than all other nodes.  Zooko strikes again.</p>
+<p>But who says the centralized node even knows any better?  It has to get its identities from somewhere too, and frankly, it&#8217;s generally taking leaps of faith just like anyone else.  My game as an attacker is to either:</p>
+<p>a) Have my nodes returned by the central node, or<br />
+b) Have all the nodes returned by the central node, surrounded by my node</p>
+<p>Given I have infinite identities to play with, this is never hard.</p>
+<p>Aaron thinks a Sybil attack can&#8217;t affect inserts, because inserts are done by proof of work.  But an attacker can actually do proofs of work faster and better than real nodes, and it does matter who finds it because the prize for doing the work <em>and distributing the result more efficiently</em> is getting to own the name &#8212; and the key associated with that name &#8212; forever.</p>
+<p>That&#8217;s quite the effect.</p>
+<p>Things get interesting when he starts talking about the propagation structure.  He seems to accept that Sybil attacks could in fact pose a threat, but assumes that one would have to intentionally choose a structure specially vulnerable to one.  He then specifies a system he thinks wouldn&#8217;t be vulnerable to a massed identity attack:  A full m-to-n mesh, with every node linking to every other node.</p>
+<p>Lets ignore for the moment the sheer non-scalability of such a solution.  Lets also ignore the sheer impossibility &#8212; what, the mesh can only update if every single node is online?  And how exactly does it handle the introduction of new nodes?</p>
+<p>It still fails.  Suppose an m-to-n mesh where 900 of 1000 nodes is a Sybil.  A legitimate name is attempted to be distributed by one of the legitimate 100.  Suppose that node spent a full day working on hashcash &#8212; that&#8217;s 86,400 seconds.  Well, an attacker with 86,400 machines in their botnet (this is nothing, absolutely nothing) breaks that in all of a second, and attaches his own key material to someone else&#8217;s name.  Even with 1000 connections, no legitimate endpoint is going to be feeding them all in less than a second.</p>
+<p>An illegitimate endpoint?  Sure.</p>
+<p>Now, there&#8217;s an interesting question:  Would non-parallelizable hashcash help?  The answer is yes, but constructing it appears to be something of a challenge.  Aaron takes an interesting crack at it.  He actually (and elegantly, and probably inadvertently) flips my optimized attack on the entire system around:  While I was willing and able to reuse the intermediate hashes between Name 0 and 5000, thus requiring me to only sequentially break hash 5000 through 10000, he&#8217;s flipping the latter sequentialism into a grand defense, arguing to create groups of nonces that all need to be broken in turn.</p>
+<p>It&#8217;s an interesting approach.  Certainly, it&#8217;s fast to verify, especially if we say that each nonce gets its own block in the hash function.  With that, as he says, you&#8217;re basically making sure that the intermediate hash is constantly starting with zeros, and you&#8217;re not having to rewind back to the beginning of the datastream.</p>
+<p>Where this gets a little messy is in how large the group nonces have to become.  Before, we had only one nonce, now we have to have many.  How many?</p>
+<p>The game&#8217;s afoot!  The goal is to limit the advantage of the attacker, who has orders of magnitude more machines than the defender, by enforcing serial computation.  Execution time is easy to compute, as:</p>
+<p>time_per_nonce * number_of_nonces</p>
+<p>The former &#8212; time_per_nonce &#8212; is vulnerable to parallelization.  The later, because each result depends on the previous, is forced to be serialized.  So where&#8217;s the constraint?</p>
+<p>Lets say we wanted the real defender to do one day&#8217;s worth of computation.  If we had time_per_nonce to be one hour, and required twenty four nonces, we&#8217;d have our day&#8217;s computation&#8230;except an attacker, with a thousand machines, would turn 3600 seconds into 3.6 seconds, times 24 executions, which would be about a minute and a half.</p>
+<p>Suppose we had time_per_nonce set to five minutes, and required 288 nonces.  Again, 24 hours.  The attacker with a thousand machines would turn each of those 300 second operations into 0.3 second operations, requiring of the attacker, once again&#8230;a minute and a half worth.</p>
+<p>Does that mean Aaron&#8217;s wrong?  No.  This process does not work forever.  Suppose instead time_per_nonce was dropped down to one second.  That would require 86,400 nonces, but lets ignore that.  The attacker with one thousand nodes would have to parallelize each round at the scale of 0.001 seconds each.</p>
+<p>There is a point where parallelization runs out of steam, just because the inter-node communication penalty is so high.  That point does change over time, and there are interesting things one can do to invalidate things like GPUs and custom hardware (see:  <a href="http://codahale.com/how-to-safely-store-a-password/" rel="nofollow">bcrypt</a>).  But it does seem possible to bound the paralellization of hashcash breaking, at the expense of size.</p>
+<p>(Note that the ultimate size of the group nonce might be less than expected, just because the size of each integer may be greatly diminished by the reduced time_per_nonce value.)</p>
+<p>I suspect there&#8217;s probably a more appropriate cryptographic construct to build off of, though.</p>
+<p>So does this save the day for Aaron&#8217;s system?  Not entirely.  One real problem is that, while any one node is in the middle of it&#8217;s totally legitimate computation, no other node can be operating as well.  If a legitimate operator must spend 24 hours calculating the path from 131 to &#8220;Alice&#8221;, the moment its new name is published, every other name is invalidated.  Effectively such a system can only publish 365 updates per year.</p>
+<p>Our discussions around whether he&#8217;s security-equivalent to SSH seem to pivot on whether my attacks against his original proposal work or not.  So making that determination can be an exercise for the reader.</p>
+<p>I think I&#8217;d like to re-evaluate his system with non-parallelizable hashcash properties, but I think I want to see a more complete proposal first.  Otherwise we&#8217;re just going to be dancing around eachother.</p>
+<p>I&#8217;ll write the hashcash code if he&#8217;ll hash out (no pun intended) the full end-to-end design.  Again, I don&#8217;t actually think this can work, but it&#8217;s an interesting enough &#8212; to me, anyway &#8212; discussion to be willing to continue.</p>
+				</div>
+			</div>
+		</div>
+		<div class="fixed"></div>
+	</li>
+</li><!-- #comment-## -->
+	<li class="comment byuser comment-author-dakami1 bypostauthor even thread-odd thread-alt depth-1 admincomment highlander-comment" id="comment-2154">
+		<div class="author">
+			<div class="pic">
+				<img alt='' src='http://0.gravatar.com/avatar/6563ffebc0ac78f3aa00369630a3c966?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			</div>
+			<div class="name">
+									<a id="commentauthor-2154" class="url" href="http://dakami1.wordpress.com" rel="external nofollow">Dan Kaminsky</a>
+							</div>
+		</div>
+
+		<div class="info">
+			<div class="date">
+				January 14, 2011 at 7:57 am					 | <a href="#comment-2154">#5</a>
+			</div>
+			<div class="act">
+				<a class='comment-reply-link' href='/2011/01/13/spelunk-tri/?replytocom=2154#respond' onclick='return addComment.moveForm("comment-2154", "2154", "respond", "2195")'>Reply</a> | 				<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-2154', 'comment-2154', 'commentbody-2154', 'comment');">Quote</a>
+							</div>
+			<div class="fixed"></div>
+			<div class="content">
+				
+				<div id="commentbody-2154">
+					<p>Worth mentioning, there are a number of ways of making time_per_nonce high, but the two primary ways are:</p>
+<p>1) Increase the bits that need to be 0&#8242;d (N, in Aaron&#8217;s formulation)<br />
+2) Increase the number of iterations required per hash attempt</p>
+<p>So, 4 bits set to 0 after 100,000 iterations is always an option.  Jerking up #2 increases the workload for the legitimate validator, though.</p>
+<p>I&#8217;m pretty confident bcrypt is being wildly reinvented here, but bcrypt was most assuredly not trying to be a proof of work system so there&#8217;s at least something here.</p>
+				</div>
+			</div>
+		</div>
+		<div class="fixed"></div>
+	</li>
+</li><!-- #comment-## -->
+	<li class="comment odd alt thread-even depth-1 regularcomment highlander-comment" id="comment-2160">
+		<div class="author">
+			<div class="pic">
+				<img alt='' src='http://0.gravatar.com/avatar/c05272281bb6b17877a764ba4b0b9cec?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			</div>
+			<div class="name">
+									<a id="commentauthor-2160" class="url" href="http://hatswitch.org/~nikita/" rel="external nofollow">Nikita Borisov</a>
+							</div>
+		</div>
+
+		<div class="info">
+			<div class="date">
+				January 14, 2011 at 10:36 pm					 | <a href="#comment-2160">#6</a>
+			</div>
+			<div class="act">
+				<a class='comment-reply-link' href='/2011/01/13/spelunk-tri/?replytocom=2160#respond' onclick='return addComment.moveForm("comment-2160", "2160", "respond", "2195")'>Reply</a> | 				<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-2160', 'comment-2160', 'commentbody-2160', 'comment');">Quote</a>
+							</div>
+			<div class="fixed"></div>
+			<div class="content">
+				
+				<div id="commentbody-2160">
+					<blockquote><p>So does this save the day for Aaron’s system? Not entirely. One real problem is that, while any one node is in the middle of it’s totally legitimate computation, no other node can be operating as well. If a legitimate operator must spend 24 hours calculating the path from 131 to “Alice”, the moment its new name is published, every other name is invalidated. Effectively such a system can only publish 365 updates per year.</p></blockquote>
+<p>I had the same thought, but Aaron pointed out that this isn&#8217;t quite right: if a single node working on a puzzle has expected time of 24 hours to solve it, then, if you&#8217;re using a randomized algorithm, k nodes would have an expected time of 24/k hours.  So if you have 1M legitimate nodes, they will grow the list faster than a 100K-node botnet.  The fact that the puzzle is parallelizable here is a feature, not a bug.</p>
+				</div>
+			</div>
+		</div>
+		<div class="fixed"></div>
+	</li>
+</li><!-- #comment-## -->
+	<li class="comment even thread-odd thread-alt depth-1 regularcomment highlander-comment" id="comment-2161">
+		<div class="author">
+			<div class="pic">
+				<img alt='' src='http://0.gravatar.com/avatar/c05272281bb6b17877a764ba4b0b9cec?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			</div>
+			<div class="name">
+									<a id="commentauthor-2161" class="url" href="http://hatswitch.org/~nikita/" rel="external nofollow">Nikita Borisov</a>
+							</div>
+		</div>
+
+		<div class="info">
+			<div class="date">
+				January 14, 2011 at 10:47 pm					 | <a href="#comment-2161">#7</a>
+			</div>
+			<div class="act">
+				<a class='comment-reply-link' href='/2011/01/13/spelunk-tri/?replytocom=2161#respond' onclick='return addComment.moveForm("comment-2161", "2161", "respond", "2195")'>Reply</a> | 				<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-2161', 'comment-2161', 'commentbody-2161', 'comment');">Quote</a>
+							</div>
+			<div class="fixed"></div>
+			<div class="content">
+				
+				<div id="commentbody-2161">
+					<blockquote><p>More interestingly, I am left with the unescapable conclusion that the core security model of Swartz’s proposal is roughly isomorphic to SSH. That’s fine, but it means that if I’m saying Swartz’s idea doesn’t satisfy Zooko due to security, then neither does SSH.</p></blockquote>
+<p>I think the security model here is closer to, say, twitter account names.  If I want to have the name &#8220;nikita&#8221;, I keep trying to solve puzzles so that I can add it to the list.  If I succeed, then that&#8217;s my name and I get to use it.  (Well, I may want to wait a day to make sure that it&#8217;s hard to take away.)  If someone else registers it first, then it&#8217;s just like twitter, I have to think of something else &#8211; say, &#8220;nikitab&#8221; and try for that name.  The fact that the &#8220;nikita&#8221; account on twitter isn&#8217;t me is not a security flaw in Twitter&#8217;s account naming system.</p>
+				</div>
+			</div>
+		</div>
+		<div class="fixed"></div>
+	</li>
+</li><!-- #comment-## -->
+	<li class="comment byuser comment-author-dakami1 bypostauthor odd alt thread-even depth-1 admincomment highlander-comment" id="comment-2163">
+		<div class="author">
+			<div class="pic">
+				<img alt='' src='http://0.gravatar.com/avatar/6563ffebc0ac78f3aa00369630a3c966?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			</div>
+			<div class="name">
+									<a id="commentauthor-2163" class="url" href="http://dakami1.wordpress.com" rel="external nofollow">Dan Kaminsky</a>
+							</div>
+		</div>
+
+		<div class="info">
+			<div class="date">
+				January 15, 2011 at 12:12 am					 | <a href="#comment-2163">#8</a>
+			</div>
+			<div class="act">
+				<a class='comment-reply-link' href='/2011/01/13/spelunk-tri/?replytocom=2163#respond' onclick='return addComment.moveForm("comment-2163", "2163", "respond", "2195")'>Reply</a> | 				<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-2163', 'comment-2163', 'commentbody-2163', 'comment');">Quote</a>
+							</div>
+			<div class="fixed"></div>
+			<div class="content">
+				
+				<div id="commentbody-2163">
+					<p>Nikita,</p>
+<p>   Puzzles will take an average of 24 hours to solve &#8212; it&#8217;s actually something of a problem that the actual solution time is nondeterministic.  Meanwhile, each solution is dependent on no solution being inserted into the system before it &#8212; if I add to the scroll relative to 131, and you&#8217;ve already moved onto 132, you can&#8217;t absorb my change (without complex forking semantics).</p>
+<p>   As for the observation that this is like Twitter account names, I can (and have) called up Twitter to fix things with my account.  The loss of centralization means there&#8217;s by definition no Twitter to contact when things muck up.  We do see this model on PGP keyservers, when people lose their key and just have to suffer it living forever like a zombie.  But that&#8217;s a serious problem in that realm too.</p>
+				</div>
+			</div>
+		</div>
+		<div class="fixed"></div>
+	</li>
+<ul class="children">
+	<li class="comment even depth-2 regularcomment highlander-comment" id="comment-2164">
+		<div class="author">
+			<div class="pic">
+				<img alt='' src='http://0.gravatar.com/avatar/c05272281bb6b17877a764ba4b0b9cec?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			</div>
+			<div class="name">
+									<a id="commentauthor-2164" class="url" href="http://hatswitch.org/~nikita/" rel="external nofollow">Nikita Borisov</a>
+							</div>
+		</div>
+
+		<div class="info">
+			<div class="date">
+				January 15, 2011 at 12:45 am					 | <a href="#comment-2164">#9</a>
+			</div>
+			<div class="act">
+				<a class='comment-reply-link' href='/2011/01/13/spelunk-tri/?replytocom=2164#respond' onclick='return addComment.moveForm("comment-2164", "2164", "respond", "2195")'>Reply</a> | 				<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-2164', 'comment-2164', 'commentbody-2164', 'comment');">Quote</a>
+							</div>
+			<div class="fixed"></div>
+			<div class="content">
+				
+				<div id="commentbody-2164">
+					<p>No decentralized system will be able to do better than FCFS semantics for names.</p>
+				</div>
+			</div>
+		</div>
+		<div class="fixed"></div>
+	</li>
+<ul class="children">
+	<li class="comment byuser comment-author-dakami1 bypostauthor odd alt depth-3 admincomment highlander-comment" id="comment-2165">
+		<div class="author">
+			<div class="pic">
+				<img alt='' src='http://0.gravatar.com/avatar/6563ffebc0ac78f3aa00369630a3c966?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			</div>
+			<div class="name">
+									<a id="commentauthor-2165" class="url" href="http://dakami1.wordpress.com" rel="external nofollow">Dan Kaminsky</a>
+							</div>
+		</div>
+
+		<div class="info">
+			<div class="date">
+				January 15, 2011 at 1:20 am					 | <a href="#comment-2165">#10</a>
+			</div>
+			<div class="act">
+				<a class='comment-reply-link' href='/2011/01/13/spelunk-tri/?replytocom=2165#respond' onclick='return addComment.moveForm("comment-2165", "2165", "respond", "2195")'>Reply</a> | 				<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-2165', 'comment-2165', 'commentbody-2165', 'comment');">Quote</a>
+							</div>
+			<div class="fixed"></div>
+			<div class="content">
+				
+				<div id="commentbody-2165">
+					<p>No system without instant propagation can even guarantee FCFS, since there&#8217;s no such thing as first.</p>
+				</div>
+			</div>
+		</div>
+		<div class="fixed"></div>
+	</li>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="comment even thread-odd thread-alt depth-1 regularcomment highlander-comment" id="comment-2201">
+		<div class="author">
+			<div class="pic">
+				<img alt='' src='http://2.gravatar.com/avatar/ed8f82572f18073fac624a5e8f6a493a?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			</div>
+			<div class="name">
+									<span id="commentauthor-2201">Gary</span>
+							</div>
+		</div>
+
+		<div class="info">
+			<div class="date">
+				January 17, 2011 at 5:49 am					 | <a href="#comment-2201">#11</a>
+			</div>
+			<div class="act">
+				<a class='comment-reply-link' href='/2011/01/13/spelunk-tri/?replytocom=2201#respond' onclick='return addComment.moveForm("comment-2201", "2201", "respond", "2195")'>Reply</a> | 				<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-2201', 'comment-2201', 'commentbody-2201', 'comment');">Quote</a>
+							</div>
+			<div class="fixed"></div>
+			<div class="content">
+				
+				<div id="commentbody-2201">
+					<p>This might be a future solution to the convergence issue:  <a href="http://web.mit.edu/newsoffice/2011/breaking-bottlenecks-0111.html" rel="nofollow">http://web.mit.edu/newsoffice/2011/breaking-bottlenecks-0111.html</a></p>
+				</div>
+			</div>
+		</div>
+		<div class="fixed"></div>
+	</li>
+<ul class="children">
+	<li class="comment byuser comment-author-dakami1 bypostauthor odd alt depth-2 admincomment highlander-comment" id="comment-2213">
+		<div class="author">
+			<div class="pic">
+				<img alt='' src='http://0.gravatar.com/avatar/6563ffebc0ac78f3aa00369630a3c966?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			</div>
+			<div class="name">
+									<a id="commentauthor-2213" class="url" href="http://dakami1.wordpress.com" rel="external nofollow">Dan Kaminsky</a>
+							</div>
+		</div>
+
+		<div class="info">
+			<div class="date">
+				January 18, 2011 at 12:12 pm					 | <a href="#comment-2213">#12</a>
+			</div>
+			<div class="act">
+				<a class='comment-reply-link' href='/2011/01/13/spelunk-tri/?replytocom=2213#respond' onclick='return addComment.moveForm("comment-2213", "2213", "respond", "2195")'>Reply</a> | 				<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-2213', 'comment-2213', 'commentbody-2213', 'comment');">Quote</a>
+							</div>
+			<div class="fixed"></div>
+			<div class="content">
+				
+				<div id="commentbody-2213">
+					<p>This stuff comes up fairly often.  It always struggles with malicious nodes.</p>
+				</div>
+			</div>
+		</div>
+		<div class="fixed"></div>
+	</li>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+	</ol>
+	<!-- comments END -->
+
+
+	<!-- trackbacks START -->
+			<ol id="thetrackbacks">
+							<li class="messagebox">
+					No trackbacks yet.				</li>
+
+					</ol>
+		<div class="fixed"></div>
+	<!-- trackbacks END -->
+</div>
+
+</div>
+
+
+								<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2011/01/13/spelunk-tri/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://dankaminsky.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																										
+
+
+												<input type="hidden" id="highlander_comment_nonce" name="highlander_comment_nonce" value="c76331835f" /><input type="hidden" name="_wp_http_referer" value="/2011/01/13/spelunk-tri/" />
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest" />
+
+<div class="comment-form-field comment-textarea">
+	<label for="comment">Enter your comment here...</label>
+	<div id="comment-form-comment"><textarea id="comment" name="comment" title="Enter your comment here..."></textarea></div>
+</div>
+
+<div id="comment-form-identity">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+			<li>
+			<iframe id="googleplus-sign-in" name="googleplus-sign-in" src="https://public-api.wordpress.com/connect/?googleplus-sign-in=1" width="24" height="24" scrolling="no" allowtransparency="true" seamless="seamless" frameborder="0"></iframe>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank">				<img src="http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Gravatar" width="25" class="no-grav" />
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email" value="" /></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value="" /></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text" value="" /></div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://s2.wp.com/wp-content/mu-plugins/highlander-comments/images/wplogo.png?m=1289230950g" alt="WordPress.com Logo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="" />
+				<input type="hidden" name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="" />
+				<input type="hidden" name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="" />
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your WordPress.com account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'wordpress' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Twitter picture" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="" />
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="" />
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="" />
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Facebook photo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="" />
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="" />
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="" />
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Google+ photo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="" />
+				<input type="hidden" name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="" />
+				<input type="hidden" name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="" />
+				<p class="comment-form-posting-as pa-googleplus"><strong></strong> You are commenting using your Google+ account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'googleplus' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+	
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div id="comment-form-subscribe">
+	<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6"/> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of follow-up comments via email.</label></p><p class="post-subscription-form"><input type="checkbox" name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto;" tabindex="7"/> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog"  style="display: inline;">Notify me of new posts via email.</label></p></div>
+
+												<p class="form-submit">
+							<input name="submit" type="submit" id="comment-submit" value="Post Comment" />
+							<input type='hidden' name='comment_post_ID' value='2195' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+						</p>
+						
+<input type="hidden" name="genseq" value="1385675898" />
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="54d4b06944" /></p><script type='text/javascript' src='http://s2.wp.com/wp-content/mu-plugins/akismet-2.5/form.js?m=1308783962g'></script>
+<p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="69"/></p>					</form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>
+	
+
+	<div id="postnavi">
+		<span class="prev"><a href="http://dankaminsky.com/2011/01/14/dankam-on-tv/" rel="next">DanKam On&nbsp;TV!</a></span>
+		<span class="next"><a href="http://dankaminsky.com/2011/01/07/cachewars/" rel="prev">DNSSEC Interlude 3:  Cache&nbsp;Wars</a></span>
+		<div class="fixed"></div>
+	</div>
+
+
+	</div>
+	<!-- main END -->
+
+	
+<!-- sidebar START -->
+<div id="sidebar">
+
+<!-- sidebar north START -->
+<div id="northsidebar" class="sidebar">
+
+	<!-- feeds -->
+	<div class="widget widget_feeds">
+		<div class="content">
+			<div id="subscribe-feeds">
+				<a rel="external nofollow" id="feedrss" title="Subscribe to this blog..." href="http://dankaminsky.com/feed/"><abbr title="Really Simple Syndication">RSS</abbr> feed</a>
+									<ul id="feed_readers">
+						<li id="google_reader"><a rel="external nofollow" class="reader" title="Subscribe with Google" href="http://fusion.google.com/add?feedurl=http://dankaminsky.com/feed/"><span>Google</span></a></li>
+						<li id="youdao_reader"><a rel="external nofollow" class="reader" title="Subscribe with Youdao" href="http://reader.youdao.com/#url=http://dankaminsky.com/feed/"><span>Youdao</span></a></li>
+						<li id="xianguo_reader"><a rel="external nofollow" class="reader" title="Subscribe with Xian Guo" href="http://www.xianguo.com/subscribe.php?url=http://dankaminsky.com/feed/"><span>Xian Guo</span></a></li>
+						<li id="zhuaxia_reader"><a rel="external nofollow" class="reader" title="Subscribe with Zhua Xia" href="http://www.zhuaxia.com/add_channel.php?url=http://dankaminsky.com/feed/"><span>Zhua Xia</span></a></li>
+						<li id="yahoo_reader"><a rel="external nofollow" class="reader" title="Subscribe with My Yahoo!" href="http://add.my.yahoo.com/rss?url=http://dankaminsky.com/feed/"><span>My Yahoo!</span></a></li>
+						<li id="newsgator_reader"><a rel="external nofollow" class="reader" title="Subscribe with newsgator" href="http://www.newsgator.com/ngs/subscriber/subfext.aspx?url=http://dankaminsky.com/feed/"><span>newsgator</span></a></li>
+						<li id="bloglines_reader"><a rel="external nofollow" class="reader" title="Subscribe with Bloglines" href="http://www.bloglines.com/sub/http://dankaminsky.com/feed/"><span>Bloglines</span></a></li>
+						<li id="inezha_reader"><a rel="external nofollow" class="reader" title="Subscribe with iNezha"	href="http://inezha.com/add?url=http://dankaminsky.com/feed/"><span>iNezha</span></a></li>
+					</ul>
+							</div>
+
+			<!-- twitter -->
+			
+			<div class="fixed"></div>
+		</div>
+	</div>
+
+	<!-- showcase -->
+	
+<div id="blog_subscription-3" class="widget widget_blog_subscription"><h3><label for="subscribe-field">Email Subscription</label></h3>
+			<form action="https://subscribe.wordpress.com" method="post" accept-charset="utf-8" id="subscribe-blog">
+									<p>Enter your email address to subscribe to this blog and receive notifications of new posts by email.</p>
+<p>Join 416 other followers</p>
+					<p><input type="text" name="email" style="width: 95%; padding: 1px 2px" value="" id="subscribe-field"/></p>
+				
+				<p>
+					<input type="hidden" name="action" value="subscribe"/>
+					<input type="hidden" name="blog_id" value="18023203"/>
+					<input type="hidden" name="source" value="http://dankaminsky.com/2011/01/13/spelunk-tri/"/>
+					<input type="hidden" name="sub-type" value="widget"/>
+					<input type="hidden" name="redirect_fragment" value="blog_subscription-3" />
+					<input type="hidden" id="_wpnonce" name="_wpnonce" value="882239f402" />					<input type="submit" value="Sign me up!" />
+				</p>
+			</form>
+			
+</div><div id="text-6" class="widget widget_text"><h3>Contact Information</h3>			<div class="textwidget"><p><b><a href="mailto:dan@doxpara.com">E-Mail</a></b><br />
+<b><a href="http://twitter.com/dakami">Twitter</a></b><br />
+<b><a href="/bio">Bio</a></b></p>
+</div>
+		</div><div id="text-5" class="widget widget_text"><h3>Major Projects</h3>			<div class="textwidget"><p><b><a href="/phreebird">Phreebird:</b></a>  Zero Configuration DNSSEC<br />
+<b><a href="/interpolique">Interpolique:</b></a> Easy Cross Language Injection Defense For The Web<br />
+<b><a href="/2010/12/15/dankam/">DanKam</b></a>: Augmented Reality for Color Blindness</p>
+</div>
+		</div><div id="text-3" class="widget widget_text"><h3>Security Talks</h3>			<div class="textwidget"><p><b><u>2010</u></b></p>
+<hr><i>Introducing The Domain Key Infrastructure</i>:<br />
+Zero Configuration DNSSEC Serving, End-To-End Client Integration w/ UI Via OpenSSL and Secure Proxies, Federated OpenSSH, DNS over HTTP/X.509, Self-Securing URLs, Secure Scalable Email (Finally!)<br />
+<a href="http://www.slideshare.net/dakami/phreebird-suite-10-introducing-the-domain-key-infrastructure">Slides</a><br />
+<a href="/phreebird">Code (Phreebird Suite)</a><br />
+<a href="http://www.slideshare.net/dakami/domain-key-infrastructure-from-black-hat-usa">Black Hat USA Slides</a></p>
+<hr><i>Interpolique</i>:<br />
+Where's The Safety in Type Safety?, Preventing Injection Attacks (XSS/SQL) With String Safety, Why Ease Of Use Matters, Automatic Query Parameterization, How LISP Was Right About Dynamic Scope, Dynamic DOM Manipulation For Secure Integration of Untrusted HTML<br />
+<a href="http://www.slideshare.net/dakami/interpolique">Slides</a> <a href="http://c2047862.cdn.cloudfiles.rackspacecloud.com/Friday%20Keynote%20-%20Dan%20Kaminsky.mp3">Audio</a><br />
+<a href="/interpolique">Code</a></p>
+<hr><i>Realism in Web Defense</i>:<br />
+Why Security Fails, What's Wrong With Session Management On The Web, The Failure Of Referrer Checking, Interpreter Suicide, Towards a Real Session Context, Treelocking, The Beginnings of Interpolique<br />
+<a href="http://www.slideshare.net/dakami/confidence-web">Slides</a><br />
+<b><u>2009</u></b></p>
+<hr><i>Staring Into The Abyss:</i><br />
+Middleware Fingerprinting, Firewall Rule Bypass, Internal Address Disclosure, Same Origin Attacks Against Proxied Hosts, TCP NAT2NAT via Active FTP And TCP Spoofing<br />
+<a href="http://d.scribd.com/ScribdViewer.swf?document_id=13501365&amp;access_key=key-1lp7dd5i9nt12qgyvekv&amp;page=1&amp;version=1&amp;viewMode=">Slides</a> <a href="http://s3.amazonaws.com/dmk/Staring%20Into%20The%20Abyss.pdf">Paper</a></p>
+<hr><i>Black Ops Of PKI</i>:<br />
+Structural Weaknesses of X.509, Architectural Advantages of DNSSEC, ASN.1 Confusion, Null Terminator Attacks Against Certificates<br />
+<a href="http://www.slideshare.net/dakami/black-opspki-2">Slides</a> <a href="http://media.ccc.de/browse/congress/2009/26c3-3658-en-black_ops_of_pki.html">Video</a><br><a href="https://www.cosic.esat.kuleuven.be/publications/article-1432.pdf">Financial Cryptography Paper</a><br />
+<b><u>2008</u></b></p>
+<hr><i>It's The End Of The Cache As We Know It:</i><br> DNS Server+Client Cache Poisoning, Issues with SSL, Breaking “Forgot My Password” Systems, Attacking Autoupdaters and Unhardened Parsers, Rerouting Internal Traffic<br />
+<a href="http://www.slideshare.net/dakami/dmk-bo2-k8">Black Hat Slides</a><br><a href="http://www.slideshare.net/dakami/dmk-bo2-k8bhfed">BH Fed Slides (Adds Drupal, DNSSEC)</a><br><a href="http://www.vimeo.com/17247507">Video</a> <a href="http://www.blackhat.com/presentations/bh-usa-08/Kaminsky/08_bhb_od2.mp3">Audio</a><br />
+<a href="http://www.unixwiz.net/techtips/iguide-kaminsky-dns-vuln.html">"Illustrated Guide To The Kaminsky Bug"</a><br />
+<a href="http://www.youtube.com/watch?v=XDKw8ny6IcM">Sarah on DNS</a></p>
+<hr><i>Ad Injection Gone Wild</i>:<br>  Subdomain NXDOMAIN injection for Universal Cross Site Scripting<br />
+<a href="http://www.slideshare.net/dakami/dmk-neut-toor">Slides</a><br />
+<b><u>2007</b></u></p>
+<hr><i>Design Reviewing The Web</i>:<br> DNS Rebinding, VPN to the Browser, Provider Hostility Detection, Audio CAPTCHA Analysis<br />
+<a href="http://www.slideshare.net/dakami/dmk-bo2-k7web">Slides <a href="http://video.google.com/googleplayer.swf?docid=3470502418262982787&amp;hl=en&amp;fs=true">Video</a><br />
+<b><u>2006</b></u></p>
+<hr><i>Pattern Recognition:<br></i>Net Neutrality Violation Detection, Large Scale SSL Scanning, Securing Online Banking, Cryptomnemonics, Context Free Grammar Fuzzing, Security Dotplots<br />
+<a href="http://www.slideshare.net/dakami/dmk-blackops2006">Slides</a><br />
+<i>Weaponizing Noam Chomsky, or Hacking with Pattern Languages</i>:<br />
+The Nymic Domain, XML Trees For Automatically Extracted Grammar, Syntax Highlighting for Compression Depth, Live Discovered Grammar Rendering, "CFG9000" Context Free Grammar Fuzzer, Dotplots for Format Identification and Fuzzer Guidance, Tilt Shift Dotplots, Visual Bindiff<br />
+<a href="http://www.slideshare.net/dakami/dmk-shmoo2007">Slides</a> <a href="http://video.google.com/googleplayer.swf?docid=2235822817954898588&amp;hl=en&amp;fs=true">Video</a> <a href="hohoketto_0.0001.tar.gz">Code</a><br />
+<b><u>2005:</b></u><br></p>
+<hr><i>Black Ops of TCP/IP 2005.5</i>:<br>  Worldwide DNS Scans, Temporal IDS Evasion, the Sony Rootkit, MD5 Conflation of Web Pages<br><a href="http://www.slideshare.net/dakami/black-ops-of-tcp2005-japan">Slides</a> <a href="http://video.google.com/googleplayer.swf?docid=6308488589809281787&amp;hl=en&amp;fs=true">Video</a><br />
+<b><u>2004:</b></u></p>
+<hr><i>MD5 To Be Considered Harmful Someday</i>:<br />
+Applied Attacks Against Simple Collisions Via Malicious Appendage, Executable Confusion, Auditor Bypass, Bit Commitment Shirking, HMAC Implications, Collision Steganography, P2P Attacks Against Kazaa Hash<br />
+<a href="http://www.slideshare.net/dakami/232-md5consideredharmfulslides">Slides</a> <a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.58.8575&amp;rep=rep1&amp;type=pdf">Paper</a><br />
+<a>Code (Confoo)</a><br />
+<a href="http://s3.amazonaws.com/dmk/stripwire-1.1.tar.gz">Code (Stripwire)</a></p>
+<hr><i>Black Ops of DNS</i>:<br>Tunneling Audio, Video, and SSH over DNS<br />
+<a href="http://www.slideshare.net/dakami/bh-eu-05kaminsky-5939200">Slides</a> <a href="http://mirrors.easynews.com/blackhat/blackhat-2004-cd2/audio/031/031.mp3">Audio</a><br />
+<a href="http://s3.amazonaws.com/dmk/ozymandns_src_0.1.tgz">Code (OzymanDNS 0.1)</a><br />
+<a href="http://s3.amazonaws.com/dmk/ozymandns_win_0.1.tgz">Code (OzymanDNS 0.1 for Windows)</a><br />
+<b><u>2003:</b></u></p>
+<hr><i>Stack Black Ops</i>:<br>Generic ActiveX, SQL for Large Network Scans, Bandwidth Brokering, SSL for IDS’s<br />
+<a href="http://www.slideshare.net/dakami/bh-fed03kaminsky">Slides</a> <a href="http://mirrors.easynews.com/blackhat/defcon-11/defcon11-cd2/AUDIO/043/043.MP3">Audio</a><br />
+<a href="http://s3.amazonaws.com/dmk/paketto-2.00pre5.tar.gz">Code (Paketto Keiretsu 2.00pre5)</a><br />
+<b><u>2002:</b></u></p>
+<hr><i>Black Ops of TCP/IP</i>:<br>High Speed Scanning, Parasitic Traceroute, TCP NAT2NAT<br />
+<a href="http://www.slideshare.net/dakami/bh-us02kaminskyblackops-5939233">Slides</a> <a href="http://mirrors.easynews.com/blackhat/defcon-10/DEFCON_10_cd2/AUDIO/052/052PT01.MP3">Audio 1</a> <a href="http://mirrors.easynews.com/blackhat/defcon-10/DEFCON_10_cd2/AUDIO/052/052PT02.MP3">Audio 2</a><br />
+<a href="http://s3.amazonaws.com/dmk/paketto-1.01.tar.gz">Code (Paketto Keiretsu 1.01)</a><br />
+<b><u>2001:</b></u></p>
+<hr><i>Gateway Cryptography:</i><br>SSH Dynamic Forwarding, Securing Meet-In-The-Middle, PPTP over SSH<br />
+<a href="">Slides</a> <a href="http://mirrors.easynews.com/blackhat/defcon-09/disk_2_of_2/AUDIO/052/052.MP3">Audio</a><br />
+<a href="http://www.slideshare.net/dakami/advanced-open-ssh">SSH Cheat Sheet</a></p>
+</div>
+		</div><div id="text-4" class="widget widget_text"><h3>Other Research</h3>			<div class="textwidget"><hr><i>Xovi:</i><br />
+Streaming Graph Engine<br />
+<a href="http://s3.amazonaws.com/dmk/xovi/xovi_02.zip">Code</a><br />
+<a href="http://s3.amazonaws.com/dmk/xovi/router_edges.zip">Backbone Trace Data</a></p>
+<hr><i>PlanetSony:</i><br />
+Simple Globe Plot Framework<br />
+<a href="http://s3.amazonaws.com/dmk/planetsony.zip">Code</a></p>
+</div>
+		</div><div id="twitter-3" class="widget widget_twitter"><h3><a href='http://twitter.com/dakami'>@dakami</a></h3><ul class='tweets'>
+			<li>
+				RT @<a href='http://twitter.com/ashk4n'>ashk4n</a>: Hilarious Dilbert on the NSA monitoring people&#039;s porn-viewing habits: &quot;We&#039;d like to weaponize you&quot; <a href="http://dilbert.com/strips/comic/2013-11-28/"> dilbert.com/strips/comic/2…</a> ht @<a href='http://twitter.com/M'>M</a>… 				<a href="http://twitter.com/dakami/statuses/406145790621409280" class="timesince">2&nbsp;hours&nbsp;ago</a>
+			</li>
+
+			
+			<li>
+				RT @<a href='http://twitter.com/janl'>janl</a>: “tpyo is the result of combining the power of ES6 proxies with Levenshtein string distance.” — <a href="http://git.io/tpyo"> git.io/tpyo</a> by @<a href='http://twitter.com/mathias'>mathias</a> 				<a href="http://twitter.com/dakami/statuses/406040494523691008" class="timesince">9&nbsp;hours&nbsp;ago</a>
+			</li>
+
+			
+			<li>
+				RT @<a href='http://twitter.com/BJMendelson'>BJMendelson</a>: Look at all this technology making us anti-social <a href="http://t.co/CijUAs0rkg" rel="nofollow">http://t.co/CijUAs0rkg</a> 				<a href="http://twitter.com/dakami/statuses/405845402731044864" class="timesince">22&nbsp;hours&nbsp;ago</a>
+			</li>
+
+			
+			<li>
+				RT @<a href='http://twitter.com/johannes_mono'>johannes_mono</a>: All of Earth&#039;s air and water in ONE astonishing graphic <a href="http://t.co/ib0CLDRjDt" rel="nofollow">http://t.co/ib0CLDRjDt</a> 				<a href="http://twitter.com/dakami/statuses/405656023219716096" class="timesince">1&nbsp;day&nbsp;ago</a>
+			</li>
+
+			
+			<li>
+				RT @<a href='http://twitter.com/mattblaze'>mattblaze</a>: I just want to say: if Adi Shamir accuses me of inventing Bitcoin, I&#039;m putting that on my CV. 				<a href="http://twitter.com/dakami/statuses/405524146454417409" class="timesince">1&nbsp;day&nbsp;ago</a>
+			</li>
+
+			
+			<li>
+				RT @<a href='http://twitter.com/natashenka'>natashenka</a>: I have all my tools ready, poised for the minute the new Tamagotchi comes out. This must be what jailbreakers feel like 				<a href="http://twitter.com/dakami/statuses/405466407116095488" class="timesince">1&nbsp;day&nbsp;ago</a>
+			</li>
+
+			</ul></div><div id="meta-3" class="widget widget_meta"><h3>Login</h3>			<ul>
+			<li><a href="http://wordpress.com/signup/?ref=wplogin">Register</a></li>			<li><a href="http://dakami1.wordpress.com/wp-login.php">Log in</a></li>
+			<li><a href="http://dankaminsky.com/feed/" title="Syndicate this site using RSS 2.0">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://dankaminsky.com/comments/feed/" title="The latest comments to all posts in RSS">Comments <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://wordpress.com/?ref=footer" rel="generator">Blog at WordPress.com</a>.</li>						</ul>
+</div>	</div>
+</div>
+<!-- sidebar END -->
+	<div class="fixed"></div>
+</div>
+<!-- content END -->
+
+<!-- footer START -->
+<div id="footer">
+	<a id="gotop" href="#" onclick="MGJS.goTop();return false;">Top</a>
+	<a href="http://wordpress.com/?ref=footer" rel="generator">Blog at WordPress.com</a>.
+	<div id="themeinfo">
+		<a href="http://wordpress.com/?ref=footer" rel="generator">Blog at WordPress.com</a>. <a href="http://theme.wordpress.com/themes/inove/" title="Learn more about this theme">The INove Theme</a>. 	</div>
+</div>
+<!-- footer END -->
+
+</div>
+<!-- container END -->
+</div>
+<!-- wrap END -->
+
+
+<script type="text/javascript">
+var _qevents = _qevents || [], wpcomQuantcastData = {"qacct":"p-18-mFEk4J448M","labels":"language.en,type.wpcom,wp.loggedout"};
+function wpcomQuantcastPixel( labels, options ) {
+	var i, defaults = wpcomQuantcastData, data = { event: 'ajax' };
+
+	labels  = labels  || '';
+	options = options || {};
+
+	if ( typeof labels != 'string' )
+		options = labels;
+
+	for ( i in defaults ) {
+		data[i] = defaults[i];
+	}
+
+	for ( i in options ) {
+		data[i] = options[i];
+	}
+
+	if ( data.labels ) {
+		data.labels += ',' + labels;
+	} else {
+		data.labels = labels;
+	}
+
+	_qevents.push( data );
+};
+(function() {var elem = document.createElement('script');elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";elem.async = true;elem.type = "text/javascript";var scpt = document.getElementsByTagName('script')[0];scpt.parentNode.insertBefore(elem, scpt);  })();
+_qevents.push( wpcomQuantcastData );
+</script>
+<noscript><div style="display: none;"><img src="//pixel.quantserve.com/pixel/p-18-mFEk4J448M.gif?labels=language.en%2Ctype.wpcom%2Cwp.loggedout" height="1" width="1" alt="" /></div></noscript>
+
+<script type='text/javascript' src='//0.gravatar.com/js/gprofiles.js?ver=201348ae'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://s2.wp.com/wp-content/mu-plugins/gravatar-hovercards/wpgroho.js?m=1380573781g'></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	<div class="grofile-hash-map-28d0c6ddeee4fcf9d87b74b18457c378">
+	</div>
+	<div class="grofile-hash-map-6563ffebc0ac78f3aa00369630a3c966">
+	</div>
+	<div class="grofile-hash-map-2ee45d7dd2c26c6fea3b887f831f7b38">
+	</div>
+	<div class="grofile-hash-map-c05272281bb6b17877a764ba4b0b9cec">
+	</div>
+	<div class="grofile-hash-map-ed8f82572f18073fac624a5e8f6a493a">
+	</div>
+	</div>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"http:\/\/dakami1.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"http:\/\/dakami1.wordpress.com\/wp-login.php?action=logout&_wpnonce=f0a21fed4f","homeURL":"http:\/\/dankaminsky.com\/","postID":"2195","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"","userIsLoggedIn":"","isJetpack":"0"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://s1.wp.com/_static/??/wp-content/js/jquery/jquery.autoresize.js,/wp-content/mu-plugins/highlander-comments/script.js?m=1383163422j'></script>
+
+	<div id="bit" class="loggedout-follow-normal">
+		<a class="bsub" href="javascript:void(0)"><span id='bsub-text'>Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow &ldquo;Dan Kaminsky&#039;s Blog&rdquo;</label></h3>
+
+			<form action="https://subscribe.wordpress.com" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+						<p class="bit-follow-count">Join 416 other followers</p>
+			<p><input type="email" name="email" value="Enter your email address" onfocus='this.value=(this.value=="Enter your email address") ? "" : this.value;' onblur='this.value=(this.value=="") ? "Enter email address" : this.value;'  id="loggedout-follow-field"/></p>
+
+			<input type="hidden" name="action" value="subscribe"/>
+			<input type="hidden" name="blog_id" value="18023203"/>
+			<input type="hidden" name="source" value="http://dankaminsky.com/2011/01/13/spelunk-tri/"/>
+			<input type="hidden" name="sub-type" value="loggedout-follow"/>
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="882239f402" /><input type="hidden" name="_wp_http_referer" value="/2011/01/13/spelunk-tri/" />
+			<p id='bsub-subscribe-button'><input type="submit" value="Sign me up" /></p>
+			</form>
+					<div id='bsub-credit'><a href="http://wordpress.com/signup/?ref=lof">Powered by WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+		<iframe src='http://widgets.wp.com/likes/master.html?ver=20131104#ver=20131104&amp;mp6=1' scrolling='no' id='likes-master' name='likes-master' style='display:none;'></iframe>
+		<div id='likes-other-gravatars'><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript">
+		//<![CDATA[
+			var jetpackLikesWidgetQueue = [];
+			var jetpackLikesWidgetBatch = [];
+			var jetpackLikesMasterReady = false;
+
+			function JetpackLikespostMessage( message, target ) {
+				if ( "string" === typeof message ){
+					try{
+						message = JSON.parse( message );
+					}
+					catch(e) {
+						return;
+					}
+				}
+
+				pm( {
+					target: target,
+					type: 'likesMessage',
+					data: message,
+					origin: '*'
+				} );
+			}
+
+			function JetpackLikesBatchHandler() {
+				var requests = [];
+				jQuery( 'div.jetpack-likes-widget-unloaded' ).each( function( i ) {
+					if ( jetpackLikesWidgetBatch.indexOf( this.id ) > -1 )
+						return;
+					jetpackLikesWidgetBatch.push( this.id );
+					var regex = /like-(post|comment)-wrapper-(\d+)-(\d+)-(\w+)/;
+					var match = regex.exec( this.id );
+					if ( ! match || match.length != 5 )
+						return;
+
+					var info = {
+						blog_id: match[2],
+						width:   this.width
+					};
+
+					if ( 'post' == match[1] ) {
+						info.post_id = match[3];
+					} else if ( 'comment' == match[1] ) {
+						info.comment_id = match[3];
+					}
+
+					info.obj_id = match[4];
+
+					requests.push( info );
+				});
+
+				if ( requests.length > 0 ) {
+					JetpackLikespostMessage( { event: 'initialBatch', requests: requests }, window.frames['likes-master'] );
+				}
+			}
+
+			function JetpackLikesMessageListener( event ) {
+				if ( "undefined" == typeof event.event )
+					return;
+
+				if ( 'masterReady' == event.event ) {
+					jQuery( document ).ready( function() {
+						jetpackLikesMasterReady = true;
+
+						var stylesData = {
+								event: 'injectStyles'
+						};
+
+						if ( jQuery( 'iframe.admin-bar-likes-widget' ).length > 0 ) {
+							JetpackLikespostMessage( { event: 'adminBarEnabled' }, window.frames[ 'likes-master' ] );
+
+							stylesData.adminBarStyles = {
+								background: jQuery( '#wpadminbar .quicklinks li#wp-admin-bar-wpl-like > a' ).css( 'background' )
+							};
+						}
+
+						if ( !window.addEventListener )
+							jQuery( '#wp-admin-bar-admin-bar-likes-widget' ).hide();
+
+						stylesData.textStyles = {
+							color: jQuery( '.sd-text-color').css( 'color' ),
+							fontFamily: jQuery( '.sd-text-color' ).css( 'font-family' ),
+							fontSize: jQuery( '.sd-text-color' ).css( 'font-size' ),
+							direction: jQuery( '.sd-text-color' ).css( 'direction' ),
+							fontWeight: jQuery( '.sd-text-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-text-color' ).css( 'font-style' ),
+							textDecoration: jQuery( '.sd-text-color' ).css('text-decoration')
+						};
+
+						stylesData.linkStyles = {
+							color: jQuery( '.sd-link-color' ).css('color'),
+							fontFamily: jQuery( '.sd-link-color' ).css('font-family'),
+							fontSize: jQuery( '.sd-link-color' ).css('font-size'),
+							textDecoration: jQuery( '.sd-link-color' ).css('text-decoration'),
+							fontWeight: jQuery( '.sd-link-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-link-color' ).css( 'font-style' )
+						};
+
+						JetpackLikespostMessage( stylesData, window.frames[ 'likes-master' ] );
+
+						JetpackLikesBatchHandler();
+
+						jQuery( document ).on( 'inview', 'div.jetpack-likes-widget-unloaded', function() {
+							jetpackLikesWidgetQueue.push( this.id );
+						});
+					});
+				}
+
+				if ( 'showLikeWidget' == event.event ) {
+					jQuery( '#' + event.id + ' .post-likes-widget-placeholder'  ).fadeOut( 'fast', function() {
+						jQuery( '#' + event.id + ' .post-likes-widget' ).fadeIn( 'fast', function() {
+							JetpackLikespostMessage( { event: 'likeWidgetDisplayed', blog_id: event.blog_id, post_id: event.post_id, obj_id: event.obj_id }, window.frames['likes-master'] );
+						});
+					});
+				}
+
+				if ( 'showOtherGravatars' == event.event ) {
+					var $container = jQuery( '#likes-other-gravatars' );
+					var $list = $container.find( 'ul' );
+
+					$container.hide();
+					$list.html( '' );
+
+					$container.find( '.likes-text span' ).text( event.total );
+
+					jQuery.each( event.likers, function( i, liker ) {
+						$list.append( '<li class="' + liker.css_class + '"><a href="' + liker.profile_URL + '" class="wpl-liker" rel="nofollow" target="_parent"><img src="' + liker.avatar_URL + '" alt="' + liker.name + '" width="30" height="30" style="padding-right: 3px;" /></a></li>');
+					} );
+
+					var offset = jQuery( "[name='" + event.parent + "']" ).offset();
+
+					$container.css( 'left', offset.left + event.position.left - 10 + 'px' );
+					$container.css( 'top', offset.top + event.position.top - 33 + 'px' );
+
+					var rowLength = Math.floor( event.width / 37 );
+					var height = ( Math.ceil( event.likers.length / rowLength ) * 37 ) + 13;
+					if ( height > 204 ) {
+						height = 204;
+					}
+
+					$container.css( 'height', height + 'px' );
+					$container.css( 'width', rowLength * 37 - 7 + 'px' );
+
+					$list.css( 'width', rowLength * 37 + 'px' );
+
+					$container.fadeIn( 'slow' );
+
+					var scrollbarWidth = $list[0].offsetWidth - $list[0].clientWidth;
+					if ( scrollbarWidth > 0 ) {
+						$container.width( $container.width() + scrollbarWidth );
+						$list.width( $list.width() + scrollbarWidth );
+					}
+				}
+			}
+
+			pm.bind( 'likesMessage', function(e) { JetpackLikesMessageListener(e); } );
+
+			jQuery( document ).click( function( e ) {
+				var $container = jQuery( '#likes-other-gravatars' );
+
+				if ( $container.has( e.target ).length === 0 ) {
+					$container.fadeOut( 'slow' );
+				}
+			});
+
+			function JetpackLikesWidgetQueueHandler() {
+				var wrapperID;
+				if ( ! jetpackLikesMasterReady ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				if ( jetpackLikesWidgetQueue.length > 0 ) {
+					// We may have a widget that needs creating now
+					var found = false;
+					while( jetpackLikesWidgetQueue.length > 0 ) {
+						// Grab the first member of the queue that isn't already loading.
+						wrapperID = jetpackLikesWidgetQueue.splice( 0, 1 )[0];
+						if ( jQuery( '#' + wrapperID ).hasClass( 'jetpack-likes-widget-unloaded' ) ) {
+							found = true;
+							break;
+						}
+					}
+					if ( ! found ) {
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				} else if ( jQuery( 'div.jetpack-likes-widget-unloaded' ).length > 0 ) {
+					// Grab any unloaded widgets for a batch request
+					JetpackLikesBatchHandler();
+
+					// Get the next unloaded widget
+					wrapperID = jQuery( 'div.jetpack-likes-widget-unloaded' ).first()[0].id;
+					if ( ! wrapperID ) {
+						// Everything is currently loaded
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				}
+
+				if ( 'undefined' === typeof wrapperID ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				var $wrapper = jQuery( '#' + wrapperID );
+				$wrapper.find( 'iframe' ).remove();
+
+				if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='22px' width='68px' frameBorder='0' scrolling='no' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				} else {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='55px' width='100%' frameBorder='0' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				}
+
+				$wrapper.removeClass( 'jetpack-likes-widget-unloaded' ).addClass( 'jetpack-likes-widget-loading' );
+
+				$wrapper.find( 'iframe' ).load( function( e ) {
+					var $iframe = jQuery( e.target );
+					$wrapper.removeClass( 'jetpack-likes-widget-loading' ).addClass( 'jetpack-likes-widget-loaded' );
+
+					JetpackLikespostMessage( { event: 'loadLikeWidget', name: $iframe.attr( 'name' ), width: $iframe.width() }, window.frames[ 'likes-master' ] );
+
+					if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+						$wrapper.find( 'iframe' ).Jetpack( 'resizeable' );
+					}
+				});
+				setTimeout( JetpackLikesWidgetQueueHandler, 250 );
+			}
+			JetpackLikesWidgetQueueHandler();
+		//]]>
+		</script>
+<script type='text/javascript' src='http://platform.twitter.com/widgets.js?ver=20111117'></script>
+<script type='text/javascript' src='http://s1.wp.com/wp-content/js/devicepx.js?m=1373391538g'></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="http://s.stats.wordpress.com/w.js?21" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({'blog':'18023203','v':'wpcom','tz':'0','user_id':'0','post':'2195','subd':'dakami1'});
+ex_go({'crypt':'UE40eW5QN0p8M2Y/RE1oV0pFNEwueXFaVXlyMGwvVG9ES35pOVYlRUVhdVJ2TTczd3dDaTdGUm83UEpzfHZlbl1HSkppTG05Rzh1fCxhSFFiOVcxb01WRWdyUVNVVy5MS2g2LUpwOUlSd2ttfnhham5STSsleHclZHM/UmNoSUdmaVZ+JUdFMVRpelkrb3lvdFFJN1Jpelp8UkxYYTcsW05SdnJpcnNtc2N3RkoyWkFuR28wT0tBRWlOc1M0bFErJnNmVEQmZlJyOW85fFVqUFV4YVFHeXViaWV5TW5PTUdicEhkQy1YaEgtZ1BYXWZnUm5oRys9YUhUfFE9JltGNjNxJTdXeTNKLklhditfRjMrdTNwLFNwTjFkdXp8PTAzR0U='});
+addLoadEvent(function(){linktracker_init('18023203',2195);});
+	</script>
+<noscript><img src="http://stats.wordpress.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//stats.wordpress.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>
+</body>
+</html>

@@ -23,6 +23,36 @@ Frederic Jacobs\\
 \end{abstract}
 
 \section{Introduction}
+
+Attempt to build a safer internet.
+
+We want it to be compatible with our actual infrastrucure and on the machines that are now on the field.
+
+Our threat model assumes that any wire can be tapped. No connection is safe. Source IP spoofing.
+
+
+\section{Addressage security}
+
+Introduce current system. Domain name registrars, DNS ... 
+
+\subsection{ Issues with the current system} 
+Zooko's triangle
+\subsection{How to fix it}
+\subsubsection{Certificate Pinning}
+Works great but not scalable - first fix.
+\subsubsection{DANE}
+Works great but still having a centralized registry / domain registrars
+DNSSec
+\subsubsection{Tor Hidden Services}
+Good, but as seen in Zooko's triangle we don't have the unique address.
+\subsubsection{Squaring Zooko's triangle}
+Bitcoin chain
+
+\section{Transport security}
+What's wrong with tcp is slow and insecure. How to move away from it? Well, we don't really have any other option to base it on UDP.
+But we love reliability!
+
+Issues with too big frames for firewalls?
 \section{The {\secit Body} of The Paper}
 \section{Conclusions}
 
@@ -43,7 +73,11 @@ and the \textbf{.cls} and \textbf{.tex} files that it describes.
 \subsection{References}
 
 \begin{appendix}
+Define Perfect forward secrecy
 
+Using Elliptic curve crypto but not backdoored.
+
+Impact on censorship( when encrypted blobs can be transferred)
 \section{Final Thoughts}
 
 \end{appendix}
