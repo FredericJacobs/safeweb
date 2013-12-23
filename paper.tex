@@ -45,17 +45,27 @@ If only one of those 100s of CA gets compromised, it could result in the man-in-
 Now that we are convinced that the hierarchical trust model of the internet is broken, what measures have already been taken to fix authentication on the Internet?
 
 \subsubsection{Certificate Pinning}
-Works great but not scalable - first fix.
+
+The Chrome Security team, led by Adam Langley led the way by implementing certificate pinning. Certificate pinning is a reasonably effective measure for a centralised internet, where only a few websites gather most of the traffic. Certificate pinning works by shipping \emph{pins} in the browser's binary.\cite{chromiumPins} Every time a user loads a pinned website, the certificate fingerprint is compared to the one provided in the binary. If the signature matches, the client continues the SSL handshake. Otherwise, an error message is shown to the user explaining a secured connection couldn't be established.
+
+Although this is a very efficient method to verify SSL certificates, this method doesn't scale and is hard to maintain at a larger scale. In addition to that, the Chromium team needs to verify the "pin" definition before merging every pin request into the code branch. Therefore only larger websites do have certificate pins.
+
+\subsubsection{TACK}
+
+TACK is a proposal by Moxie Marlinkspike and Trevor Perrin, it's a way to 'pin' TLS servers to the correct public key even when a Certificate Authority is telling you differently. Although this is a promising proposition, it doesn't protect against an attacker that has a long-term MITM capability since pins are set on the first connections and do expire after some time.
+
 \subsubsection{DANE}
-Works great but still having a centralised registry / domain registrars
-DNSSec
+
+The IETF proposal called \emph{DANE} is an attempt at making large scale certificate pinning but by distributing the certificate fingerprint by DNS. This would enable website owners to specify their certificate fingerprint as a DNS entry and visitors would thus be able to verify the authenticity of the server.
+
+Even if we consider that DNSSec does provide good security, this system does still rely on the trust on ICANN and will thus not match the security we want to achieve.
+
 \subsubsection{Tor Hidden Services}
-Good, but as seen in Zooko's triangle we don't have the unique address.
-\subsubsection{Squaring Zooko's triangle}
-Bitcoin chain
 
-Zooko's triangle
+Tor hidden services are reachable by hashes of public keys. This is of course the ideal case when it comes to security because the address contains itself information about the key itself. Unfortunately, humans are not good at remembering pseudorandom 16-character long strings.
 
+\subsection{Squaring Zooko's triangle}
+In this section, we are introducing Zooko's triangle conjecture and our attempt to square it.
 
 \subsection{Known Issues with this new model}
 
@@ -63,7 +73,9 @@ Zooko's triangle
 What's wrong with tcp is slow and insecure. How to move away from it? Well, we don't really have any other option to base it on UDP.
 But we love reliability!
 
-Minimalt 
+Minimalt  
+
+Multipath TCP advantage?
 
 Doesn't solve anonimity ==> Tor
 
