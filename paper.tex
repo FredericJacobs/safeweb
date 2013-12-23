@@ -1,14 +1,13 @@
 \documentclass{vldb}
 \usepackage{graphicx}
 \usepackage{balance} 
+\usepackage{url}
 
 \begin{document}
 
-\title{Our best attempt at fixing the internet}
-
+\title{Providing better confidentiality and authentication on the Internet using Namecoin and MinimaLT}
 
 \numberofauthors{1}
-
 \author{
 \alignauthor
 Frederic Jacobs\\
@@ -19,40 +18,46 @@ Frederic Jacobs\\
 \maketitle
 
 \begin{abstract}
-Over the last few months, the Snowden revelations have brought to light the wide-scale surveillance. NIST and other organisations have voluntarily weakened encryption standards on the Internet and have put us all at risk, not only from dragnet surveillance but also from our communications to be hijacked by other people.
-In addition to that, the security community has for too long ignored from it's threat model attackers that are in control of most nodes of the network. The goal of this paper is to outline the issues of the current model we have for the internet and give a quick overview of how to solve those. Given the 10 pages constraint of this paper, some concepts won't be explained and are considered pre-requisites. If some of them don't sound easy to understand, going to the appendice, might help. 
+In this paper, we introduce a duo of improvements for the Internet that would lead to better security. The authentication model on the Internet is broken and TLS connections have a considerable overhead. We try to address those issues with changes at both the application layer, introducing a replacement for the DNS system, and at the transport layer, a drop-in replacement for TCP built on top of UDP that requires no changes at the network layer.
 \end{abstract}
 
 \section{Introduction}
 
 \subsection{Defining user privacy}
-Attempt to build a safer internet.
-
-We want it to be compatible with our actual infrastructure and on the machines that are now on the field.
-
-Our threat model assumes that any wire can be tapped. No connection is safe. Source IP spoofing.
-
-\subsection{Scope}
-This paper attempts to fix the confidentiality features of the Internet by introducing a distributed and non-hierarchical domain name system and providing a replacement for TCP at the transport layer.. Meta-data, that can be connected at the IP-level such as the source and destination of a communications will still be collectable. Nevertheless, we think that the suggested enhancements of this paper should help anonymity projects like The Tor Project to speed up substantially their network which is one of their key issues. (Tor project investigates SPEEDY)
-
+The solutions brought forward in this paper are attempts to fix confidentiality and authentication on the Internet. Anonymity is not provided. An attacker could still get a significant amount of metadata. Unfortunately, because MinimaLT runs over UDP you can't connect through the Tor network.\footnote{If MinimaLT proves to be a safer and faster alternative to TLS, I imagine that the Tor project would look into implementing it to speed up the network and make relay connections safer.}
 \subsection{Motivation}
-When the Internet was designed at DARPA, the primary goal was to design a system that could provide interconnection between multiple computers. The Web then came by with the motivation to be able to freely exchange information. The Internet has mainly been used for open communications. Any computer on the network could request files. But, over time, people started trusting the internet more and more and with the appearance of services. But the Internet grew so quickly out of what DARPA proposed for a trusted environment. The threat model of the internet changed and our 
 
+When the Internet was designed at DARPA, the primary goal was to design a system that could provide interconnection between multiple computers. The Web then came by with the motivation to be able to freely exchange information. The Internet has mainly been used for open communications. Any computer on the network could request files. But, over time, people started trusting the internet more and more and with the appearance of services. But the Internet grew so quickly out of what DARPA proposed for a trusted environment. The Internet was never designed to be ran by so many different entities and the threat model implied that you had to trust the entities running the infrastructure of the internet.
 
-Introduce current system. Domain name registrars, DNS ...
+\section{Domain names and authenticity}
 
-\subsection{ Issues with the current system} 
-Zooko's triangle
-\subsection{How to fix it}
+In today's model, if I want to load a page from \emph{facebook.com}, my computer will have to first get the Domain Name System records matching that domain. DNS was designed in a hierarchical way and TLD registrations are handled by a single organisation, the ICANN.
+
+So what is wrong with DNS?
+
+When the original Domain Name System was designed, it did not include security; instead it was designed to be a scalable distributed system. The DNSSEC attempted to add security, while maintaining backwards compatibility. Those security extensions added public key signing to DNS zones but who is signing those zones? The DNS Root Zone, of course. You will then have to trust those too. We thus consider DNSSec as an attempt to try to fix a broken system. We want to design a distributed system where anyone can register a domain but without having a central registration authority.
+
+But how can we verify authenticity? 
+Even if my domain name system returns the right IP address how do I know for sure that I'm establishing a connection with the client I want. Today, we are using another hierarchical system to verify authenticity, namely SSL certificates. This means that in addition to trusting ICANN, we will have to trust hundreds of Root Certificate Authorities that are shipped with out browsers.\cite{mozillaSSL}
+
+If only one of those 100s of CA gets compromised, it could result in the man-in-the-middling of any user without any warning since a root certification authority can generate a fake valid certificate for any website. This is what happened in Iran after the Dutch certificate authority DigiNotar got compromised\cite{diginotarHack}.
+
+Now that we are convinced that the hierarchical trust model of the internet is broken, what measures have already been taken to fix authentication on the Internet?
+
 \subsubsection{Certificate Pinning}
 Works great but not scalable - first fix.
 \subsubsection{DANE}
-Works great but still having a centralized registry / domain registrars
+Works great but still having a centralised registry / domain registrars
 DNSSec
 \subsubsection{Tor Hidden Services}
 Good, but as seen in Zooko's triangle we don't have the unique address.
 \subsubsection{Squaring Zooko's triangle}
 Bitcoin chain
+
+Zooko's triangle
+
+
+\subsection{Known Issues with this new model}
 
 \section{Transport security}
 What's wrong with tcp is slow and insecure. How to move away from it? Well, we don't really have any other option to base it on UDP.
@@ -64,6 +69,8 @@ Doesn't solve anonimity ==> Tor
 
 Issues with too big frames for firewalls?
 \section{The {\secit Body} of The Paper}
+
+
 \section{Conclusions}
 
 % ensure same length columns on last page (might need two sub-sequent latex runs)
@@ -71,15 +78,9 @@ Issues with too big frames for firewalls?
 
 %ACKNOWLEDGMENTS are optional
 \section{Acknowledgments}
-This section is optional; it is a location for you
-to acknowledge grants, funding, editing assistance and
-what have you.  In the present case, for example, the
-authors would like to thank Gerald Murray of ACM for
-his help in codifying this \textit{Author's Guide}
-and the \textbf{.cls} and \textbf{.tex} files that it describes.
-
+Most of the Namecoin research is based on Greg Slepak's work.
 \bibliographystyle{abbrv}
-\bibliography{vldb_sample}
+\bibliography{bibliography}
 \subsection{References}
 
 \begin{appendix}
