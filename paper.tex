@@ -65,12 +65,31 @@ Even if we consider that DNSSec does provide good security, this system does sti
 
 Tor hidden services are reachable by hashes of public keys. This is of course the ideal case when it comes to security because the address contains itself information about the key itself. Unfortunately, humans are not good at remembering pseudorandom 16-character long strings.
 
-\subsection{Squaring Zooko's triangle}
+\subsection{Zooko's triangle}
 In this section, we are introducing Zooko's triangle conjecture and our attempt to square it.
 
-http://web.archive.org/web/20111227083803/http://zooko.com/distnames.html
+\begin{figure}[h!]\centering\includegraphics[width=0.3\textwidth]{ZookoTriangle.png}\end{figure}
 
-\begin{figure}[h!]\centering\includegraphics[width=0.3\textwidth]{ZookoTriangle.png}\end{figure}
+Zooko's triangle says that out of these three properties \cite{zookoTriangleWikipedia}, you can usually take only two.
+\begin{itemize}
+\item \emph{Secure}\footnote{We can't agree with the naming of this property given the threat model we described previously in this paper.}: The quality that there is one, unique and specific entity to which the name maps.
+\item \emph{Global}: The lack of a centralized authority for determining the meaning of a name. Instead, measures such as a Web of trust are used.
+\item \emph{Memorable}: The quality of meaningfulness and memorability to the users of the naming system.
+\end{itemize}
+
+We can thus see that the systems proposed so far only gather two out of three of those properties. If we take the DNS(Sec) system with DANE extensions, we can have a memorable address that is "secure" but unfortunately doesn't have the global property because the ICANN is a centralized authority. Alternatively, Tor's Onion addresses do have the "secure" property and are global but a 16 character pseudorandom string is not memorable.
+
+\subsection{Squaring Zooko's Triangle}
+
+In the following section we are introducing a naming system that is an attempt at squaring Zooko's triangle.
+
+Back in January 2011, Aaron Swartz described on his blog about how Bitcoin blockchain could help in squaring Zooko's triangle. A few months later, a first implementation of that idea came into existence, Namecoin.
+
+\subsubsection{The Bitcoin Blockchain}
+
+The blockchain is Bitcoin's main innovation. Blockchains are data-structures that were invented specifically for the Bitcoin project but they can be applied anywhere a distributed consensus needs to be established in the presence of malicious or untrustworthy actors. In this section we are going to write a small overview of the blockchain works.
+
+Let's see how we can use the Bitcoin blockchain to register a domain name.
 
 \subsection{Known Issues with this new model}
 
