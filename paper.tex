@@ -87,9 +87,25 @@ Back in January 2011, Aaron Swartz described on his blog about how Bitcoin block
 
 \subsubsection{The Bitcoin Blockchain}
 
-The blockchain is Bitcoin's main innovation. Blockchains are data-structures that were invented specifically for the Bitcoin project but they can be applied anywhere a distributed consensus needs to be established in the presence of malicious or untrustworthy actors. In this section we are going to write a small overview of the blockchain works.
+The blockchain is Bitcoin's main innovation. Blockchains are data-structures that were invented specifically for the Bitcoin project but they can be applied anywhere a distributed consensus needs to be established in the presence of malicious or untrustworthy actors.
 
-Let's see how we can use the Bitcoin blockchain to register a domain name.
+Let's say Alice wants to send money to Bob. Bitcoin addresses are hash
+\begin{center}
+Key-Hash = RIPEMD-160(SHA-256(public key))
+$\text{BTC}_{\text{Address}}$ = Base58(Version +\footnote{The + sign is a string concatenation} Key-Hash + Checksum)
+\end{center}
+In Bitcoin, the blockchain is used to log all of the transactions. But how does the blockchain work? What prevents anyone to append malicious entries at the bottom of the blockchain.
+
+
+
+\subsubsection{Proof of work}
+
+The concept of \emph{proof of work} is used to merge the blockchain. It makes adding entries in the blockchain an expensive process computationally wise. Let's say Alice wants to send Bitcoins to Bob. Alice will start gossiping on the network, telling everyone she wants to send money to Bob. Every client, has a copy of the blockchain and can thus assess if Alice has the amount of money she wants to transfer to Bob. If she has so, gossip will spread. 
+
+Let's say Alice wants to register a domain name name. To achieve that, Alice needs money. The currency used in our model to buy domain names is called the Namecoin. Alice can exchange USDollars or Bitcoins to get those Namecoins. 
+
+Just like Bitcoin, Namecoin is a crypto-currency but in addition to being a cryptocurrency, Namecoin doubles as being a decentralized key-value store.
+
 
 \subsection{Known Issues with this new model}
 
@@ -101,7 +117,7 @@ Minimalt
 
 Multipath TCP advantage?
 
-Doesn't solve anonimity ==> Tor
+Doesn't solve anonymity ==> Tor
 
 Issues with too big frames for firewalls?
 \section{The {\secit Body} of The Paper}
