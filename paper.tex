@@ -87,9 +87,9 @@ Back in January 2011, Aaron Swartz described on his blog about how Bitcoin block
 
 \subsubsection{The Bitcoin Blockchain}
 
-The blockchain is Bitcoin's main innovation. Blockchains are data-structures that were invented specifically for the Bitcoin project to store the history of all past transactions but they can be applied anywhere a distributed consensus needs to be established in the presence of malicious or untrustworthy actors.
+The blockchain is Bitcoin's main innovation. Blockchains are mainly linear data-structures that were invented specifically for the Bitcoin project to store the history of all past transactions but they can be applied anywhere a distributed consensus needs to be established in the presence of malicious or untrustworthy actors.
 
-To understand how they work, let's take an example and see what happens when Alice tries to transfer money to Bob. Every user on the network has one address. Bitcoin addresses are generated based a public key. 
+To understand how they work we will cover the basics of how Bitcoin works. Let's take an example and see what happens when Alice tries to transfer money to Bob. Every user on the network has one address. Bitcoin addresses are generated based a public key. 
 \begin{center}
 Key-Hash = RIPEMD-160(SHA-256(public key))
 $\text{BTC}_{\text{Address}}$ = Base58(Version +\footnote{The + sign is a string concatenation} Key-Hash + Checksum)
@@ -97,11 +97,42 @@ $\text{BTC}_{\text{Address}}$ = Base58(Version +\footnote{The + sign is a string
 
 Private-public keypairs are generated when making new Bitcoin addresses. The curved used in Bitcoin is secp256k1 which is surprisingly a NIST recommended curve.\cite{VOID}
 
-Alice must know Bob's address to send him money. Now that Alice has Bob's address, she creates a new message saying she sends a few Bitcoins to Bob and uses her private key to generate an ECDSA signature. Once she has generated that message and signed it, she starts gossiping about her transaction on the network, her peers hear about the transaction, they verify if Alice has enough money to make the transaction and verify the signature, if the transaction looks legitimate, they start telling all of their peers. Peers that are miners, eventually hear about this transaction and it's added to the transactions memory pool. This pool is a queue of transactions that are not yet merged in the blockchain. But now how can we merge transactions into the blockchain? 
+Alice must know Bob's address to send him money. Now that Alice has Bob's address, she creates a new message saying she sends a few Bitcoins to Bob and uses her private key to generate an ECDSA signature. Once she has generated that message and signed it, she starts gossiping about her transaction on the network, her peers hear about the transaction, they verify if Alice has enough money to make the transaction and verify the signature, if the transaction looks legitimate, they start telling all of their peers. The verification can be done thanks to the blockchain datastructure which is a decentralized and unique record of all the transactions. Peers that are miners, eventually hear about this transaction and it's added to the transactions memory pool. This pool is a queue of transactions that are not yet merged in the blockchain. But now how can we merge transactions into the blockchain? 
 
 \subsubsection{Proof of work}
 
-The concept of \emph{proof of work} is used to merge the blockchain. It makes adding entries in the blockchain an expensive process computationally wise. Let's say Alice wants to send Bitcoins to Bob. Alice will start gossiping on the network, telling everyone she wants to send money to Bob. Every client, has a copy of the blockchain and can thus assess if Alice has the amount of money she wants to transfer to Bob. If she has so, gossip will spread. 
+The concept of \emph{proof of work} is used to merge the blockchain. It makes adding entries in the blockchain an expensive process computationally wise. Let's say Alice wants to send Bitcoins to Bob. Alice will start gossiping on the network, telling all her peers that she wants to send money to Bob. Every client, has a copy of the blockchain and can thus assess if Alice has the amount of money she wants to transfer to Bob. If she has so, gossip will spread.
+
+Once the miners, the workers of the blockchain, learn about a  valid transaction (Alice has enough money to make the transaction and her signature is correct), they will add it to their memory pool. If the transaction is valid, the miners will add this transaction in the next block they will be mining. The benefit of making it costly to validate transactions is that validation can no longer be influenced by the number of network identities someone controls, but only by the total computational power they can bring to bear on validation.
+
+So what is mining technically?
+
+The hard challenge that is used in Bitcoin that needs to be solved is based on the strength of cryptographic hashes, also known as one-way functions. We consider that it is hard for someone to come up with the parameters of a hash functions for a given result. The function used in Bitcoin is \emph{SHA-256} but this hash function could be substituted by any other. Another cryptocurrency, Litecoin, chose to use the \emph{scrypt} function.
+
+If I want to add some blocks (list of transactions) in the blockchain, I will have to solve this problem
+
+SHA-256("TransactionsInfo" + challengeNumber) =< target
+
+where \emph{transactionsInfo} is a parameter list of information about the transactions in the blocks (and some extra information like a return address for the reward). The blockchain is vulnerable to some malleability regarding some informations in the transaction but all important information (such as the amount of transaction, recipient and sender) is part of this hash.
+The challenge the miner has to solve – the proof-of-work – is to find the challenge number such that when we append the transactions infos to the challenge number and hash the combination the output hash is smaller than a certain number.
+We notice that this certain challenge number is established by the network and determines how hard the problem is. In Bitcoin, this number is dynamically adjusted to keep an approximate block validation time of 10 minutes.\cite{hashCash}
+
+hash("Hello Blockchain) examples
+
+When someone succeeds in solving this problem, he sends his solution to the network. Nodes verify if that answer is valid, and if it is, they broadcast it to their peers. And so it progressively spreads across all nodes and is added to the blockchain. 
+
+\subsubsection{Dealing with collisions}
+
+Now what happens if two nodes, from separate parts of the blockchain do succeed in solving the challenge at almost the same time. Both nodes and their peers will spread different versions of the blockchain. We say that the blockchain has \emph{forked}. How do we solve this?
+
+In this case, miners will start mining the next block based on the version of the blockchain they have. If they hear that another blockchain is longer than the one they were working on before, they will switch to the longer one and put the transactions in the orphan blocks (blocks that were in the previous fork) back into the memory pool if they were not merged. 
+
+We can now understand that because every node chooses to have the longest blockchain possible, it will be very hard for an attacker to spread a fake version of the blockchain because this would involve solving the challenge for every preceding block because blocks are chained and must contain the block identifier of the previous one. 
+
+Why would one mine and spend so much computational power?
+
+Miners are rewarded for their efforts. First, when doing a transaction, I can speed up the transfer of the money buy adding a transaction fee that will go directly to the miners. Mining software is thus optimised to sort the transactions to be merged in blocks in decreasing order of transaction fee. 
+The other reward from mining comes from the coinbase transaction, mining does generate money.  At the creation of Bitcoin, this reward was set to be a 50 BTC. But for every 210,000 validated blocks (once every four years) the reward halves. This has happened just once, to date, and so the current reward for mining a block is 25 bitcoins. This halving in the rate will continue every four years until the year 2140 CE. At that point, the reward for mining will drop below $10^{-8}$ bitcoins per block which is a satoshi, the smallest unit of Bitcoin and the total amount of bitcoins will cease to increase.
 
 Let's say Alice wants to register a domain name name. To achieve that, Alice needs money. The currency used in our model to buy domain names is called the Namecoin. Alice can exchange USDollars or Bitcoins to get those Namecoins. 
 
