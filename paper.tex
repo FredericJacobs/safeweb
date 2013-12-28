@@ -3,6 +3,46 @@
 \usepackage{balance} 
 \usepackage{url}
 \usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{bera}
+\usepackage{listings}
+
+\iffalse
+  From stackexchange http://tex.stackexchange.com/questions/83085/how-to-improve-listings-display-of-json-files
+\fi
+
+\colorlet{punct}{red!60!black}
+\definecolor{background}{HTML}{EEEEEE}
+\definecolor{delim}{RGB}{20,105,176}
+\colorlet{numb}{magenta!60!black}
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    backgroundcolor=\color{background},
+    literate=
+     *{0}{{{\color{numb}0}}}{1}
+      {1}{{{\color{numb}1}}}{1}
+      {2}{{{\color{numb}2}}}{1}
+      {3}{{{\color{numb}3}}}{1}
+      {4}{{{\color{numb}4}}}{1}
+      {5}{{{\color{numb}5}}}{1}
+      {6}{{{\color{numb}6}}}{1}
+      {7}{{{\color{numb}7}}}{1}
+      {8}{{{\color{numb}8}}}{1}
+      {9}{{{\color{numb}9}}}{1}
+      {:}{{{\color{punct}{:}}}}{1}
+      {,}{{{\color{punct}{,}}}}{1}
+      {\{}{{{\color{delim}{\{}}}}{1}
+      {\}}{{{\color{delim}{\}}}}}{1}
+      {[}{{{\color{delim}{[}}}}{1}
+      {]}{{{\color{delim}{]}}}}{1},
+}
 
 \begin{document}
 
@@ -145,6 +185,23 @@ Putting information in the blockchain does cost a certain price hence
 Let's say Alice wants to register a domain name name. To achieve that, Alice needs money, Namecoins.  
 
 Just like Bitcoin, Namecoin is a crypto-currency but in addition to being a cryptocurrency, Namecoin doubles as being a decentralized key-value store.
+
+It provides 
+
+\begin{lstlisting}[language=json,firstnumber=1]
+{"menu": {
+  "id": "file",
+  "value": "File",
+  "popup": {
+    "menuitem": [
+      {"value": "New", "onclick": "CreateNewDoc()"},
+      {"value": "Open", "onclick": "OpenDoc()"},
+      {"value": "Close", "onclick": "CloseDoc()"}
+    ]
+  }
+}}
+0123456789
+\end{lstlisting}
 
 
 \subsection{Known Issues with this new model}
