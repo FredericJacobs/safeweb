@@ -186,25 +186,46 @@ Let's say Alice wants to register a domain name name. To achieve that, Alice nee
 
 Just like Bitcoin, Namecoin is a crypto-currency but in addition to being a cryptocurrency, Namecoin doubles as being a decentralized key-value store.
 
-It provides 
+Here are a few other possible applications of a distributed key-value store:
+\begin{itemize}
+\item Aliases: The blockchain can be used to store an easy to remember alias for a GPG/SSH key, a Bitcoin address or any other cryptographic identity.
+\item Timestamping: The blockchain could store information about a specific file and from a hash of that we could find matching author name, owner, etc.
+\item Messaging: The blockchain could be a decentralized store for  long-term messages vs BitMessage.
+\end{itemize}
+
+Writing data in the blockchain does have a certain price. Registering a domain does cost the registration fee (0.01NMC that goes to nobody) plus the transaction fee (that goes to the miner who succeeds in adding the block that contains this transaction).
+
+The cost includes a network fee and a transaction fee. The fees are denominated in Namecoins (\emph{NC}). Initially, the network fee was 50 NC but it decreases twice every 2 months, which means that it is already less than 1 NC after a year. This design was meant to make it expensive to register domains in the first few months to avoid the issue of domain name squatting.
+
+Let's see what a domain name value message looks like to understand how it squares Zooko's triangle.
 
 \begin{lstlisting}[language=json,firstnumber=1]
-{"menu": {
-  "id": "file",
-  "value": "File",
-  "popup": {
-    "menuitem": [
-      {"value": "New", "onclick": "CreateNewDoc()"},
-      {"value": "Open", "onclick": "OpenDoc()"},
-      {"value": "Close", "onclick": "CloseDoc()"}
-    ]
-  }
-}}
-0123456789
+{
+    "ip"      : "209.236.123.133",
+    "ip6"     : "IPV6",
+    "tor"     : "Tor Hidden Service.onion",
+    "email"   : "me@fredericjacobs.com",
+    "info"    : "Frederic Jacobs",
+    //"service" : [ ["smtp", "tcp", 10, 0, 25, "mail"] ]
+    "tls": {
+        "tcp": {
+            443: [[1, "30F38EDAABC67F0344DBE27018552F7D575946EF", 1]]
+        }
+    }
+    "map":
+    {
+        "www" : { "ip": "209.236.123.133" },
+    }
+}
 \end{lstlisting}
 
+A namecoin domain needs to be renewed every 36,000 blocks which at the current rate is around 200 days. Those updates are free. Hence, unlike ICANN domain names, you don't have to pay renewal fees.
 
 \subsection{Known Issues with this new model}
+
+To be able to resolve Namecoin domains, you need to have a local copy  of the complete up-to-date blockchain on your machine. In a mobile world this is currently not acceptable due to performance, bandwidth and storage restrictions. An alternative could be to deploy DNSNMC servers which would work plug-and-play with the current DNS server clients. A few of them have already been deployed. The issue being that you will have to trust a DNSNMC server.
+
+Another issue that still needs to be addressed is domain squatting. Because registering namecoin domains (.bit) became ridiculously cheap, a lot of domains are being squatted by people hoping to resell those domains at some point in the future. A better pricing system that prevents massive domain registration should be adopted because registration costs did decrease too quickly to be an effective counter-measure.
 
 \section{Transport security}
 What's wrong with tcp is slow and insecure. How to move away from it? Well, we don't really have any other option to base it on UDP.
@@ -239,7 +260,7 @@ Using Elliptic curve crypto but not backdoored.
 
 Impact on censorship( when encrypted blobs can be transferred)
 \section{Final Thoughts}
-
+This paper brought forward Namecoin as a solution that squares Zooko's triange and thus provide good addressing.
 \end{appendix}
 
 \end{document}
