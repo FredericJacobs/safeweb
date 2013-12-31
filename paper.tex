@@ -228,6 +228,37 @@ To be able to resolve Namecoin domains, you need to have a local copy  of the co
 Another issue that still needs to be addressed is domain squatting. Because registering namecoin domains (.bit) became ridiculously cheap, a lot of domains are being squatted by people hoping to resell those domains at some point in the future. A better pricing system that prevents massive domain registration should be adopted because registration costs did decrease too quickly to be an effective counter-measure.
 
 \section{Transport security}
+
+
+Now that we have a good long-term identity key distribution strategy, we are going to introduce a new transport-layer security protocol that provides safer and faster encrypted connections.
+\subsection{MinimaLT}
+MinimaLT\cite{MinimaLT} is a protocol that presents some of the interesting features we want. It was initially designed to secure network connections between computers running the secure operating system \emph{Ethos}. In the following sections we are going to see what level of security it provides and why those changes were made. MinimaLT is a newcomer\footnote{Paper published in Mai 2013} that looks really promising.
+
+MinimaLT is implemented on top of UDP to be compatible with the current Internet infrastructure and end-systems.   
+
+\subsection{Why better than TLS/TCP?}
+
+- Security is the standard
+
+Currently, on the Internet, most TCP connections are unencrypted (add source) and if they are, the Apache or Ngnix configuration is often badly configured in such a way that it could be easily attacked. MinimaLT was designed to prevent system administrators to make security mistakes. Never will you have to manually pick cipher suites or worry about OpenSSL compatibility, MinimaLT does it all for you. Not only does it encrypt all communications between two hosts but it defaults on strong ciphers that we will see later.
+
+- Encryption & PFS
+
+
+
+- Tunnel oriented
+
+MinimaLT is establishing tunnels. Tunnels provide a point-to-point encrypted channel to transmit information and have the interesting property of being more resistant to traffic analysis, just like IPSec. Tunnels mean that unlike TLS, all services from the transport layer, namely authentication, encryption, congestion control and reliability, are provided for a tunnel and are not repeated across for connection.
+
+Thus, the MinimaLT clients have one or more connections for each of the tunnels. 
+
+- DDoS protection
+- IP Mobility
+
+
+- Fast
+- Protected header
+
 What's wrong with tcp is slow and insecure. How to move away from it? Well, we don't really have any other option to base it on UDP.
 But we love reliability!
 
@@ -240,9 +271,9 @@ Doesn't solve anonymity ==> Tor
 Issues with too big frames for firewalls?
 \section{The {\secit Body} of The Paper}
 
+\section{Related work}
 
 \section{Conclusions}
-
 % ensure same length columns on last page (might need two sub-sequent latex runs)
 //\balance
 
