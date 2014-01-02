@@ -232,7 +232,7 @@ Another issue that still needs to be addressed is domain squatting. Because regi
 
 Now that we have a good long-term identity key distribution strategy, we are going to introduce a new transport-layer security protocol that provides safer and faster encrypted connections.
 \subsection{MinimaLT}
-MinimaLT\cite{MinimaLT} is a protocol that presents some of the interesting features we want. It was initially designed to secure network connections between computers running the secure operating system \emph{Ethos}. In the following sections we are going to see what level of security it provides and why those changes were made. MinimaLT is a newcomer\footnote{Paper published in Mai 2013} that looks really promising.
+MinimaLT\cite{MinimaLT} is a protocol that presents some of the interesting features we want. It was initially designed to secure network connections between computers running the secure operating system \emph{Ethos}. In the following sections we are going to see what level of security it provides and why those changes were made.\footnote{We are however not going to go over the whole specification of the protocol.} MinimaLT is a newcomer\footnote{Paper published in Mai 2013} that looks really promising.
 
 MinimaLT is implemented on top of UDP to be compatible with the current Internet infrastructure and end-systems.   
 
@@ -242,9 +242,11 @@ MinimaLT is implemented on top of UDP to be compatible with the current Internet
 
 Currently, on the Internet, most TCP connections are unencrypted (add source) and if they are, the Apache or Ngnix configuration is often badly configured in such a way that it could be easily attacked. MinimaLT was designed to prevent system administrators to make security mistakes. Never will you have to manually pick cipher suites or worry about OpenSSL compatibility, MinimaLT does it all for you. Not only does it encrypt all communications between two hosts but it defaults on strong ciphers that we will see later.
 
-- Encryption & PFS
+- Encryption \& PFS
 
+A few months ago, a previously unknown email provider called \emph{Lavabit} got under pressure from the US government to hand over it's private SSL key. The reason turned out to be that Snowden used the email service. If Lavabit turned over the SSL keys, they would compromise the privacy of their entire user base. This is due to poorly configured SSL where the encryption keys used in the handshake are shared between sessions. Unfortunately, most system administrators don't put the \emph{ECDHE} ciphers on top of their ciphers list which results in the lack of Perfect Forward Secrecy.
 
+ECDHE performs a Elliptic curve Diffie–Hellman key exchange. The last E from ECDHE stands for ephemeral, meaning that none of the symmetric keys used for encryption will be stored. Hence, if later the server gets compromised or the network operator is forced to hand over an encryption key this is something that he won't be able to provide.  
 
 - Tunnel oriented
 
@@ -252,8 +254,15 @@ MinimaLT is establishing tunnels. Tunnels provide a point-to-point encrypted cha
 
 Thus, the MinimaLT clients have one or more connections for each of the tunnels. 
 
-- DDoS protection
 - IP Mobility
+
+Thanks to the structure of MinimaLT packets, the TunelID is what identifies what packet belongs to what connection and therefore, MinimaLT has complete IP mobility. Unlike TCP, the source IP address and UDP port can change without affecting the connection. A specific RPC (\emph{$\text{nextTid}_{0}$}) exists to announce an IP address change. That call will generate a new tunnel ID and change the keys.
+
+- Handshakes
+
+When establishing a single TLS connection, two hosts have to go through a TCP three-way handshake 
+
+- DDoS protection
 
 
 - Fast
