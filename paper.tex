@@ -211,7 +211,7 @@ Let's see what a domain name value message looks like to understand how it squar
         "tcp": {
             443: [[1, "30F38EDAABC67F0344DBE27018552F7D575946EF", 1]]
         }
-    }
+    },
     "map":
     {
         "www" : { "ip": "209.236.123.133" },
@@ -242,7 +242,33 @@ In the original MinimaLT paper, a directory service is introduced to deal with t
 
 We will see that we would like to have DNS lookups that return : the IP Address, UDP port, key, ephemeral key.
 
-Hence, we want to change the namecoin structure to be. 
+Hence, we want to change the namecoin structure to be. We could specify the Namecoin+MinimaLT datastructure as such :
+\begin{lstlisting}[language=json,firstnumber=1]
+{
+    "ip"      : "209.236.123.133",
+    "ip6"     : "IPV6",
+    "tor"     : "Tor Hidden Service.onion",
+    "email"   : "me@fredericjacobs.com",
+    "info"    : "Frederic Jacobs",
+    //"service" : [ ["smtp", "tcp", 10, 0, 25, "mail"] ]
+    "tls": {
+        "tcp": {
+            443: [[1, "30F38EDAABC67F0344DBE27018552F7D575946EF", 1]]
+        }
+    },
+    "minimaLT": {
+        "ip" : "209.236.123.133" // Only required if different than the default one
+        "port": 80, // can be any UDP port.
+        "id_key": long-term identity key,
+        "eph_key": ephemeral key used for sending encrypted data on first RTT.
+    }
+    "map":
+    {
+        "www" : { "ip": "209.236.123.133" },
+    }
+}
+\end{lstlisting}
+
 
 \subsection{Why better than TLS/TCP?}
 
@@ -268,7 +294,9 @@ Thanks to the structure of MinimaLT packets, the TunelID is what identifies what
 
 - Handshakes
 
-When establishing a single TLS connection, two hosts have to go through a TCP three-way handshake and then can start the TLS handshake which requires 4 more RTT. Thankfully MinimaLT attempts to fix that and does perform a cryptographic handshake in \emph{less time than unencrypted TCP}.
+When establishing a single TLS connection, two hosts have to go through a TCP three-way handshake and then can start the TLS handshake which requires 4 more RTT. Thankfully MinimaLT attempts to fix that and does perform a cryptographic handshake in \emph{less time than unencrypted TCP}. 
+
+
 
 - DDoS protection
 
