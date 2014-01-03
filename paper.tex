@@ -234,7 +234,15 @@ Now that we have a good long-term identity key distribution strategy, we are goi
 \subsection{MinimaLT}
 MinimaLT\cite{MinimaLT} is a protocol that presents some of the interesting features we want. It was initially designed to secure network connections between computers running the secure operating system \emph{Ethos}. In the following sections we are going to see what level of security it provides and why those changes were made.\footnote{We are however not going to go over the whole specification of the protocol.} MinimaLT is a newcomer\footnote{Paper published in Mai 2013} that looks really promising.
 
-MinimaLT is implemented on top of UDP to be compatible with the current Internet infrastructure and end-systems.   
+MinimaLT is implemented on top of UDP to be compatible with the current Internet infrastructure and end-systems.
+
+In the original MinimaLT paper, a directory service is introduced to deal with the exchange of hosts information. We will not cover that part but will rather explain how MinimaLT can be used along with the Namecoin blockchain.
+
+\subsection{Changes to make in Namecoin to make it play nicely with MinimaLT}
+
+We will see that we would like to have DNS lookups that return : the IP Address, UDP port, key, ephemeral key.
+
+Hence, we want to change the namecoin structure to be. 
 
 \subsection{Why better than TLS/TCP?}
 
@@ -260,7 +268,7 @@ Thanks to the structure of MinimaLT packets, the TunelID is what identifies what
 
 - Handshakes
 
-When establishing a single TLS connection, two hosts have to go through a TCP three-way handshake 
+When establishing a single TLS connection, two hosts have to go through a TCP three-way handshake and then can start the TLS handshake which requires 4 more RTT. Thankfully MinimaLT attempts to fix that and does perform a cryptographic handshake in \emph{less time than unencrypted TCP}.
 
 - DDoS protection
 
