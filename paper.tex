@@ -72,7 +72,7 @@ When the Internet was designed at DARPA, the primary goal was to design a system
 
 \section{Domain names and authenticity}
 
-In today's model, if I want to load a page from \emph{facebook.com}, my computer will have to first get the Domain Name System records matching that domain. DNS was designed in a hierarchical way and TLD registrations are handled by a single organisation, the ICANN.
+In today's model, if I want to load a page from \emph{facebook.com}, my computer will have to first get the Domain Name System records matching that domain. DNS was designed in a hierarchical way and TLD registrations are handled by a single organisation, the ICANN.(https://iwantmyname.com/blog/2014/01/icanns-new-rules-for-domain-registrants-require-you-to-verify-your-contact-details.html)
 
 So what is wrong with DNS?
 
@@ -292,11 +292,19 @@ Thus, the MinimaLT clients have one or more connections for each of the tunnels.
 
 Thanks to the structure of MinimaLT packets, the TunelID is what identifies what packet belongs to what connection and therefore, MinimaLT has complete IP mobility. Unlike TCP, the source IP address and UDP port can change without affecting the connection. A specific RPC (\emph{$\text{nextTid}_{0}$}) exists to announce an IP address change. That call will generate a new tunnel ID and change the keys.
 
-- Handshakes
+- Handshakes \& Tunnel establishement
 
-When establishing a single TLS connection, two hosts have to go through a TCP three-way handshake and then can start the TLS handshake which requires 4 more RTT. Thankfully MinimaLT attempts to fix that and does perform a cryptographic handshake in \emph{less time than unencrypted TCP}. 
+When establishing a single TLS connection, two hosts have to go through a TCP three-way handshake and then can start the TLS handshake which requires 4 more RTT. Thankfully MinimaLT attempts to fix that and does perform a cryptographic handshake in \emph{less time than unencrypted TCP}.
 
+Usually in TLS, the client needs to get the certificate first before being able to send encrypted data but with MinimaLT+Namecoin, we already have an ephemeral key that allows us to send encrypted data to the server. Let's see how this key exchange works.
 
+Let's say a client \emph{C} wants to connect to a server \emph{S}. \emph{C} uses the Namecoin blockchain to get the identity and an ephemeral key of \emph{S}. Now \emph{C} sends his first segment to \emph{S} containing his just-generated ephemeral key, a new tunnel ID and the first bits of data. This segment's body can be encrypted using the ephemeral key of the server we retrieved previously Ephemeral keys will no more be used past this point because both clients can now computer a shared secret by performing a Diffie-Hellman Key exchange with the public ephemeral keys they exchanged. 
+
+One important thing to notice is that this approach does provide perfect forward secrecy thanks to the Diffie-Hellman key exchange using ephemeral keys. Of course, perfect forward secrecy requires rekeying, the process of changing keys so that previously used keys can be cleared from memory.
+
+Rekeying is a process that's only triggered on demand of the client and performed by him for performance reasons. Let's go through the rekeying process. 
+
+When a client wants to rekey, he generates a new tunnel ID and sends it to the server. Like the initial tunnel establishment procedure, the client generates a new key pair and sends his new public key along with the new tunnel ID to the server using the current encrypted tunnel. Instead of having to do a Diffie-Hellman again, the client will just computer a hash    
 
 - DDoS protection
 
