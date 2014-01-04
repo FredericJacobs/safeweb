@@ -304,10 +304,13 @@ One important thing to notice is that this approach does provide perfect forward
 
 Rekeying is a process that's only triggered on demand of the client and performed by him for performance reasons. Let's go through the rekeying process. 
 
-When a client wants to rekey, he generates a new tunnel ID and sends it to the server. Like the initial tunnel establishment procedure, the client generates a new key pair and sends his new public key along with the new tunnel ID to the server using the current encrypted tunnel. Instead of having to do a Diffie-Hellman again, the client will just computer a hash    
+When a client wants to rekey, he generates a new tunnel ID and sends it to the server. Like the initial tunnel establishment procedure, the client generates a new key pair and sends his new public key along with the new tunnel ID to the server using the current encrypted tunnel. The corresponding private key of the key pair that was generated will never be used (it actually doesn't even need to be known), it is just used to make the packet look like a regular tunnel initialisation packet. Now that the server get an announcement   
 
 - DDoS protection
 
+What we've seen so far of MinimaLT is pretty impressive but you might have legitimate concerns of how this would play out in a threat model were attackers would like to flood a system with the creation of tunnels. One of the MinimaLT designers, Dan Bernstein, knows this problem really well because he invented the SYN cookies. In MinimaLT, puzzles are used to address the cases where servers are under load.
+
+When a server is not experiencing any specific load, it does accept tunnel establishments requests without any questions asked but if the server is under load, it responds with a puzzle. 
 
 - Fast
 - Protected header
