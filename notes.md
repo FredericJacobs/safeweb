@@ -1,0 +1,3 @@
+\subsection{Defining user privacy}
+The solutions brought forward in this paper are attempts to fix confidentiality and authentication on the Internet. Anonymity is not provided. An attacker could still get a significant amount of metadata. Unfortunately, because MinimaLT runs over UDP you can't connect through the Tor network.\footnote{If MinimaLT proves to be a safer and faster alternative to TLS, I imagine that the Tor project would look into implementing it to speed up the network and make relay connections safer.}
+\subsection{Motivation}

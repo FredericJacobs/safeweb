@@ -59,29 +59,37 @@ Frederic Jacobs\\
 \maketitle
 
 \begin{abstract}
-In this paper, we introduce a duo of improvements for the Internet that would lead to better security. The authentication model on the Internet is broken and TLS connections have a considerable overhead. We try to address those issues with changes at both the application layer, introducing a replacement for the DNS system, and at the transport layer, a drop-in replacement for TCP built on top of UDP that requires no changes at the network layer.
+In this paper, we introduce a duo of improvements for the Internet that would lead to better security. The authentication model on the Internet is broken and TLS connections have a considerable overhead. We try to address those issues with changes at both the application layer, introducing a replacement for the DNS system, and at the transport layer, a drop-in replacement for TCP built on top of UDP so that it can run on today's internet infrastructure.
+
 \end{abstract}
 
 \section{Introduction}
 
-\subsection{Defining user privacy}
-The solutions brought forward in this paper are attempts to fix confidentiality and authentication on the Internet. Anonymity is not provided. An attacker could still get a significant amount of metadata. Unfortunately, because MinimaLT runs over UDP you can't connect through the Tor network.\footnote{If MinimaLT proves to be a safer and faster alternative to TLS, I imagine that the Tor project would look into implementing it to speed up the network and make relay connections safer.}
 \subsection{Motivation}
 
-When the Internet was designed at DARPA, the primary goal was to design a system that could provide interconnection between multiple computers. The Web then came by with the motivation to be able to freely exchange information. The Internet has mainly been used for open communications. Any computer on the network could request files. But, over time, people started trusting the internet more and more and with the appearance of services. But the Internet grew so quickly out of what DARPA proposed for a trusted environment. The Internet was never designed to be ran by so many different entities and the threat model implied that you had to trust the entities running the infrastructure of the internet.
+When the Internet was designed at DARPA, the primary goal was to design a system that could provide interconnection between multiple computers. The Web then came by with the motivation to be able to freely exchange information with anyone. But, over time, people started trusting the internet more and more and started sharing more personal information over it. The Internet was never designed to be ran by so many different entities and the threat model implied that you had to trust the entities running the infrastructure of the internet. Over time, attempts such as TLS and DNSSec were made to secure inherently insecure protocols. In this paper, we don't attempt to fix the current protocols that have a huge overhead but try instead to propose better alternatives.
+
+\subsection{Another subsection will come here}
 
 \section{Domain names and authenticity}
 
-In today's model, if I want to load a page from \emph{facebook.com}, my computer will have to first get the Domain Name System records matching that domain. DNS was designed in a hierarchical way and TLD registrations are handled by a single organisation, the ICANN.(https://iwantmyname.com/blog/2014/01/icanns-new-rules-for-domain-registrants-require-you-to-verify-your-contact-details.html)
+Today, if I want to load a page from \emph{www.facebook.com}, my computer will have to first get the Domain Name System record matching that domain. DNS was designed in a hierarchical way and TLD registrations are handled by a single organisation, the ICANN.
 
-So what is wrong with DNS?
+\emph{So what is wrong with DNS?}
 
-When the original Domain Name System was designed, it did not include security; instead it was designed to be a scalable distributed system. The DNSSEC attempted to add security, while maintaining backwards compatibility. Those security extensions added public key signing to DNS zones but who is signing those zones? The DNS Root Zone, of course. You will then have to trust those too. We thus consider DNSSec as an attempt to try to fix a broken system. We want to design a distributed system where anyone can register a domain but without having a central registration authority.
+When the original Domain Name System was designed, it did not include security; instead it was designed to be a scalable distributed system. DNS requests could thus be spoofed and fake DNS query responses could be served to the clients. Therefore, DNSSEC, a security extension of DNS, attempted to prevent those types of attacks by introducing DNS zone signing. DNS zone signing uses a chain of trust to sign entries hierarchically, this means that the ICANN has a key that is known as the root anchor which is the starting point of a trust chain.
+
+The fact that even today, DNSSEC is having issues being deployed at a larger scale has a lot to do with its complicated design. Getting DNSSEC right is hard and it leads to the centralisation of the internet domain name system because few registrars are deploying DNSSEC and other registrars are still requesting their signing keys. Hierarchical trust structures require us to blindly believe that the root keys are not compromised and bring us back to a feudatory system where we need to beg some lords (here companies) for protection to get the keys.
+
+The ICANN has been taking worrying measures that remove the ability to users to register domains anonymously\cite{icannabuse}. Our systems shouldn't be designed in such a way that a change in policy would make their security obsolete. 
+
+Hence, we want to design a distributed system where anyone can register a domain with a fast and efficient registration process.
 
 But how can we verify authenticity? 
-Even if my domain name system returns the right IP address how do I know for sure that I'm establishing a connection with the client I want. Today, we are using another hierarchical system to verify authenticity, namely SSL certificates. This means that in addition to trusting ICANN, we will have to trust hundreds of Root Certificate Authorities that are shipped with out browsers.\cite{mozillaSSL}
+Even if my domain name system returns the right IP address how do I know for sure that I'm establishing a connection with the client I want. Today, we are using yet another hierarchical system to verify authenticity, namely \emph{SSL certificates}. This means that in addition to trusting ICANN, we will have to trust hundreds of Root Certificate Authorities that are shipped with our browsers.\cite{mozillaSSL}
 
-If only one of those 100s of CA gets compromised, it could result in the man-in-the-middling of any user without any warning since a root certification authority can generate a fake valid certificate for any website. This is what happened in Iran after the Dutch certificate authority DigiNotar got compromised\cite{diginotarHack}.
+If only one of those 100s of CA gets compromised, it could result in the man-in-the-middling of any website without any warning since a root certification authority can generate a fake valid certificate for any website.\footnote{There are some restrictions on some certificates in Chrome}
+Certificate authorities getting compromised happened in the past already. For instance, the Dutch certificate authority DigiNotar got compromised\cite{diginotarHack} and the certificate was used to target Iranian citizens.
 
 Now that we are convinced that the hierarchical trust model of the internet is broken, what measures have already been taken to fix authentication on the Internet?
 
@@ -310,24 +318,29 @@ When a client wants to rekey, he generates a new tunnel ID and sends it to the s
 
 What we've seen so far of MinimaLT is pretty impressive but you might have legitimate concerns of how this would play out in a threat model were attackers would like to flood a system with the creation of tunnels. One of the MinimaLT designers, Dan Bernstein, knows this problem really well because he invented the SYN cookies. In MinimaLT, puzzles are used to address the cases where servers are under load.
 
-When a server is not experiencing any specific load, it does accept tunnel establishments requests without any questions asked but if the server is under load, it responds with a puzzle. 
+When a server is not experiencing any specific load, it does accept tunnel establishments requests without any questions asked but if the server is under load, it responds with a puzzle.
 
-- Fast
-- Protected header
+The puzzle requires a proof of work to be completed. NO MORE DETAILS
 
-What's wrong with tcp is slow and insecure. How to move away from it? Well, we don't really have any other option to base it on UDP.
-But we love reliability!
+- Congestion control
 
-Minimalt  
+MinimaLT's tunnel headers do contain fiels for congestion control fiels like sequence and acknowledgement numbers. Because MinimaLT uses similar congestion control to TCP, we will not cover those in this paper. 
 
-Multipath TCP advantage?
+\section{MinimaLT and Anonymity}
 
-Doesn't solve anonymity ==> Tor
-
-Issues with too big frames for firewalls?
-\section{The {\secit Body} of The Paper}
+MinimaLT has no anonymity network yet similar to the Tor Project. The Tor project has been investigating on using the SPEEDY protocol (basis of the HTTP2 specification) to speed up their connections between nodes. We can imagine that if MinimaLT gets mainstream adoption, the support of MinimaLT will be seriously considered.
 
 \section{Related work}
+
+This paper didn't introduce a new protocol but rather mixed two projects to achieve a broader goal.
+
+\begin{enumerate}
+
+\item \emph{MinimaLT}
+
+\item \emph{Namecoin}
+
+\end{enumerate}
 
 \section{Conclusions}
 % ensure same length columns on last page (might need two sub-sequent latex runs)
