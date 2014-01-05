@@ -116,7 +116,10 @@ Tor hidden services are reachable by hashes of public keys. This is of course th
 \subsection{Zooko's triangle}
 In this section, we are introducing Zooko's triangle conjecture and our attempt to square it.
 
-\begin{figure}[h!]\centering\includegraphics[width=0.3\textwidth]{ZookoTriangle.png}\end{figure}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.3\textwidth]{ZookoTriangle.png}
+\end{figure}
 
 Zooko's triangle says that out of these three properties \cite{zookoTriangleWikipedia}, you can usually take only two.
 \begin{itemize}
@@ -237,8 +240,8 @@ Another issue that still needs to be addressed is domain squatting. Because regi
 
 Now that we have a good long-term identity key distribution strategy, we are going to introduce a new transport-layer security protocol that provides safer and faster encrypted connections.
 \subsection{MinimaLT}
-MinimaLT\cite{MinimaLT} is a new\footnote{Paper published in Mai 2013} that looks really promising.
-protocol that presents some of the interesting features we want. It was initially designed to secure network connections between computers running the secure operating system \emph{Ethos}. In the following sections we are going to compare it with TLS/TCP.\footnote{We are however not going to go over the whole specification of the protocol.} 
+MinimaLT\cite{MinimaLT} is a new\footnote{Paper published in May 2013} protocol that looks really promising.
+It presents some of the interesting features we want. It was initially designed to secure network connections between computers running the secure operating system \emph{Ethos}. In the following sections we are going to compare it with TLS/TCP.\footnote{We are however not going to go over the whole specification of the protocol.} 
 MinimaLT is implemented on top of UDP to be compatible with the current Internet infrastructure and end-systems.
 
 \subsection{Changes to make in Namecoin to make it play nicely with MinimaLT}
