@@ -326,7 +326,7 @@ The puzzle requires a proof of work to be completed. The details of the proof of
 
 Benchmarking shows that even with a puzzle presented to the client, MinimaLT handshakes are faster than TLS/TCP and in most cases (without puzzles), they are faster than unencrypted TCP.\cite{MinimaLT}
 
-Another way to exhaust the server's ressources would be to flood him with data to decrypt, but given the fact that past the key exchange only symmetric key encryption is used which on modern system is faster than the network links that would saturate faster.
+Another way to exhaust the server's resources would be to flood him with data to decrypt, but given the fact that past the key exchange only symmetric key encryption is used which on modern system is faster than the network links that would saturate faster.
 
 \subsubsection{Congestion control}
 
@@ -342,32 +342,21 @@ MinimaLT has no anonymity network yet similar to the Tor Project. The Tor projec
 
 \section{Conclusions}
 
-We've seen how MinimaLT can help us speed up our encrypted connections and with the help of Namecoin, make them safer too. The model presented in this paper clearly has flaws, mainly with the scalability of the Namecoin blockchain and the issues it causes on mobile devices. 
+We've seen how MinimaLT can help us speed up our encrypted connections and with the help of Namecoin, make them safer too. The model presented in this paper clearly has flaws, mainly with the scalability of the Namecoin blockchain and the issues it causes on mobile devices. Blockchains only have a few years and many optimisations are still possible. They may not be perfect but they are the first data structure we know of that allows us to square Zooko's triangle! On the other hand, MinimaLT is a sneak peak into what tomorrow's transport-layer protocols will look like. And if that's the future, we love it. 
 
 //\balance
 
+\section{Confession}
+
+This paper initially aimed at digging deeper into the crypto and protocol stuff but because of concurring deadlines, this in-depth analysis of the protocols is pushed back to another paper. :) 
+
 \section{Acknowledgments}
-Most of the Namecoin research is based on Greg Slepak's work.
 
-\begin{enumerate}
-\item \emph{MinimaLT}
-The Ethos networking team describe the MinimaLT protocol. This is a very recommended read to have a deeper understanding of the protocol that was overviewed in this introductory paper. 
-\item \emph{DNSNMC + okTurtles}
-In this paper, Greg Slepak lay
-\end{enumerate}
+This mashup wouldn't have been possible without the underlying pieces, namely Namecoin and MinimaLT.
 
+
+Most of the Namecoin research is based on Greg Slepak's paper\cite{okTurtles} \emph{OkTurtles + DNSNMC}. 
 \bibliographystyle{abbrv}
 \bibliography{bibliography}
-\subsection{References}
-
-\begin{appendix}
-Define Perfect forward secrecy
-
-Using Elliptic curve crypto but not backdoored.
-
-Impact on censorship( when encrypted blobs can be transferred)
-\section{Final Thoughts}
-This paper brought forward Namecoin as a solution that squares Zooko's triange and thus provide good addressing.
-\end{appendix}
 
 \end{document}
