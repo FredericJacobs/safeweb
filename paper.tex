@@ -160,16 +160,14 @@ So what is mining technically?
 The hard challenge that is used in Bitcoin that needs to be solved is based on the strength of cryptographic hashes, also known as one-way functions. We consider that it is hard for someone to come up with the parameters of a hash functions for a given result. The function used in Bitcoin is \emph{SHA-256} but this hash function could be substituted by any other. Another cryptocurrency, Litecoin, chose to use the \emph{scrypt} function.
 
 If I want to add some blocks (list of transactions) in the blockchain, I will have to solve this problem
-
+\begin{center}
 SHA-256("TransactionsInfo" + challengeNumber) =< target
-
+\end{center}
 where \emph{transactionsInfo} is a parameter list of information about the transactions in the blocks (and some extra information like a return address for the reward). The blockchain is vulnerable to some malleability regarding some informations in the transaction but all important information (such as the amount of transaction, recipient and sender) is part of this hash.
 The challenge the miner has to solve – the proof-of-work – is to find the challenge number such that when we append the transactions infos to the challenge number and hash the combination the output hash is smaller than a certain number.
 We notice that this certain challenge number is established by the network and determines how hard the problem is. In Bitcoin, this number is dynamically adjusted to keep an approximate block validation time of 10 minutes.\cite{hashCash}
 
-hash("Hello Blockchain) examples
-
-When someone succeeds in solving this problem, he sends his solution to the network. Nodes verify if that answer is valid, and if it is, they broadcast it to their peers. And so it progressively spreads across all nodes and is added to the blockchain. 
+When someone succeeds in solving this problem, he sends his solution to the network. Nodes verify if that answer is valid, and if it is, they broadcast it to their peers. It progressively spreads across all nodes and is added to the network's blockchain. 
 
 \subsubsection{Dealing with collisions}
 
@@ -179,7 +177,9 @@ In this case, miners will start mining the next block based on the version of th
 
 We can now understand that because every node chooses to have the longest blockchain possible, it will be very hard for an attacker to spread a fake version of the blockchain because this would involve solving the challenge for every preceding block because blocks are chained and must contain the block identifier of the previous one. 
 
+
 Why would one mine and spend so much computational power?
+
 
 Miners are rewarded for their efforts. First, when doing a transaction, I can speed up the transfer of the money buy adding a transaction fee that will go directly to the miners. Mining software is thus optimised to sort the transactions to be merged in blocks in decreasing order of transaction fee. 
 The other reward from mining comes from the coinbase transaction, mining does generate money.  At the creation of Bitcoin, this reward was set to be a 50 BTC. But for every 210,000 validated blocks (once every four years) the reward halves. This has happened just once, to date, and so the current reward for mining a block is 25 bitcoins. This halving in the rate will continue every four years until the year 2140 CE. At that point, the reward for mining will drop below $10^{-8}$ bitcoins per block which is a satoshi, the smallest unit of Bitcoin and the total amount of bitcoins will cease to increase.
@@ -188,15 +188,9 @@ The other reward from mining comes from the coinbase transaction, mining does ge
 
 Now that we understand how blockchains work and why they are safe data-structures, let's now see how we can use them to square Zooko's triangle. 
 
-Namecoin is a bitcoin fork that was designed as a decentralized key-value store.
+Namecoin is a bitcoin fork that was designed as a decentralized key-value store in addition to a crypto-currency. Putting information in the blockchain does cost a certain price.
 
-Putting information in the blockchain does cost a certain price hence
-
-Let's say Alice wants to register a domain name name. To achieve that, Alice needs money, Namecoins.  
-
-Just like Bitcoin, Namecoin is a crypto-currency but in addition to being a cryptocurrency, Namecoin doubles as being a decentralized key-value store.
-
-Here are a few other possible applications of a distributed key-value store:
+Namecoins can be spent in many ways, here are some other use cases of the Namecoin blockchain:
 \begin{itemize}
 \item Aliases: The blockchain can be used to store an easy to remember alias for a GPG/SSH key, a Bitcoin address or any other cryptographic identity.
 \item Timestamping: The blockchain could store information about a specific file and from a hash of that we could find matching author name, owner, etc.
@@ -209,11 +203,12 @@ The cost includes a network fee and a transaction fee. The fees are denominated 
 
 Let's see what a domain name value message looks like to understand how it squares Zooko's triangle.
 
+For a key \emph{d/\footnote{The d/ prefix is used to register a .bit domain} fredericjacobs}, we have 
+
 \begin{lstlisting}[language=json,firstnumber=1]
 {
     "ip"      : "209.236.123.133",
-    "ip6"     : "IPV6",
-    "tor"     : "Tor Hidden Service.onion",
+    "tor"     : "rqblqd3balaxcb57.onion",
     "email"   : "me@fredericjacobs.com",
     "info"    : "Frederic Jacobs",
     //"service" : [ ["smtp", "tcp", 10, 0, 25, "mail"] ]
@@ -229,16 +224,17 @@ Let's see what a domain name value message looks like to understand how it squar
 }
 \end{lstlisting}
 
+This would make my website accessible at the \emph{fredericjacobs.bit} address!
+
 A namecoin domain needs to be renewed every 36,000 blocks which at the current rate is around 200 days. Those updates are free. Hence, unlike ICANN domain names, you don't have to pay renewal fees.
 
 \subsection{Known Issues with this new model}
 
-To be able to resolve Namecoin domains, you need to have a local copy  of the complete up-to-date blockchain on your machine. In a mobile world this is currently not acceptable due to performance, bandwidth and storage restrictions. An alternative could be to deploy DNSNMC servers which would work plug-and-play with the current DNS server clients. A few of them have already been deployed. The issue being that you will have to trust a DNSNMC server.
+To be able to resolve Namecoin domains, you need to have a local copy  of the complete up-to-date blockchain on your machine. In a mobile world this is currently not acceptable due to performance, bandwidth and storage restrictions. An alternative could be to deploy DNSNMC servers which would work plug-and-play with the current DNS server clients. A few of them have already been deployed. The issue being that you will have to trust a DNSNMC\cite{okTurtles} server.
 
 Another issue that still needs to be addressed is domain squatting. Because registering namecoin domains (.bit) became ridiculously cheap, a lot of domains are being squatted by people hoping to resell those domains at some point in the future. A better pricing system that prevents massive domain registration should be adopted because registration costs did decrease too quickly to be an effective counter-measure.
 
 \section{Transport security}
-
 
 Now that we have a good long-term identity key distribution strategy, we are going to introduce a new transport-layer security protocol that provides safer and faster encrypted connections.
 \subsection{MinimaLT}
