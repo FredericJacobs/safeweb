@@ -147,7 +147,7 @@ $\text{BTC}_{\text{Address}}$ = Base58(Version +\footnote{The + sign is a string
 
 Private-public key pairs are generated\footnote{The curved used in Bitcoin is \emph{secp256k1} which is surprisingly a NIST recommended curve.} when making a new Bitcoin addresses
 
-Alice must know Bob's address to send him money. Now that Alice has Bob's address, she creates a new message saying she sends a few Bitcoins to Bob and uses her private key to generate an ECDSA signature. Once she has generated that message and signed it, she starts gossiping about her transaction on the network, her peers hear about the transaction, they verify if Alice has enough money to make the transaction and verify the signature, if the transaction looks legitimate, they start telling all of their peers. The verification can be done thanks to the blockchain datastructure which is a decentralized and unique record of all the transactions. Peers that are miners, eventually hear about this transaction and add it to the transactions memory pool. This pool is a queue of transactions that are not yet merged in the blockchain. But now how can we merge transactions into the blockchain? 
+Alice must know Bob's address to send him money. Now that Alice has Bob's address, she creates a new message saying she sends a few Bitcoins to Bob and uses her private key to generate an ECDSA signature. Once she has generated that message and signed it, she starts gossiping about her transaction on the network, her peers hear about the transaction, they verify if Alice has enough money to make the transaction and verify the signature, if the transaction looks legitimate, they start telling all of their peers. The verification can be done thanks to the blockchain data structure which is a decentralized and unique record of all the transactions. Peers that are miners, eventually hear about this transaction and add it to the transactions memory pool. This pool is a queue of transactions that are not yet merged in the blockchain. But now how can we merge transactions into the blockchain? 
 
 \subsubsection{Proof of work}
 
@@ -211,7 +211,6 @@ For a key \emph{d/\footnote{The d/ prefix is used to register a .bit domain} fre
     "tor"     : "rqblqd3balaxcb57.onion",
     "email"   : "me@fredericjacobs.com",
     "info"    : "Frederic Jacobs",
-    //"service" : [ ["smtp", "tcp", 10, 0, 25, "mail"] ]
     "tls": {
         "tcp": {
             443: [[1, "30F38EDAABC67F0344DBE27018552F7D575946EF", 1]]
@@ -230,40 +229,40 @@ A namecoin domain needs to be renewed every 36,000 blocks which at the current r
 
 \subsection{Known Issues with this new model}
 
-To be able to resolve Namecoin domains, you need to have a local copy  of the complete up-to-date blockchain on your machine. In a mobile world this is currently not acceptable due to performance, bandwidth and storage restrictions. An alternative could be to deploy DNSNMC servers which would work plug-and-play with the current DNS server clients. A few of them have already been deployed. The issue being that you will have to trust a DNSNMC\cite{okTurtles} server.
+To be able to resolve Namecoin domains, you need to have a local copy  of the complete up-to-date blockchain on your machine. In a mobile world this is currently not acceptable due to performance, bandwidth and storage restrictions. An alternative could be to deploy DNSNMC servers which would work plug-and-play with the current DNS server clients. A few of them have already been deployed\cite{DNSNMCList}. The issue being that you will have to trust a DNSNMC\cite{okTurtles} server.
 
 Another issue that still needs to be addressed is domain squatting. Because registering namecoin domains (.bit) became ridiculously cheap, a lot of domains are being squatted by people hoping to resell those domains at some point in the future. A better pricing system that prevents massive domain registration should be adopted because registration costs did decrease too quickly to be an effective counter-measure.
 
+\newpage
 \section{Transport security}
 
 Now that we have a good long-term identity key distribution strategy, we are going to introduce a new transport-layer security protocol that provides safer and faster encrypted connections.
 \subsection{MinimaLT}
-MinimaLT\cite{MinimaLT} is a protocol that presents some of the interesting features we want. It was initially designed to secure network connections between computers running the secure operating system \emph{Ethos}. In the following sections we are going to see what level of security it provides and why those changes were made.\footnote{We are however not going to go over the whole specification of the protocol.} MinimaLT is a newcomer\footnote{Paper published in Mai 2013} that looks really promising.
-
+MinimaLT\cite{MinimaLT} is a new\footnote{Paper published in Mai 2013} that looks really promising.
+protocol that presents some of the interesting features we want. It was initially designed to secure network connections between computers running the secure operating system \emph{Ethos}. In the following sections we are going to compare it with TLS/TCP.\footnote{We are however not going to go over the whole specification of the protocol.} 
 MinimaLT is implemented on top of UDP to be compatible with the current Internet infrastructure and end-systems.
-
-In the original MinimaLT paper, a directory service is introduced to deal with the exchange of hosts information. We will not cover that part but will rather explain how MinimaLT can be used along with the Namecoin blockchain.
 
 \subsection{Changes to make in Namecoin to make it play nicely with MinimaLT}
 
-We will see that we would like to have DNS lookups that return : the IP Address, UDP port, key, ephemeral key.
+In the original MinimaLT paper, a directory service is introduced to deal with the exchange of hosts information. We will not cover that part but will rather explain how MinimaLT can be used along with the Namecoin blockchain.
 
-Hence, we want to change the namecoin structure to be. We could specify the Namecoin+MinimaLT datastructure as such :
+The MinimaLT directories do store the following information about the hosts: IP Address, UDP port, long-term identity key\footnote{This key is not required in our use case where a client identifies to a server but can be useful for access control in other scenarios} and ephemeral key. We will see later in this paper why all these are needed but let's first try to change the Namecoin domain JSON structure to add these new fields. 
+
+Because we still want to be able to communicate over other protocols, we'll keep the base entry but add support for MinimaLT. 
+
 \begin{lstlisting}[language=json,firstnumber=1]
 {
     "ip"      : "209.236.123.133",
-    "ip6"     : "IPV6",
-    "tor"     : "Tor Hidden Service.onion",
+    "tor"     : "rqblqd3balaxcb57.onion",
     "email"   : "me@fredericjacobs.com",
     "info"    : "Frederic Jacobs",
-    //"service" : [ ["smtp", "tcp", 10, 0, 25, "mail"] ]
     "tls": {
         "tcp": {
             443: [[1, "30F38EDAABC67F0344DBE27018552F7D575946EF", 1]]
         }
     },
     "minimaLT": {
-        "ip" : "209.236.123.133" // Only required if different than the default one
+        //"ip" : "209.236.123.133" // Only required if different than the default one
         "port": 80, // can be any UDP port.
         "id_key": long-term identity key,
         "eph_key": ephemeral key used for sending encrypted data on first RTT.
@@ -278,33 +277,29 @@ Hence, we want to change the namecoin structure to be. We could specify the Name
 
 \subsection{Why better than TLS/TCP?}
 
-- Security is the standard
+\subsubsection{Security is the standard}
 
-Currently, on the Internet, most TCP connections are unencrypted (add source) and if they are, the Apache or Ngnix configuration is often badly configured in such a way that it could be easily attacked. MinimaLT was designed to prevent system administrators to make security mistakes. Never will you have to manually pick cipher suites or worry about OpenSSL compatibility, MinimaLT does it all for you. Not only does it encrypt all communications between two hosts but it defaults on strong ciphers that we will see later.
+Currently, on the Internet, most HTTP connections are unencrypted and if they are, the Apache or Ngnix configuration is often badly configured in such a way that it could be attacked. MinimaLT was designed to prevent system administrators to make security mistakes. Never will you have to manually pick cipher suites or worry about OpenSSL compatibility, MinimaLT does it all for you. Not only does it encrypt all communications between two hosts but it defaults on strong ciphers\footnote{MinimaLT uses Curve25519 for the public-key cryptography}.
 
-- Encryption \& PFS
+\subsubsection{Encryption \& PFS}
 
-A few months ago, a previously unknown email provider called \emph{Lavabit} got under pressure from the US government to hand over it's private SSL key. The reason turned out to be that Snowden used the email service. If Lavabit turned over the SSL keys, they would compromise the privacy of their entire user base. This is due to poorly configured SSL where the encryption keys used in the handshake are shared between sessions. Unfortunately, most system administrators don't put the \emph{ECDHE} ciphers on top of their ciphers list which results in the lack of Perfect Forward Secrecy.
+A few months ago, a previously unknown email provider called \emph{Lavabit} got under pressure from the US government to hand over its private SSL key. The reason turned out to be that Snowden used the email service. If Lavabit turned over the SSL keys, they would compromise the privacy of their entire user base. This is due to poorly configured SSL where the ECDHE is not the default. ECDHE performs a Elliptic curve Diffie–Hellman key exchange. The last E from ECDHE stands for ephemeral which means that a new key is generated at every handshake and that key will never be stored. Hence, if later the server gets compromised or the network operator is forced to hand over an encryption key this is something that he won't be able to provide. Unfortunately, most system administrators don't put the \emph{ECDHE} ciphers on top of their ciphers list which results in the lack of Perfect Forward Secrecy.
 
-ECDHE performs a Elliptic curve Diffie–Hellman key exchange. The last E from ECDHE stands for ephemeral, meaning that none of the symmetric keys used for encryption will be stored. Hence, if later the server gets compromised or the network operator is forced to hand over an encryption key this is something that he won't be able to provide.  
+\subsubsection{Tunnel oriented}
 
-- Tunnel oriented
+MinimaLT is establishing tunnels. Tunnels provide a point-to-point encrypted channel to transmit information and have the interesting property of being more resistant to traffic analysis, just like IPSec. Tunnels mean that unlike TLS, all services from the transport layer, namely authentication, encryption, congestion control and reliability, are provided for a per tunnel basis and are not repeated per connection. MinimaLT clients have one or more connections for each of the tunnels.
 
-MinimaLT is establishing tunnels. Tunnels provide a point-to-point encrypted channel to transmit information and have the interesting property of being more resistant to traffic analysis, just like IPSec. Tunnels mean that unlike TLS, all services from the transport layer, namely authentication, encryption, congestion control and reliability, are provided for a tunnel and are not repeated across for connection.
+\subsubsection{IP Mobility}
 
-Thus, the MinimaLT clients have one or more connections for each of the tunnels. 
+Thanks to the structure of MinimaLT packets, the \emph{tunnel ID} is what identifies what packet belongs to what connection and therefore, MinimaLT has complete IP mobility. Unlike TCP, the source IP address and UDP port can change without affecting the connection. A specific RPC (\emph{$\text{nextTid}_{0}$}) exists to announce an IP address change. A change in IP address will cause a rekeying, a procedure that we describe a little further. The fact that we have IP mobility is a big advantage over TCP that currently struggles in the mobile world when switching from a WiFi connection to a 3G signal for instance. Instead of struggling with multi-path TCP specifications we should just adopt MinimaLT that solves way more than just that issue! 
 
-- IP Mobility
+\subsubsection{Handshakes \& Tunnel establishment}
 
-Thanks to the structure of MinimaLT packets, the TunelID is what identifies what packet belongs to what connection and therefore, MinimaLT has complete IP mobility. Unlike TCP, the source IP address and UDP port can change without affecting the connection. A specific RPC (\emph{$\text{nextTid}_{0}$}) exists to announce an IP address change. That call will generate a new tunnel ID and change the keys.
-
-- Handshakes \& Tunnel establishement
-
-When establishing a single TLS connection, two hosts have to go through a TCP three-way handshake and then can start the TLS handshake which requires 4 more RTT. Thankfully MinimaLT attempts to fix that and does perform a cryptographic handshake in \emph{less time than unencrypted TCP}.
+When establishing a single TLS connection, two hosts have to go through a TCP three-way handshake and then can start the TLS handshake which requires 4 more RTT. Thankfully MinimaLT attempts to fix that and does perform, in most cases, a cryptographic handshake in \emph{less time than unencrypted TCP}! It's also important to note that handshakes with MinimaLT are way less frequent than in TLS because of the tunnel architecture.
 
 Usually in TLS, the client needs to get the certificate first before being able to send encrypted data but with MinimaLT+Namecoin, we already have an ephemeral key that allows us to send encrypted data to the server. Let's see how this key exchange works.
 
-Let's say a client \emph{C} wants to connect to a server \emph{S}. \emph{C} uses the Namecoin blockchain to get the identity and an ephemeral key of \emph{S}. Now \emph{C} sends his first segment to \emph{S} containing his just-generated ephemeral key, a new tunnel ID and the first bits of data. This segment's body can be encrypted using the ephemeral key of the server we retrieved previously Ephemeral keys will no more be used past this point because both clients can now computer a shared secret by performing a Diffie-Hellman Key exchange with the public ephemeral keys they exchanged. 
+Let's say a client \emph{C} wants to connect to a server \emph{S}. \emph{C} uses the Namecoin blockchain to get the identity and an ephemeral key of \emph{S}. Now \emph{C} sends his first packet to \emph{S} containing his just-generated ephemeral key, a new tunnel ID and the first bits of data. This segment's body can be encrypted using the ephemeral key of the server we retrieved previously Ephemeral keys will no more be used past this point because both clients can now computer a shared secret by performing a Diffie-Hellman Key exchange with the public ephemeral keys they exchanged. 
 
 One important thing to notice is that this approach does provide perfect forward secrecy thanks to the Diffie-Hellman key exchange using ephemeral keys. Of course, perfect forward secrecy requires rekeying, the process of changing keys so that previously used keys can be cleared from memory.
 
@@ -312,7 +307,7 @@ Rekeying is a process that's only triggered on demand of the client and performe
 
 When a client wants to rekey, he generates a new tunnel ID and sends it to the server. Like the initial tunnel establishment procedure, the client generates a new key pair and sends his new public key along with the new tunnel ID to the server using the current encrypted tunnel. The corresponding private key of the key pair that was generated will never be used (it actually doesn't even need to be known), it is just used to make the packet look like a regular tunnel initialisation packet. Now that the server get an announcement   
 
-- DDoS protection
+\subsubsection{DDoS protection}
 
 What we've seen so far of MinimaLT is pretty impressive but you might have legitimate concerns of how this would play out in a threat model were attackers would like to flood a system with the creation of tunnels. One of the MinimaLT designers, Dan Bernstein, knows this problem really well because he invented the SYN cookies. In MinimaLT, puzzles are used to address the cases where servers are under load.
 
@@ -320,7 +315,7 @@ When a server is not experiencing any specific load, it does accept tunnel estab
 
 The puzzle requires a proof of work to be completed. NO MORE DETAILS
 
-- Congestion control
+\subsubsection{Congestion control}
 
 MinimaLT's tunnel headers do contain fiels for congestion control fiels like sequence and acknowledgement numbers. Because MinimaLT uses similar congestion control to TCP, we will not cover those in this paper. 
 
