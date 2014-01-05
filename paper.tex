@@ -274,6 +274,16 @@ Because we still want to be able to communicate over other protocols, we'll keep
 }
 \end{lstlisting}
 
+For the perfect forward secrecy features of MinimaLT, we want new ephemeral keys to be announced regularly. Therefore, we also define a ephemeral key update message. 
+
+\begin{lstlisting}[language=json,firstnumber=1]
+{
+    "minimaLT": {
+        "eph_key": ephemeral key used for sending encrypted data on first RTT.
+    }
+}
+
+Because the Namecoin blockchain is a key-value store, we do not need to specify what the address of our service is because it's the key of this entry. However, we do need to sign this ephemeral key update message with our Namecoin private key. 
 
 \subsection{Why better than TLS/TCP?}
 
@@ -299,49 +309,53 @@ When establishing a single TLS connection, two hosts have to go through a TCP th
 
 Usually in TLS, the client needs to get the certificate first before being able to send encrypted data but with MinimaLT+Namecoin, we already have an ephemeral key that allows us to send encrypted data to the server. Let's see how this key exchange works.
 
-Let's say a client \emph{C} wants to connect to a server \emph{S}. \emph{C} uses the Namecoin blockchain to get the identity and an ephemeral key of \emph{S}. Now \emph{C} sends his first packet to \emph{S} containing his just-generated ephemeral key, a new tunnel ID and the first bits of data. This segment's body can be encrypted using the ephemeral key of the server we retrieved previously Ephemeral keys will no more be used past this point because both clients can now computer a shared secret by performing a Diffie-Hellman Key exchange with the public ephemeral keys they exchanged. 
+Let's say a client \emph{C} wants to connect to a server \emph{S}. \emph{C} uses the Namecoin blockchain to get the identity and an ephemeral key of \emph{S}. Now \emph{C} sends his first packet to \emph{S} containing his just-generated ephemeral key, a new tunnel ID and the first bits of data. This segment's body can be encrypted using the ephemeral key of the server we retrieved previously ephemeral keys will no more be used past this point because both clients can now computer a shared secret by performing a Diffie-Hellman Key exchange with the public ephemeral keys they exchanged. In the future, this shared secret will be used to perform symmetric encryption between both hosts.
 
-One important thing to notice is that this approach does provide perfect forward secrecy thanks to the Diffie-Hellman key exchange using ephemeral keys. Of course, perfect forward secrecy requires rekeying, the process of changing keys so that previously used keys can be cleared from memory.
+One important thing to notice is that this approach does provide perfect forward secrecy thanks to the Diffie-Hellman key exchange using ephemeral keys. Of course, perfect forward secrecy requires rekeying, the process of changing keys so that previously used keys can be cleared from memory. Let's go through the rekeying process. Rekeying can be asked by the client or the server depending on their rekey interval policies or change in IPs but the client will always be the one initiating the rekey. 
 
-Rekeying is a process that's only triggered on demand of the client and performed by him for performance reasons. Let's go through the rekeying process. 
+When a client initiates a rekey, he generates a new tunnel ID and sends it to the server as a  call. Like the initial tunnel establishment procedure, the client generates a new key pair and sends his new public key along with the new tunnel ID to the server using the current encrypted tunnel. The corresponding private key of the key pair that was generated will never be used (it actually doesn't even need to be known), it is just used to make the packet look like a regular tunnel initialisation packet. Now that the new tunnel is ready, the client can send packets to the new tunnel ID. But what encryption key should be used now? MinimaLT avoids doing a DH on rekeying for performance reasons, thus, client is hashing with a cryptographically secure hash function the old symmetric encryption key to generate the next one. The client will include the temporarily generated public key inside the encrypted packet sent to the server. Once the server gets a packet on the new tunnel ID, it will perform the same hashing as the client did to compute the decryption key. Now the server can decrypt the packet and it has to verify that the key is matching the previously sent one in the (\emph{$\text{nextTid}_{0}$}) call. This verification is required\cite{MinimaLT} because otherwise an active attacker could alter the key sent in the tunnel announce packet and then sent a second packet with the matching DH computer key and notice that it would fail. He could conclude that this would be a rekeying procedure and not the creation of a new tunnel.
 
-When a client wants to rekey, he generates a new tunnel ID and sends it to the server. Like the initial tunnel establishment procedure, the client generates a new key pair and sends his new public key along with the new tunnel ID to the server using the current encrypted tunnel. The corresponding private key of the key pair that was generated will never be used (it actually doesn't even need to be known), it is just used to make the packet look like a regular tunnel initialisation packet. Now that the server get an announcement   
 
 \subsubsection{DDoS protection}
 
-What we've seen so far of MinimaLT is pretty impressive but you might have legitimate concerns of how this would play out in a threat model were attackers would like to flood a system with the creation of tunnels. One of the MinimaLT designers, Dan Bernstein, knows this problem really well because he invented the SYN cookies. In MinimaLT, puzzles are used to address the cases where servers are under load.
+What we've seen so far of MinimaLT is pretty impressive but you might have legitimate concerns of how this would play out in a threat model were attackers would like to flood a system with the creation of tunnels because DH are expensive computationally-wise. One of the MinimaLT designers, Dan Bernstein, knows this problem really well because he invented the SYN cookies. In MinimaLT, puzzles are used to address the cases where servers are under load.
 
 When a server is not experiencing any specific load, it does accept tunnel establishments requests without any questions asked but if the server is under load, it responds with a puzzle.
 
-The puzzle requires a proof of work to be completed. NO MORE DETAILS
+The puzzle requires a proof of work to be completed. The details of the proof of work used are not covered in this paper.
+
+Benchmarking shows that even with a puzzle presented to the client, MinimaLT handshakes are faster than TLS/TCP and in most cases (without puzzles), they are faster than unencrypted TCP.\cite{MinimaLT}
+
+Another way to exhaust the server's ressources would be to flood him with data to decrypt, but given the fact that past the key exchange only symmetric key encryption is used which on modern system is faster than the network links that would saturate faster.
 
 \subsubsection{Congestion control}
 
-MinimaLT's tunnel headers do contain fiels for congestion control fiels like sequence and acknowledgement numbers. Because MinimaLT uses similar congestion control to TCP, we will not cover those in this paper. 
+MinimaLT's tunnel headers do contain fiels for congestion control fields such as sequence and acknowledgement numbers. MinimaLT doesn't provide anything additional to what exists in TCP for this task.
+
+\subsubsection{Flow control}
+
+Every MinimaLT connection has its own receiving window size, similar to TCP. 
 
 \section{MinimaLT and Anonymity}
 
 MinimaLT has no anonymity network yet similar to the Tor Project. The Tor project has been investigating on using the SPEEDY protocol (basis of the HTTP2 specification) to speed up their connections between nodes. We can imagine that if MinimaLT gets mainstream adoption, the support of MinimaLT will be seriously considered.
 
-\section{Related work}
-
-This paper didn't introduce a new protocol but rather mixed two projects to achieve a broader goal.
-
-\begin{enumerate}
-
-\item \emph{MinimaLT}
-
-\item \emph{Namecoin}
-
-\end{enumerate}
-
 \section{Conclusions}
-% ensure same length columns on last page (might need two sub-sequent latex runs)
+
+We've seen how MinimaLT can help us speed up our encrypted connections and with the help of Namecoin, make them safer too. The model presented in this paper clearly has flaws, mainly with the scalability of the Namecoin blockchain and the issues it causes on mobile devices. 
+
 //\balance
 
-%ACKNOWLEDGMENTS are optional
 \section{Acknowledgments}
 Most of the Namecoin research is based on Greg Slepak's work.
+
+\begin{enumerate}
+\item \emph{MinimaLT}
+The Ethos networking team describe the MinimaLT protocol. This is a very recommended read to have a deeper understanding of the protocol that was overviewed in this introductory paper. 
+\item \emph{DNSNMC + okTurtles}
+In this paper, Greg Slepak lay
+\end{enumerate}
+
 \bibliographystyle{abbrv}
 \bibliography{bibliography}
 \subsection{References}
