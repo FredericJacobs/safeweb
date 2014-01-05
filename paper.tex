@@ -233,7 +233,6 @@ To be able to resolve Namecoin domains, you need to have a local copy  of the co
 
 Another issue that still needs to be addressed is domain squatting. Because registering namecoin domains (.bit) became ridiculously cheap, a lot of domains are being squatted by people hoping to resell those domains at some point in the future. A better pricing system that prevents massive domain registration should be adopted because registration costs did decrease too quickly to be an effective counter-measure.
 
-\newpage
 \section{Transport security}
 
 Now that we have a good long-term identity key distribution strategy, we are going to introduce a new transport-layer security protocol that provides safer and faster encrypted connections.
@@ -249,6 +248,8 @@ In the original MinimaLT paper, a directory service is introduced to deal with t
 The MinimaLT directories do store the following information about the hosts: IP Address, UDP port, long-term identity key\footnote{This key is not required in our use case where a client identifies to a server but can be useful for access control in other scenarios} and ephemeral key. We will see later in this paper why all these are needed but let's first try to change the Namecoin domain JSON structure to add these new fields. 
 
 Because we still want to be able to communicate over other protocols, we'll keep the base entry but add support for MinimaLT. 
+
+\newpage
 
 \begin{lstlisting}[language=json,firstnumber=1]
 {
@@ -282,6 +283,7 @@ For the perfect forward secrecy features of MinimaLT, we want new ephemeral keys
         "eph_key": ephemeral key used for sending encrypted data on first RTT.
     }
 }
+\end{lstlisting}
 
 Because the Namecoin blockchain is a key-value store, we do not need to specify what the address of our service is because it's the key of this entry. However, we do need to sign this ephemeral key update message with our Namecoin private key. 
 
@@ -344,7 +346,7 @@ MinimaLT has no anonymity network yet similar to the Tor Project. The Tor projec
 
 We've seen how MinimaLT can help us speed up our encrypted connections and with the help of Namecoin, make them safer too. The model presented in this paper clearly has flaws, mainly with the scalability of the Namecoin blockchain and the issues it causes on mobile devices. Blockchains only have a few years and many optimisations are still possible. They may not be perfect but they are the first data structure we know of that allows us to square Zooko's triangle! On the other hand, MinimaLT is a sneak peak into what tomorrow's transport-layer protocols will look like. And if that's the future, we love it. 
 
-//\balance
+\balance
 
 \section{Confession}
 
@@ -352,10 +354,7 @@ This paper initially aimed at digging deeper into the crypto and protocol stuff 
 
 \section{Acknowledgments}
 
-This mashup wouldn't have been possible without the underlying pieces, namely Namecoin and MinimaLT.
-
-
-Most of the Namecoin research is based on Greg Slepak's paper\cite{okTurtles} \emph{OkTurtles + DNSNMC}. 
+Still to do 
 \bibliographystyle{abbrv}
 \bibliography{bibliography}
 
