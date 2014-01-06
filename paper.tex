@@ -59,7 +59,7 @@ Frederic Jacobs\\
 \maketitle
 
 \begin{abstract}
-In this paper, we introduce a duo of improvements for the Internet that would lead to better security. The authentication model on the Internet is broken and TLS connections have a considerable overhead. We try to address those issues with changes in both the application layer, introducing a replacement for the DNS system, and in the transport layer, a drop-in replacement for TCP built on top of UDP so that it can run on today's internet infrastructure.
+In this paper, we introduce a duo of improvements for the Internet that would lead to better security. The authentication model on the Internet is broken and TLS connections have a considerable overhead. We try to address those issues with changes in both the application layer, discussing a replacement for the DNS system, and in the transport layer, a drop-in replacement for TCP built on top of UDP so that it can run on today's internet infrastructure.
 
 \end{abstract}
 
@@ -73,7 +73,7 @@ When the Internet was designed at DARPA, the primary goal was to design a system
 
 \section{Domain names and authenticity}
 
-Today, if I want to load a page from \emph{www.facebook.com}, my computer will have to first get the Domain Name System record matching that domain. DNS was designed in a hierarchical way and TLD registrations are handled by a single organisation, the ICANN.
+Today, if we want to load a page from \emph{www.facebook.com}, my computer will have to first get the Domain Name System record matching that domain. DNS was designed in a hierarchical way and TLD registrations are handled by a single organisation, the ICANN.
 
 \emph{So what is wrong with DNS?}
 
@@ -88,16 +88,19 @@ Hence, we want to design a distributed system where anyone can register a domain
 But how can we verify authenticity? 
 Even if my Domain Name System returns the right IP address, how do I know for sure that I'm establishing a connection with the client I want ? Today, we are using yet another hierarchical system to verify authenticity, namely \emph{SSL certificates}. This means that in addition to trusting ICANN, we will have to trust hundreds of Root Certificate Authorities that are shipped with our browsers.\cite{mozillaSSL}
 
-If only one of those 100s of CAs gets compromised, it could result in the man-in-the-middling of any website without any warning since a root certification authority can generate a fake valid certificate for said website.\footnote{There are some restrictions on certain certificates in Chrome}
+If only one of those 100s of CAs gets compromised, it could result in the man-in-the-middling of any website without any warning since a root certification authority can generate a fake valid certificate for said website.
+
 Certificate Authorities getting compromised has already happened. For instance, the Dutch Certificate Authority DigiNotar's hack \cite{diginotarHack} enabled fake certificates to be delivered in order to target Iranian citizens.
 
 Now that we are convinced that the hierarchical trust model of the internet is broken, one might wonder what measures have already been taken to fix authentication on the Internet?
+
+\section{Existing attempts to address authentication}
 
 \subsubsection{Certificate Pinning}
 
 The Chrome Security team led the way by implementing certificate pinning. Certificate pinning is an effective measure to counter man-in-the-middle attacks in today's internet. Certificate pinning works by shipping \emph{pins}\footnote{A \emph{pin} is a (domain name, certificate fingerprint) pair} in the browser's binary.\cite{chromiumPins} Every time a user loads a pinned website, the certificate fingerprint is compared to the one provided in the binary. If the fingerprint matches, the client continues the SSL handshake. Otherwise, an error message is shown to the user explaining a secured connection couldn't be established.
 
-Although this is a very efficient method to verify SSL certificates, it is difficult to deploy and maintain on a larger scale. Futhermore, the Chrome team needs to verify the "pin" definition manually before merging every pin request into the code branch. Therefore only larger websites have certificate pins.
+Although this is a very efficient method to verify SSL certificates, it is difficult to deploy and maintain on a larger scale. Furthermore, the Chrome team needs to verify the "pin" definition manually before merging every pin request into the code branch. Therefore only larger websites have certificate pins.
 
 \subsubsection{TACK}
 
@@ -114,25 +117,25 @@ Even if we consider that DNSSEC does provide good security, this system still re
 Tor Hidden Services are reachable by hashes of public keys. This is of course the ideal case when it comes to security because the address itself contains information about the key. Unfortunately, humans are not good at remembering pseudorandom 16-character strings.
 
 \subsection{Zooko's triangle}
-In this section, we are introducing Zooko's triangle conjecture and our attempt to square it.
+In this section, we are cover Zooko's triangle conjecture.
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.3\textwidth]{ZookoTriangle.png}
 \end{figure}
 
-Zooko's triangle says that out of these three properties \cite{zookoTriangleWikipedia}, you can usually attain only two.
+Zooko's triangle says that out of these three properties \cite{zookoTriangleWikipedia}, a naming system can only have two.
 \begin{itemize}
 \item \emph{Secure}\footnote{We can't agree with the naming of this property given the threat model we described previously in this paper.}: The quality that there is one, unique and specific entity to which the name maps.
 \item \emph{Global}: The lack of a centralized authority for determining the meaning of a name. Instead, measures such as a Web of trust are used.
 \item \emph{Memorable}: The quality of meaningfulness and memorability to the users of the naming system.
 \end{itemize}
 
-We can thus see that the systems proposed so far only gather two out of three of those properties. If we take the DNS(Sec) system with DANE extensions, we can have a memorable address that is "secure". Unfortunately, this configuration does not have the global property because the ICANN is a centralized authority. Alternatively, Tor's Onion addresses do have the "secure" property and are global but a pseudorandom 16-character string is not memorable.
+We can thus see that the systems proposed so far only gather two out of three of those properties. If we take the DNSSEC system with DANE extensions, we can have a memorable address that is "secure". Unfortunately, this configuration does not have the global property because the ICANN is a centralized authority. Alternatively, Tor's Onion addresses do have the "secure" property and are global but a pseudorandom 16-character string is not memorable.
 
 \subsection{Squaring Zooko's Triangle}
 
-In the following section we will introduce a naming system that is an attempt at squaring Zooko's triangle.
+In the following section we will present a naming system that is an attempt at squaring Zooko's triangle.
 
 Back in January 2011, Aaron Swartz described on his blog\cite{aaronBlog} how the Bitcoin blockchain could be of service in squaring Zooko's triangle. A few months later, a first implementation of that idea came into existence: Namecoin.
 
@@ -167,7 +170,7 @@ If I want to add some blocks (list of transactions) to the blockchain, I will ha
 SHA-256("TransactionsInfo" + challengeNumber) =< target
 \end{center}
 where \emph{transactionsInfo} is a parameter list of information about the transactions in the blocks (and some extra information like a return address for the reward). The blockchain is vulnerable to some malleability regarding certain informations in the transaction but all the important information (such as the amount of the transaction, the recipient and the sender) is part of this hash.
-The challenge the miner has to solve – the proof-of-work – is to find the number such that when we append the transactions' infos to this number, and hash the combination, the output hash is smaller than a given number.
+The challenge the miner has to solve --- the proof-of-work --- is to find the number such that when we append the transactions' infos to this number, and hash the combination, the output hash is smaller than a given number.
 We notice that this certain challenge number is established by the network and determines how hard the problem is. In Bitcoin, this number is dynamically adjusted to keep an approximate block validation time of 10 minutes.\cite{hashCash}
 
 When someone succeeds in solving this problem, he sends his solution to the network. Nodes verify if that answer is valid, and if it is, they broadcast it to their peers. It progressively spreads across all nodes and is added to the network's blockchain. 
@@ -230,19 +233,22 @@ This would make my website accessible at the \emph{fredericjacobs.bit}, a memora
 
 A namecoin domain needs to be renewed every 36,000 blocks which at the current rate is around 200 days. Those updates are free. Hence, unlike ICANN domain names, you don't have to pay renewal fees.
 
+\subsection{DNSNMC}
+
+It might not be very convenient for users to require them to have a full copy of the blockchain on their client, especially if it's a mobile device. DNSNMC\cite{okTurtles} is a proposal for using the DNS client with Namecoin. Anyone can run a DNSNMC server\footnote{DNSNMC servers are not yet running but the software should be released in January 2014.} and configuring clients is easy since it's just a plug-and-play replacement for your DNS server. An DNSNMC client configuration consists of an IP address and a public key fingerprint to be able to verify that the DNS request was not modified. 
+
 \subsection{Known Issues with this new model}
 
-To be able to resolve Namecoin domains, you need to have a local copy of the complete, up-to-date, blockchain on your machine. In a mobile world this is currently not acceptable due to performance, bandwidth and storage restrictions. An alternative could be to deploy DNSNMC servers which would work plug-and-play with the current DNS server clients. A few of them have already been deployed\cite{DNSNMCList}. The issue being that you will have to trust a DNSNMC\cite{okTurtles} server.
+Blockchains are data-structures that are constantly growing. Given MinimaLT's keying requirements that we will describe later, the size of the blockchain grows substantially. Merkle trees require to know the hashes of the children nodes to verify integrity and our keying material obviously needs to be hashed to avoid malleability. Optimisations that could enable the miners to clean up the blockchain is still an open area of research.
 
-Another issue that still needs to be addressed is domain squatting. Because registering namecoin domains (.bit) became ridiculously cheap, a lot of domains are being squatted by people hoping to resell those domains at some point in the future. A better pricing system that prevents massive domain registration should be adopted because costs decreased too quickly to be an effective counter-measure.
+Another issue that still needs to be addressed is domain squatting\cite{domainSquatting}. Because registering namecoin domains (.bit) became ridiculously cheap, a lot of domains are being squatted by people hoping to resell those domains at some point in the future. A better pricing system that prevents massive domain registration should be adopted because costs decreased too quickly to be an effective counter-measure.
 
 \section{Transport security}
 
-Now that we have a good long-term identity key distribution strategy, we are going to introduce a new transport-layer security protocol that provides safer and faster encrypted connections.
+Now that we have a good long-term identity key distribution strategy, we are going to discuss a new transport-layer security protocol that provides safer and faster encrypted connections.
 \subsection{MinimaLT}
 MinimaLT\cite{MinimaLT} is a new\footnote{Paper published in May 2013} protocol that looks very promising.
-It presents some of the interesting features we want. It was initially designed to secure network connections between computers running the secure operating system \emph{Ethos}. In the following sections we are going to compare it with TLS/TCP.\footnote{We will not however go over the whole specification of the protocol.} 
-MinimaLT is implemented on top of UDP to be compatible with the current Internet infrastructure and end-systems.
+It presents some of the interesting features we want. It was initially designed to secure network connections between computers running the secure operating system \emph{Ethos}. In the following sections we are going to compare it with TLS/TCP.\footnote{We will not however go over the whole specification of the protocol.}  Because MinimaLT is implemented on top of UDP, it is compatible with the current Internet infrastructure.
 
 \subsection{Changes to make in Namecoin to make it play nicely with MinimaLT}
 
@@ -251,8 +257,6 @@ In the original MinimaLT paper, a directory service is introduced to deal with t
 The MinimaLT directories do store the following information about the hosts: IP Address, UDP port, long-term identity key\footnote{This key is not required in our use case where a client identifies to a server but can be useful for access control in other scenarios} and ephemeral key. We will see later in this paper why all these are needed, but let's first try to change the Namecoin domain JSON structure to add these new fields. 
 
 Because we still want to be able to communicate over other protocols, we'll keep the base entry but add support for MinimaLT. 
-
-\newpage
 
 \begin{lstlisting}[language=json,firstnumber=1]
 {
@@ -294,7 +298,7 @@ Because the Namecoin blockchain is a key-value store, we do not need to specify 
 
 \subsubsection{Security is the standard}
 
-Currently, on the Internet, most HTTP connections are unencrypted, and if they are, the Apache or Nginx configuration is often badly configured, in such a way that it could be attacked. MinimaLT was designed to prevent system administrators from making security mistakes. Never will you have to manually pick cipher suites or worry about OpenSSL compatibility, MinimaLT does it all for you. Not only does it encrypt all communications between two hosts but it defaults on strong ciphers\footnote{MinimaLT uses Curve25519 for the public-key cryptography}.
+Currently, on the Internet, most HTTP connections are unencrypted, and if they are, the Apache or Nginx configuration is often badly configured, in such a way that it could be attacked. MinimaLT was designed to prevent system administrators from making security mistakes. Never will you have to manually pick cipher suites or worry about OpenSSL compatibility, MinimaLT does it all for you. Not only does it encrypt all communications between two hosts but it defaults on strong ciphers\footnote{MinimaLT uses Curve25519 for the public key cryptography}.
 
 \subsubsection{Encryption \& PFS}
 
@@ -302,11 +306,11 @@ A few months ago, a previously unknown email provider called \emph{Lavabit} was 
 
 \subsubsection{Tunnel oriented}
 
-MinimaLT is establishing tunnels. Tunnels provide a point-to-point encrypted channel to transmit information and have the interesting property of being more resistant to traffic analysis, just like IPSec. Tunnels mean that unlike TLS, all services from the transport layer, namely authentication, encryption, congestion control and reliability, are provided on a per-tunnel basis and are not repeated per connection. MinimaLT clients have one or more connections for each of these tunnels.
+MinimaLT establishes tunnels. Tunnels provide a point-to-point encrypted channel to transmit information and have the interesting property of being more resistant to traffic analysis, just like IPSec. Tunnels mean that unlike TLS, all services from the transport layer, namely authentication, encryption, congestion control and reliability, are provided on a per-tunnel basis and are not repeated per connection. MinimaLT clients have one or more connections for each of these tunnels.
 
 \subsubsection{IP Mobility}
 
-Thanks to the structure of MinimaLT packets, the \emph{tunnel ID} is what identifies what packet belongs to what connection and therefore, MinimaLT has complete IP mobility. Unlike TCP, the source IP address and UDP port can change without affecting the connection. A specific RPC (\emph{$\text{nextTid}_{0}$}) exists to announce an IP address change. A change in IP address will cause a rekeying, a procedure that we describe a little further. The fact that we have IP mobility is a big advantage over TCP that currently struggles in the mobile world when switching from a WiFi connection to a 3G/4G signal for instance. Instead of struggling with multi-path TCP specifications we should just adopt MinimaLT, which solves way more than just that issue! 
+Thanks to the structure of MinimaLT packets, the \emph{tunnel ID} is what identifies what packet belongs to what connection and therefore, MinimaLT has complete IP mobility. Unlike TCP, the source IP address and UDP port can change without affecting the connection. A specific RPC (\emph{$\text{nextTid}_{0}$}) exists to announce an IP address change. A change in IP address will cause a rekeying, a procedure that we describe a little further. The fact that we have IP mobility is a big advantage over TCP that currently struggles in the mobile world when switching from a WiFi connection to a 3G/4G signal for instance. MinimaLT solves by design many problems that plague TCP today such as multi-path TCP!
 
 \subsubsection{Handshakes \& Tunnel establishment}
 
@@ -323,7 +327,7 @@ When a client initiates a rekey, he generates a new tunnel ID and sends it to th
 
 \subsubsection{DDoS protection}
 
-What we've seen so far of MinimaLT is pretty impressive but you might have legitimate concerns of how this would play out in a threat model were attackers would like to flood a system with the creation of tunnels because DH are expensive computationally-wise. One of the MinimaLT designers, Dan Bernstein, knows this problem really well because he invented the SYN cookies. In MinimaLT, puzzles are used to address the cases where servers are under load.
+One might have legitimate concerns of how this would play out in a threat model were attackers would like to flood a system with the creation of tunnels because DH are expensive computationally-wise. One of the MinimaLT designers, Dan Bernstein, knows this problem really well because he invented the SYN cookies. In MinimaLT, puzzles are used to address the cases where servers are under load.
 
 When a server is not experiencing any specific load, it does accept tunnel establishments requests without any questions asked but if the server is under load, it responds with a puzzle.
 
@@ -335,7 +339,7 @@ Another way to exhaust the server's resources would be to flood him with data to
 
 \subsubsection{Congestion control}
 
-MinimaLT's tunnel headers do contain fields for congestion control, such as sequence and acknowledgement numbers. MinimaLT doesn't provide anything additional to what exists in TCP for this task.
+MinimaLT's tunnel headers do contain fields for congestion control, such as sequence and acknowledgement numbers. MinimaLT doesn't provide anything additional to what exists in TCP for this task. MinimaLT replicates TCP's congestion control but does not provide anything beyond it.
 
 \subsubsection{Flow control}
 
@@ -347,7 +351,7 @@ MinimaLT has no anonymity network similar to the Tor Project yet. The Tor projec
 
 \section{Conclusions}
 
-We've seen how MinimaLT can help us speed up our encrypted connections and with the help of Namecoin, make them safer too. The model presented in this paper clearly has flaws, mainly with the scalability of the Namecoin blockchain and the issues it causes on mobile devices. Blockchains are only a few years old and many optimisations are still possible. They may not be perfect but they are the first data structure we know of that allows us to square Zooko's triangle! On the other hand, MinimaLT is a sneak peak into what tomorrow's transport-layer protocols will look like. And if that's the future, we love it. 
+We've seen how MinimaLT can help us speed up our encrypted connections and with the help of Namecoin, make them safer too. The model presented in this paper clearly has flaws, mainly with the scalability of the Namecoin blockchain and the issues it causes on mobile devices. Blockchains are only a few years old and many optimisations are still possible. They may not be perfect but they are the first data structure we know of that allows us to square Zooko's triangle! On the other hand, MinimaLT is a sneak peak into what tomorrow's transport-layer protocols will look like.
 
 \balance
 
