@@ -1,4 +1,4 @@
-SafeWeb (temporary name)
+Proposition of a faster and more secure Web (MinimaLT + DNSNMC)
 =======
 
 TLS is broken. DNS is hierarchical. Certificate Authorities are bad. In this paper, I'm trying to sum up with what's wrong with the current system.
