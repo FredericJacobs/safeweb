@@ -200,9 +200,9 @@ Namecoins can be spent in many ways, here are some other use cases of the Nameco
 \item Messaging: The blockchain could be a decentralized store for  long-term messages vs BitMessage.
 \end{itemize}
 
-Writing data in the blockchain does have a certain price. Registering a domain does cost the registration fee (0.01NC that goes to nobody) plus the transaction fee (that goes to the miner who succeeds in adding the block that contains this transaction).
+Writing data in the blockchain does have a certain price. Registering a domain does cost the registration fee (0.01NMC that goes to nobody) plus the transaction fee (that goes to the miner who succeeds in adding the block that contains this transaction).
 
-The cost includes a network fee and a transaction fee. The fees are denominated in Namecoins (\emph{NC}). Initially, the network fee was 50 NC but it decreases twice every 2 months, which means that it is already less than 1 NC after a year. This design was meant to make it expensive to register domains in the first few months to avoid the issue of domain name squatting.
+The cost includes a network fee and a transaction fee. The fees are denominated in Namecoins (\emph{NMC}). Initially, the network fee was 50 NMC but it decreases twice every 2 months, which means that it is already less than 1 NMC after a year. This design was meant to make it expensive to register domains in the first few months to avoid the issue of domain name squatting.
 
 Let's see what a domain name value message looks like to understand how it squares Zooko's triangle.
 
@@ -226,7 +226,7 @@ For a key \emph{d/\footnote{The d/ prefix is used to register a .bit domain} fre
 }
 \end{lstlisting}
 
-This would make my website accessible at the \emph{fredericjacobs.bit} address!
+This would make my website accessible at the \emph{fredericjacobs.bit}, a memorable, secure (a client can verify the fingerprint) and global address, the triangle has been squared!
 
 A namecoin domain needs to be renewed every 36,000 blocks which at the current rate is around 200 days. Those updates are free. Hence, unlike ICANN domain names, you don't have to pay renewal fees.
 
