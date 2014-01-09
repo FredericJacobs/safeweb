@@ -65,11 +65,15 @@ In this paper, we introduce a duo of improvements for the Internet that would le
 
 \section{Introduction}
 
+\subsection{Defining user privacy}
+
+The solutions brought forward in this paper are attempts to fix \emph{confidentiality and authentication} on the Internet. \emph{Anonymity is not provided.} Although, an attacker could still get a significant amount of metadata because IP headers are left unchanged, MinimaLT does provide a similar traffic analysis protection as IPSec by using tunnels.
+
+Unfortunately, because MinimaLT runs over UDP it is not possible to use it through the Tor network.\footnote{If MinimaLT proves to be a safer and faster alternative to TLS, I imagine that the Tor project would look into implementing it to speed up the network and make relay connections safer.}
+
 \subsection{Motivation}
 
 When the Internet was designed at DARPA, the primary goal was to design a system that could provide interconnection between multiple computers. The Web then came by with the motivation to be able to freely exchange information with anyone. But, over time, people started trusting the internet more and more and started sharing more personal information over it. The threat model implied that you had to trust the entities running the infrastructure of the internet, but the latter was never designed to be run by so many of them. Over time, attempts such as TLS and DNSSec were introduced to secure inherently insecure protocols. In this paper, we will not attempt to fix the current protocols that have a huge overhead but we will try instead to propose better alternatives.
-
-\subsection{Another subsection will come here}
 
 \section{Domain names and authenticity}
 
@@ -356,12 +360,21 @@ We've seen how MinimaLT can help us speed up our encrypted connections and with 
 \balance
 
 \section{Confession}
-
-This paper initially aimed at digging deeper into the crypto and protocol stuff but because of concurring deadlines, this in-depth analysis of the protocols is pushed back to another paper. :) 
+This paper initially aimed at digging deeper into the crypto and protocol stuff but because of concurring deadlines I couldn't dig as deep in the MinimaLT protocol as I originally intended to.
 
 \section{Acknowledgments}
+I would like to thank everyone who provided feedback and reviewed this paper. Particularly, 
+\begin{itemize}
+\item Greg Slepak who is currently working on the DNSNMC implementation and author of the OkTurtles\cite{okTurtles} paper for providing very valuable feedback to improve this paper.
+\item All folks from Noisy Square at \#30c3 for the insightful discussions that influenced this paper.
+\item Dylan Bourgeois, a friend of mine, for spotting so many typos.
+\end{itemize}
 
-Still to do 
+\section{Ressources}
+
+The source of this paper is available on GitHub along with some of the resources used to write this paper: \newline
+\url{https://github.com/FredericJacobs/safeweb}
+
 \bibliographystyle{abbrv}
 \bibliography{bibliography}
 
