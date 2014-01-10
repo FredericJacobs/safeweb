@@ -126,7 +126,7 @@ In this section, we are cover Zooko's triangle conjecture.
 
 Zooko's triangle says that out of these three properties \cite{zookoTriangleWikipedia}, a naming system can only have two.
 \begin{itemize}
-\item \emph{Secure}\footnote{We can't agree with the naming of this property given the threat model we described previously in this paper.}: The quality that there is one, unique and specific entity to which the name maps.
+\item \emph{Secure}\footnote{We cannot agree with the naming of this property given the threat model we described previously in this paper.}: The quality that there is one, unique and specific entity to which the name maps.
 \item \emph{Global}: The lack of a centralized authority for determining the meaning of a name. Instead, measures such as a Web of trust are used.
 \item \emph{Memorable}: The quality of meaningfulness and memorability to the users of the naming system.
 \end{itemize}
@@ -151,7 +151,7 @@ Key-Hash = RIPEMD-160(SHA-256(public key))
 $\text{BTC}_{\text{Address}}$ = Base58(Version +\footnote{The + sign is a string concatenation} Key-Hash + Checksum)
 \end{center}
 
-Private-public key pairs are generated\footnote{The curved used in Bitcoin is \emph{secp256k1} which is surprisingly a NIST recommended curve.} when creating a new Bitcoin addresses.
+Private-public key pairs are generated\footnote{The curve used in Bitcoin is \emph{secp256k1} which is surprisingly a NIST recommended curve.} when creating a new Bitcoin addresses.
 
 Alice must know Bob's address to send him money. Now that Alice has Bob's address, she creates a new message saying she sends a few Bitcoins to Bob and uses her private key to generate an ECDSA signature. Once she has generated that message and has signed it, she starts gossiping about her transaction on the network, her peers hear about the transaction, they verify if Alice has enough money to make the transaction and verify the signature. If the transaction looks legitimate, they start telling all of their peers. The verification can be done thanks to the blockchain data structure which is a decentralized and unique record of all the transactions. Peers that are miners, eventually hear about this transaction and add it to the transactions memory pool. This pool is a queue of transactions that are not yet merged in the blockchain. But now how can we merge transactions into the blockchain? 
 
@@ -302,7 +302,7 @@ Currently, on the Internet, most HTTP connections are unencrypted, and if they a
 
 \subsubsection{Encryption \& PFS}
 
-A few months ago, a previously unknown email provider called \emph{Lavabit} was under pressure from the US government to hand over its private SSL key. The reason turned out to be that Edward Snowden was using the email service. If Lavabit had turned over the SSL keys, they would have compromised the privacy of their entire user base. This is due to poorly configured SSL where the ECDHE is not the default. ECDHE performs a Elliptic curve Diffie–Hellman key exchange. The last E from ECDHE stands for Ephemeral which means that a new key, that will never be stored, is generated at every handshake. Hence, even if the server gets compromised or the network operator is forced to hand over an encryption key, he won't be able to provide it. Unfortunately, most system administrators don't put the \emph{ECDHE} ciphers on top of their ciphers list resulting in the lack of Perfect Forward Secrecy.
+A few months ago, a previously unknown email provider called \emph{Lavabit} was under pressure from the US government to hand over its private SSL key. The reason turned out to be that Edward Snowden was using the email service. If Lavabit had turned over the SSL keys, they would have compromised the privacy of their entire user base. This is due to poorly configured SSL where the ECDHE is not the default. ECDHE performs an Elliptic curve Diffie-Hellman key exchange. The last E from ECDHE stands for Ephemeral which means that a new key, that will never be stored, is generated at every handshake. Hence, even if the server gets compromised or the network operator is forced to hand over an encryption key, he won't be able to provide it. Unfortunately, most system administrators don't put the \emph{ECDHE} ciphers on top of their ciphers list resulting in the lack of Perfect Forward Secrecy.
 
 \subsubsection{Tunnel oriented}
 
@@ -310,7 +310,7 @@ MinimaLT establishes tunnels. Tunnels provide a point-to-point encrypted channel
 
 \subsubsection{IP Mobility}
 
-Thanks to the structure of MinimaLT packets, the \emph{tunnel ID} is what identifies what packet belongs to what connection and therefore, MinimaLT has complete IP mobility. Unlike TCP, the source IP address and UDP port can change without affecting the connection. A specific RPC (\emph{$\text{nextTid}_{0}$}) exists to announce an IP address change. A change in IP address will cause a rekeying, a procedure that we describe a little further. The fact that we have IP mobility is a big advantage over TCP that currently struggles in the mobile world when switching from a WiFi connection to a 3G/4G signal for instance. MinimaLT solves by design many problems that plague TCP today such as multi-path TCP!
+Thanks to the structure of MinimaLT packets, the \emph{tunnel ID} is what identifies what packet belongs to what connection and therefore, MinimaLT has complete IP mobility. Unlike TCP, the source IP address and UDP port can change without affecting the connection. A specific RPC (\emph{$\text{nextTid}_{0}$}) exists to announce an IP address change. A change in IP address will cause a rekeying, a procedure that we describe further down. The fact that we have IP mobility is a big advantage over TCP that currently struggles in the mobile world when switching from a WiFi connection to a 3G/4G signal for instance. MinimaLT solves by design many problems that plague TCP today such as multi-path TCP!
 
 \subsubsection{Handshakes \& Tunnel establishment}
 
