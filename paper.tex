@@ -73,7 +73,7 @@ When the Internet was designed at DARPA, the primary goal was to design a system
 
 \section{Domain names and authenticity}
 
-Today, if we want to load a page from \emph{www.facebook.com}, my computer will have to first get the Domain Name System record matching that domain. DNS was designed in a hierarchical way and TLD registrations are handled by a single organisation, the ICANN.
+Today, if we want to load a page from \emph{www.facebook.com}, our computer will have to first get the Domain Name System record matching that domain. DNS was designed in a hierarchical way and TLD registrations are handled by a single organisation, the ICANN.
 
 \emph{So what is wrong with DNS?}
 
@@ -86,7 +86,7 @@ The ICANN has been taking worrying measures that remove the users' ability to re
 Hence, we want to design a distributed system where anyone can register a domain with a fast and efficient registration process.
 
 But how can we verify authenticity? 
-Even if my Domain Name System returns the right IP address, how do I know for sure that I'm establishing a connection with the client I want ? Today, we are using yet another hierarchical system to verify authenticity, namely \emph{SSL certificates}. This means that in addition to trusting ICANN, we will have to trust hundreds of Root Certificate Authorities that are shipped with our browsers.\cite{mozillaSSL}
+Even if our Domain Name System returns the right IP address, how do we know for sure that we are establishing a connection with the client we want ? Today, we are using yet another hierarchical system to verify authenticity, namely \emph{SSL certificates}. This means that in addition to trusting ICANN, we will have to trust hundreds of Root Certificate Authorities that are shipped with our browsers.\cite{mozillaSSL}
 
 If only one of those 100s of CAs gets compromised, it could result in the man-in-the-middling of any website without any warning since a root certification authority can generate a fake valid certificate for said website.
 
@@ -126,7 +126,7 @@ In this section, we are cover Zooko's triangle conjecture.
 
 Zooko's triangle says that out of these three properties \cite{zookoTriangleWikipedia}, a naming system can only have two.
 \begin{itemize}
-\item \emph{Secure}\footnote{We can't agree with the naming of this property given the threat model we described previously in this paper.}: The quality that there is one, unique and specific entity to which the name maps.
+\item \emph{Secure}\footnote{We cannot agree with the naming of this property given the threat model we described previously in this paper.}: The quality that there is one, unique and specific entity to which the name maps.
 \item \emph{Global}: The lack of a centralized authority for determining the meaning of a name. Instead, measures such as a Web of trust are used.
 \item \emph{Memorable}: The quality of meaningfulness and memorability to the users of the naming system.
 \end{itemize}
@@ -151,7 +151,7 @@ Key-Hash = RIPEMD-160(SHA-256(public key))
 $\text{BTC}_{\text{Address}}$ = Base58(Version +\footnote{The + sign is a string concatenation} Key-Hash + Checksum)
 \end{center}
 
-Private-public key pairs are generated\footnote{The curved used in Bitcoin is \emph{secp256k1} which is surprisingly a NIST recommended curve.} when creating a new Bitcoin addresses.
+Private-public key pairs are generated\footnote{The curve used in Bitcoin is \emph{secp256k1} which is surprisingly a NIST recommended curve.} when creating a new Bitcoin addresses.
 
 Alice must know Bob's address to send him money. Now that Alice has Bob's address, she creates a new message saying she sends a few Bitcoins to Bob and uses her private key to generate an ECDSA signature. Once she has generated that message and has signed it, she starts gossiping about her transaction on the network, her peers hear about the transaction, they verify if Alice has enough money to make the transaction and verify the signature. If the transaction looks legitimate, they start telling all of their peers. The verification can be done thanks to the blockchain data structure which is a decentralized and unique record of all the transactions. Peers that are miners, eventually hear about this transaction and add it to the transactions memory pool. This pool is a queue of transactions that are not yet merged in the blockchain. But now how can we merge transactions into the blockchain? 
 
@@ -165,7 +165,7 @@ So what is mining technically?
 
 The hard challenge that is used in Bitcoin that needs to be solved is based on the strength of cryptographic hashes, also known as one-way functions. We consider that it is hard for someone to come up with the parameters of a hash functions for a given result. The function used in Bitcoin is \emph{SHA-256} but this hash function could be substituted by any other. Another cryptocurrency, Litecoin, chose to use the \emph{Scrypt} function.
 
-If I want to add some blocks (list of transactions) to the blockchain, I will have to solve this problem
+If we want to add some blocks (list of transactions) to the blockchain, we will have to solve this problem
 \begin{center}
 SHA-256("TransactionsInfo" + challengeNumber) =< target
 \end{center}
@@ -173,7 +173,7 @@ where \emph{transactionsInfo} is a parameter list of information about the trans
 The challenge the miner has to solve --- the proof-of-work --- is to find the number such that when we append the transactions' infos to this number, and hash the combination, the output hash is smaller than a given number.
 We notice that this certain challenge number is established by the network and determines how hard the problem is. In Bitcoin, this number is dynamically adjusted to keep an approximate block validation time of 10 minutes.\cite{hashCash}
 
-When someone succeeds in solving this problem, he sends his solution to the network. Nodes verify if that answer is valid, and if it is, they broadcast it to their peers. It progressively spreads across all nodes and is added to the network's blockchain. 
+When someone succeeds in solving this problem, they sends their solution to the network. Nodes verify if that answer is valid, and if it is, they broadcast it to their peers. It progressively spreads across all nodes and is added to the network's blockchain. 
 
 \subsubsection{Dealing with collisions}
 
@@ -187,7 +187,7 @@ We can now understand that because every node chooses to have the longest blockc
 Why would one mine and spend so much computational power?
 
 
-Miners are rewarded for their efforts. First, when making a transaction, I can speed up the money transfer by adding a transaction fee, that will go directly to the miners. Mining software is thus optimised to sort the transactions, in order to be merged in blocks by decreasing order of transaction fee. 
+Miners are rewarded for their efforts. First, when making a transaction, we can speed up the money transfer by adding a transaction fee, that will go directly to the miners. Mining software is thus optimised to sort the transactions, in order to be merged in blocks by decreasing order of transaction fee. 
 The other reward from mining comes from the coinbase transaction : mining does generate money.  At the creation of Bitcoin, this reward was set to be a 50 BTC. But for every 210,000 validated blocks (once every four years) the reward halves. This has happened just once, to date, and so the current reward for mining a block is 25 bitcoins. This halving in the rate will continue every four years until the year 2140 CE. At that point, the reward for mining will drop below $10^{-8}$ bitcoins per block which is a satoshi, the smallest unit of Bitcoin and the total amount of bitcoins will cease to increase.
 
 \subsubsection{From Bitcoin to Namecoin}
@@ -229,7 +229,7 @@ For a key \emph{d/\footnote{The d/ prefix is used to register a .bit domain} fre
 }
 \end{lstlisting}
 
-This would make my website accessible at the \emph{fredericjacobs.bit}, a memorable, secure (a client can verify the fingerprint) and global address, the triangle has been squared!
+This would make our website accessible at the \emph{fredericjacobs.bit}, a memorable, secure (a client can verify the fingerprint) and global address, the triangle has been squared!
 
 A namecoin domain needs to be renewed every 36,000 blocks which at the current rate is around 200 days. Those updates are free. Hence, unlike ICANN domain names, you don't have to pay renewal fees.
 
@@ -302,7 +302,7 @@ Currently, on the Internet, most HTTP connections are unencrypted, and if they a
 
 \subsubsection{Encryption \& PFS}
 
-A few months ago, a previously unknown email provider called \emph{Lavabit} was under pressure from the US government to hand over its private SSL key. The reason turned out to be that Edward Snowden was using the email service. If Lavabit had turned over the SSL keys, they would have compromised the privacy of their entire user base. This is due to poorly configured SSL where the ECDHE is not the default. ECDHE performs a Elliptic curve Diffie–Hellman key exchange. The last E from ECDHE stands for Ephemeral which means that a new key, that will never be stored, is generated at every handshake. Hence, even if the server gets compromised or the network operator is forced to hand over an encryption key, he won't be able to provide it. Unfortunately, most system administrators don't put the \emph{ECDHE} ciphers on top of their ciphers list resulting in the lack of Perfect Forward Secrecy.
+A few months ago, a previously unknown email provider called \emph{Lavabit} was under pressure from the US government to hand over its private SSL key. The reason turned out to be that Edward Snowden was using the email service. If Lavabit had turned over the SSL keys, they would have compromised the privacy of their entire user base. This is due to poorly configured SSL where the ECDHE is not the default. ECDHE performs an Elliptic curve Diffie-Hellman key exchange. The last E from ECDHE stands for Ephemeral which means that a new key, that will never be stored, is generated at every handshake. Hence, even if the server gets compromised or the network operator is forced to hand over an encryption key, they won't be able to provide it. Unfortunately, most system administrators don't put the \emph{ECDHE} ciphers on top of their ciphers list resulting in the lack of Perfect Forward Secrecy.
 
 \subsubsection{Tunnel oriented}
 
@@ -310,7 +310,7 @@ MinimaLT establishes tunnels. Tunnels provide a point-to-point encrypted channel
 
 \subsubsection{IP Mobility}
 
-Thanks to the structure of MinimaLT packets, the \emph{tunnel ID} is what identifies what packet belongs to what connection and therefore, MinimaLT has complete IP mobility. Unlike TCP, the source IP address and UDP port can change without affecting the connection. A specific RPC (\emph{$\text{nextTid}_{0}$}) exists to announce an IP address change. A change in IP address will cause a rekeying, a procedure that we describe a little further. The fact that we have IP mobility is a big advantage over TCP that currently struggles in the mobile world when switching from a WiFi connection to a 3G/4G signal for instance. MinimaLT solves by design many problems that plague TCP today such as multi-path TCP!
+Thanks to the structure of MinimaLT packets, the \emph{tunnel ID} is what identifies what packet belongs to what connection and therefore, MinimaLT has complete IP mobility. Unlike TCP, the source IP address and UDP port can change without affecting the connection. A specific RPC (\emph{$\text{nextTid}_{0}$}) exists to announce an IP address change. A change in IP address will cause a rekeying, a procedure that we describe further down. The fact that we have IP mobility is a big advantage over TCP that currently struggles in the mobile world when switching from a WiFi connection to a 3G/4G signal for instance. MinimaLT solves by design many problems that plague TCP today such as multi-path TCP!
 
 \subsubsection{Handshakes \& Tunnel establishment}
 
@@ -318,11 +318,11 @@ When establishing a single TLS connection, two hosts must first go through a thr
 
 Usually in TLS, the client needs to get the certificate first, before being able to send encrypted data, but with MinimaLT+Namecoin, we already have an ephemeral key that allows us to send encrypted data to the server. Let's see how this key exchange works.
 
-Let's say a client \emph{C} wants to connect to a server \emph{S}. \emph{C} uses the Namecoin blockchain to get its identity, and an ephemeral key of \emph{S}. Now \emph{C} sends his first packet to \emph{S} containing his newly-generated ephemeral key, a new tunnel ID and the first bits of data. This segment's body can be encrypted using the ephemeral key of the server we retrieved previously ephemeral keys will no more be used past this point because both clients can now compute a shared secret by performing a Diffie-Hellman Key exchange with the public ephemeral keys they exchanged. In the future, this shared secret will be used to perform symmetric encryption between both hosts.
+Let's say a client \emph{C} wants to connect to a server \emph{S}. \emph{C} uses the Namecoin blockchain to get its identity, and an ephemeral key of \emph{S}. Now \emph{C} sends its first packet to \emph{S} containing its newly-generated ephemeral key, a new tunnel ID and the first bits of data. This segment's body can be encrypted using the ephemeral key of the server we retrieved previously ephemeral keys will no more be used past this point because both clients can now compute a shared secret by performing a Diffie-Hellman Key exchange with the public ephemeral keys they exchanged. In the future, this shared secret will be used to perform symmetric encryption between both hosts.
 
 One important thing to notice is that this approach does provide perfect forward secrecy thanks to the Diffie-Hellman key exchange using ephemeral keys. Of course, perfect forward secrecy requires rekeying, ie the process of changing keys so that previously used keys can be cleared from memory. Let's go through this process. Rekeying can be requested by the client or the server depending on their rekey interval policies or change in IPs, but the client will always be the one initiating the rekey.
 
-When a client initiates a rekey, he generates a new tunnel ID and sends it to the server as a call. Like the initial tunnel establishment procedure, the client generates a new key pair and sends his new public key along with the new tunnel ID to the server using the current encrypted tunnel. The corresponding private key of the pair that was generated will never be used (it actually doesn't even need to be known), its only function is to make the packet look like a regular tunnel initialisation packet. Now that the new tunnel is ready, the client can send packets to the new tunnel ID. But what encryption key should be used now? MinimaLT avoids doing a DH on rekeying for performance reasons, thus, client is hashing with a cryptographically secure hash function the old symmetric encryption key to generate the next one. The client will include the temporarily generated public key inside the encrypted packet sent to the server. Once the server gets a packet on the new tunnel ID, it will perform the same hashing as the client did to compute the decryption key. Now the server can decrypt the packet and it has to verify that the key is matching the previously sent one in the (\emph{$\text{nextTid}_{0}$}) call. This verification is required\cite{MinimaLT} because otherwise an active attacker could alter the key sent in the tunnel announce packet and then sent a second packet with the matching DH computer key and notice that it would fail. He could conclude that this would be a rekeying procedure and not the creation of a new tunnel.
+When a client initiates a rekey, it generates a new tunnel ID and sends it to the server as a call. Like the initial tunnel establishment procedure, the client generates a new key pair and sends its new public key along with the new tunnel ID to the server using the current encrypted tunnel. The corresponding private key of the pair that was generated will never be used (it actually doesn't even need to be known), its only function is to make the packet look like a regular tunnel initialisation packet. Now that the new tunnel is ready, the client can send packets to the new tunnel ID. But what encryption key should be used now? MinimaLT avoids doing a DH on rekeying for performance reasons, thus, client is hashing with a cryptographically secure hash function the old symmetric encryption key to generate the next one. The client will include the temporarily generated public key inside the encrypted packet sent to the server. Once the server gets a packet on the new tunnel ID, it will perform the same hashing as the client did to compute the decryption key. Now the server can decrypt the packet and it has to verify that the key is matching the previously sent one in the (\emph{$\text{nextTid}_{0}$}) call. This verification is required\cite{MinimaLT} because otherwise an active attacker could alter the key sent in the tunnel announce packet and then sent a second packet with the matching DH computer key and notice that it would fail. It could conclude that this would be a rekeying procedure and not the creation of a new tunnel.
 
 
 \subsubsection{DDoS protection}
