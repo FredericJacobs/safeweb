@@ -73,7 +73,7 @@ When the Internet was designed at DARPA, the primary goal was to design a system
 
 \section{Domain names and authenticity}
 
-Today, if we want to load a page from \emph{www.facebook.com}, my computer will have to first get the Domain Name System record matching that domain. DNS was designed in a hierarchical way and TLD registrations are handled by a single organisation, the ICANN.
+Today, if we want to load a page from \emph{www.facebook.com}, our computer will have to first get the Domain Name System record matching that domain. DNS was designed in a hierarchical way and TLD registrations are handled by a single organisation, the ICANN.
 
 \emph{So what is wrong with DNS?}
 
@@ -86,7 +86,7 @@ The ICANN has been taking worrying measures that remove the users' ability to re
 Hence, we want to design a distributed system where anyone can register a domain with a fast and efficient registration process.
 
 But how can we verify authenticity? 
-Even if my Domain Name System returns the right IP address, how do I know for sure that I'm establishing a connection with the client I want ? Today, we are using yet another hierarchical system to verify authenticity, namely \emph{SSL certificates}. This means that in addition to trusting ICANN, we will have to trust hundreds of Root Certificate Authorities that are shipped with our browsers.\cite{mozillaSSL}
+Even if our Domain Name System returns the right IP address, how do we know for sure that we are establishing a connection with the client we want ? Today, we are using yet another hierarchical system to verify authenticity, namely \emph{SSL certificates}. This means that in addition to trusting ICANN, we will have to trust hundreds of Root Certificate Authorities that are shipped with our browsers.\cite{mozillaSSL}
 
 If only one of those 100s of CAs gets compromised, it could result in the man-in-the-middling of any website without any warning since a root certification authority can generate a fake valid certificate for said website.
 
@@ -165,7 +165,7 @@ So what is mining technically?
 
 The hard challenge that is used in Bitcoin that needs to be solved is based on the strength of cryptographic hashes, also known as one-way functions. We consider that it is hard for someone to come up with the parameters of a hash functions for a given result. The function used in Bitcoin is \emph{SHA-256} but this hash function could be substituted by any other. Another cryptocurrency, Litecoin, chose to use the \emph{Scrypt} function.
 
-If I want to add some blocks (list of transactions) to the blockchain, I will have to solve this problem
+If we want to add some blocks (list of transactions) to the blockchain, we will have to solve this problem
 \begin{center}
 SHA-256("TransactionsInfo" + challengeNumber) =< target
 \end{center}
@@ -187,7 +187,7 @@ We can now understand that because every node chooses to have the longest blockc
 Why would one mine and spend so much computational power?
 
 
-Miners are rewarded for their efforts. First, when making a transaction, I can speed up the money transfer by adding a transaction fee, that will go directly to the miners. Mining software is thus optimised to sort the transactions, in order to be merged in blocks by decreasing order of transaction fee. 
+Miners are rewarded for their efforts. First, when making a transaction, we can speed up the money transfer by adding a transaction fee, that will go directly to the miners. Mining software is thus optimised to sort the transactions, in order to be merged in blocks by decreasing order of transaction fee. 
 The other reward from mining comes from the coinbase transaction : mining does generate money.  At the creation of Bitcoin, this reward was set to be a 50 BTC. But for every 210,000 validated blocks (once every four years) the reward halves. This has happened just once, to date, and so the current reward for mining a block is 25 bitcoins. This halving in the rate will continue every four years until the year 2140 CE. At that point, the reward for mining will drop below $10^{-8}$ bitcoins per block which is a satoshi, the smallest unit of Bitcoin and the total amount of bitcoins will cease to increase.
 
 \subsubsection{From Bitcoin to Namecoin}
@@ -229,7 +229,7 @@ For a key \emph{d/\footnote{The d/ prefix is used to register a .bit domain} fre
 }
 \end{lstlisting}
 
-This would make my website accessible at the \emph{fredericjacobs.bit}, a memorable, secure (a client can verify the fingerprint) and global address, the triangle has been squared!
+This would make our website accessible at the \emph{fredericjacobs.bit}, a memorable, secure (a client can verify the fingerprint) and global address, the triangle has been squared!
 
 A namecoin domain needs to be renewed every 36,000 blocks which at the current rate is around 200 days. Those updates are free. Hence, unlike ICANN domain names, you don't have to pay renewal fees.
 
