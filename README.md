@@ -1,6 +1,4 @@
 Proposition of a faster and more secure Web (MinimaLT + DNSNMC)
 =======
 
-TLS is broken. DNS is hierarchical. Certificate Authorities are bad. In this paper, I'm trying to sum up with what's wrong with the current system.
-
-## Only getting started on this paper, move on, nothing interesting to read, yet. 
+In this paper, we introduce a duo of improvements for the Internet that would lead to better security. The authentication model on the Internet is broken and TLS connections have a considerable overhead. We try to address those issues with changes in both the application layer, discussing a replacement for the DNS system, and in the transport layer, a drop-in replacement for TCP built on top of UDP so that it can run on today's internet infrastructure.
